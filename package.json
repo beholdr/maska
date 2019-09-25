@@ -1,6 +1,6 @@
 {
   "name": "maska",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple zero-dependency input mask for Vue.js and vanilla JS",
   "keywords": [
     "mask",
@@ -8,6 +8,11 @@
     "vue"
   ],
   "author": "Alexander Shabunevich <alex@aether.ru>",
+  "homepage": "https://beholdr.github.io/maska/",
+  "repository": {
+    "url": "https://github.com/beholdr/maska",
+    "type": "git"
+  },
   "license": "MIT",
   "scripts": {
     "serve": "rimraf dist && webpack --watch",

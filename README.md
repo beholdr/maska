@@ -1,12 +1,16 @@
 # Maska
 
-Simple zero-dependency input mask for Vue.js and vanilla JS.
+Simple zero-dependency input mask for Vue.js and vanilla JS. [Demo and examples](https://beholdr.github.io/maska/).
 
 - No dependencies
 - Small size (~2 Kb gziped)
 - Ability to define custom tokens
 - Supports repeat symbols
 - Works on any input (custom or native)
+
+## Install
+
+    npm install maska
 
 ## Usage with Vue.js
 
@@ -42,7 +46,7 @@ export default {
 
 ## Usage with vanilla JS
 
-Just load script `maska.js` and init it, passing element(s) or selector expression:
+Just load script `maska.js` and init it, passing element(s) or `document.querySelector` expression:
 
 ``` javascript
 var mask = Maska.create('.masked');
