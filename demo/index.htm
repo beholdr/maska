@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Maska demo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css" integrity="sha256-vK3UTo/8wHbaUn+dTQD0X6dzidqc5l7gczvH+Bnowwk=" crossorigin="anonymous" />
+    <style>
+        body { padding: 2em 0 5em; background: #fafafa }
+        .container { max-width: 800px }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <h1 class="is-size-1">Maska library demo</h1>
+
+            <h2 class="is-size-3">Vue.js examples</h2>
+            <div class="box">
+                <form id="vue-form">
+                    <div class="field">
+                        <label class="label">Phone with code</label>
+                        <div class="control">
+                            <input v-maska="'+1 (###) ###-##-##'" value="12345678901" class="input">
+                        </div>
+                        <p class="help is-family-code">v-maska="'+1 (###) ###-##-##'"</p>
+                    </div>
+                    <div class="field">
+                        <label class="label">Hex color (custom tokens)</label>
+                        <div class="control">
+                            <input v-maska="{ mask: '!#HHHHHH', tokens: { 'H': { pattern: /[0-9a-fA-F]/, uppercase: true }}}" class="input">
+                        </div>
+                        <p class="help is-family-code">v-maska="{ mask: '!#HHHHHH', tokens: { 'H': { pattern: /[0-9a-fA-F]/, uppercase: true }}}"</p>
+                    </div>
+                </form>
+            </div>
+
+            <h2 class="is-size-3">Vanilla JS examples</h2>
+            <div class="box">
+                <form id="vanilla-form">
+                    <div class="columns">
+                        <div class="column">
+                            <div class="field">
+                                <label class="label">Phone with code</label>
+                                <div class="control">
+                                    <input data-mask="+1 (###) ###-####" class="masked input">
+                                </div>
+                                <p class="help is-family-code">data-mask="+1 (###) ###-####"</p>
+                            </div>
+                            <div class="field">
+                                <label class="label">Cardholder name</label>
+                                <div class="control">
+                                    <input data-mask="A* A*" class="masked input">
+                                </div>
+                                <p class="help is-family-code">data-mask="A* A*"</p>
+                            </div>
+                            <div class="field">
+                                <label class="label">All digits</label>
+                                <div class="control">
+                                    <input data-mask="#*" class="masked input">
+                                </div>
+                                <p class="help is-family-code">data-mask="#*"</p>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="field">
+                                <label class="label">Date</label>
+                                <div class="control">
+                                    <input data-mask="##/##/####" class="masked input">
+                                </div>
+                                <p class="help is-family-code">data-mask="##/##/####"</p>
+                            </div>
+                            <div class="field">
+                                <label class="label">Hex color (custom tokens)</label>
+                                <div class="control">
+                                    <input data-mask="!#HHHHHH" class="custom-masked input">
+                                </div>
+                                <p class="help is-family-code">data-mask="!#HHHHHH"</p>
+                            </div>
+                            <div class="field">
+                                <label class="label">Without mask (destroyed)</label>
+                                <div class="control">
+                                    <input data-mask="###" class="unmasked input">
+                                </div>
+                                <p class="help is-family-code">data-mask="###"</p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="../dist/maska.js"></script>
+    <script>
+        // vue
+        new Vue({
+            el: '#vue-form'
+        });
+
+        // vanilla default
+        Maska.create('#vanilla-form .masked');
+
+        // vanilla custom tokens
+        Maska.create('#vanilla-form .custom-masked', {
+            tokens: { 'H': { pattern: '[0-9a-fA-F]', uppercase: true }}
+        });
+
+        // vanilla destroy
+        var mask = Maska.create('#vanilla-form .unmasked');
+        mask.destroy();
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+{
+  "name": "maska",
+  "version": "1.0.0",
+  "description": "Simple zero-dependency input mask for Vue.js and vanilla JS",
+  "keywords": [
+    "mask",
+    "input",
+    "vue"
+  ],
+  "author": "Alexander Shabunevich <alex@aether.ru>",
+  "license": "MIT",
+  "scripts": {
+    "serve": "rimraf dist && webpack --watch",
+    "build": "rimraf dist && webpack -p",
+    "test": "jest",
+    "lint": "standard 'src/**'"
+  },
+  "module": "src/index.js",
+  "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
+    "babel-jest": "^24.9.0",
+    "babel-loader": "^8.0.6",
+    "jest": "^24.9.0",
+    "rimraf": "^3.0.0",
+    "standard": "^14.3.1",
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.9"
+  },
+  "browserslist": "> 0.25%, ie 11",
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  }
+}
