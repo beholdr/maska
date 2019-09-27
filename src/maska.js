@@ -31,14 +31,14 @@ export default class Maska {
         el.dataset.mask = this._opts.mask
       }
       this.updateValue(el)
-      el.addEventListener('input', evt => this.onInput(evt))
+      el.addEventListener('input', evt => this.updateValue(evt.target))
     }
   }
 
   destroy () {
     for (let i = 0; i < this._el.length; i++) {
       const el = findInputElement(this._el[i])
-      el.removeEventListener('input', evt => this.onInput(evt))
+      el.removeEventListener('input', evt => this.updateValue(evt.target))
       delete el.dataset.mask
     }
   }
@@ -47,15 +47,12 @@ export default class Maska {
     if (!el.value || !el.dataset.mask) return
 
     const position = el.selectionEnd
-    const digit = el.value[position - 1]
+    const oldValue = el.value
+    const digit = oldValue[position - 1]
     el.value = mask(el.value, el.dataset.mask, this._opts.tokens)
     fixInputSelection(el, position, digit)
-    el.dispatchEvent(event('input'))
-  }
-
-  onInput (event) {
-    if (event.isTrusted) {
-      this.updateValue(event.target)
+    if (el.value !== oldValue) {
+      el.dispatchEvent(event('input'))
     }
   }
 }
