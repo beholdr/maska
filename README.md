@@ -12,6 +12,12 @@ Simple zero-dependency input mask for Vue.js and vanilla JS. [Demo and examples]
 
     npm install maska
 
+To load latest version from CDN you can use:
+
+``` html
+<script src="https://cdn.jsdelivr.net/npm/maska/dist/maska.js"></script>
+```
+
 ## Usage with Vue.js
 
 If you load Vue.js via `<script>` then just add `v-maska` directive to your input:
@@ -26,7 +32,14 @@ You can add custom tokens by passing in object instead of string to directive:
 <input v-maska="{ mask: 'Z*', tokens: { 'Z': { pattern: /[а-яА-Я]/ }}}">
 ```
 
-If you use SFC then import `directive` component from library:
+With bundlers you can add global directive:
+
+``` javascript
+import Maska from 'maska'
+Vue.use(Maska)
+```
+
+or import `maska` directive for local usage in component:
 
 ``` html
 <template>

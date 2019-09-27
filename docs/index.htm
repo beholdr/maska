@@ -23,16 +23,16 @@
                 <div class="box">
                     <form id="vue-form">
                         <div class="field">
-                            <label class="label">Phone with code</label>
+                            <label class="label">Phone with code: {{ phone }}</label>
                             <div class="control">
-                                <input v-maska="'+1 (###) ###-##-##'" value="12345678901" class="input">
+                                <input v-maska="'+1 (###) ###-##-##'" class="input" type="tel" autocomplete="tel" v-model="phone">
                             </div>
                             <p class="help is-family-code">v-maska="'+1 (###) ###-##-##'"</p>
                         </div>
                         <div class="field">
-                            <label class="label">Hex color (custom tokens)</label>
+                            <label class="label">Hex color (custom tokens): {{ color }}</label>
                             <div class="control">
-                                <input v-maska="{ mask: '!#HHHHHH', tokens: { 'H': { pattern: /[0-9a-fA-F]/, uppercase: true }}}" class="input">
+                                <input v-maska="{ mask: '!#HHHHHH', tokens: { 'H': { pattern: /[0-9a-fA-F]/, uppercase: true }}}" class="input" v-model="color">
                             </div>
                             <p class="help is-family-code">v-maska="{ mask: '!#HHHHHH', tokens: { 'H': { pattern: /[0-9a-fA-F]/, uppercase: true }}}"</p>
                         </div>
@@ -47,7 +47,7 @@
                                 <div class="field">
                                     <label class="label">Phone with code</label>
                                     <div class="control">
-                                        <input data-mask="+1 (###) ###-####" class="masked input">
+                                        <input data-mask="+1 (###) ###-####" class="masked input" type="tel" autocomplete="tel">
                                     </div>
                                     <p class="help is-family-code">data-mask="+1 (###) ###-####"</p>
                                 </div>
@@ -96,12 +96,16 @@
         </div>
     </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/maska/dist/maska.js"></script>
     <script>
         // vue
         new Vue({
-            el: '#vue-form'
+            el: '#vue-form',
+            data: {
+                phone: '19992345678',
+                color: null
+            }
         });
 
         // vanilla default
