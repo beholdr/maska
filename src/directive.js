@@ -8,7 +8,7 @@ function getOpts (mask) {
     opts.mask = mask
   } else if (mask.mask) {
     opts.mask = mask.mask
-    opts.tokens = mask.tokens ? mask.tokens : {}
+    opts.tokens = mask.tokens ? { ...mask.tokens } : {}
   }
 
   return opts
