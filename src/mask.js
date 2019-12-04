@@ -16,9 +16,8 @@ export default function mask (value, mask, tokens, masked = true) {
       }
       iv++
     } else if (token && token.repeat) {
-      const maskCharPrev = mask[im - 1]
-      const tokenPrev = tokens[maskCharPrev]
-      if (token && token.repeat && tokenPrev && !tokenPrev.pattern.test(valueChar)) {
+      const tokenPrev = tokens[mask[im - 1]]
+      if (tokenPrev && !tokenPrev.pattern.test(valueChar)) {
         im++
       } else {
         im--

@@ -45,6 +45,10 @@ test('12 #!#(#)', () => {
     expect(mask('12', '#!#(#)', tokens)).toBe('1#(2)')
 })
 
+test('12 #!!#', () => {
+    expect(mask('12', '#!!#', tokens)).toBe('1!2')
+})
+
 test('12 +1 #', () => {
     expect(mask('12', '+1 #', tokens)).toBe('+1 2')
 })
