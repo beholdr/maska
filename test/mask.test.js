@@ -102,7 +102,8 @@ test('123abc (#*)A*', () => {
 })
 
 test('123abc -> # (A*)', () => {
-    expect(mask('123abc', '# (A*)', tokens)).toBe('1 (ABC)')
+    expect(mask('123abc', '# (A*)', tokens)).toBe('1 (ABC')
+    expect(mask('123abc ', '# (A*)', tokens)).toBe('1 (ABC)')
 })
 
 test('Raw 123abc ##(A*)', () => {

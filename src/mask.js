@@ -36,13 +36,11 @@ export default function mask (value, mask, tokens, masked = true) {
   // fix mask that ends with parentesis
   while (masked && im < mask.length) { // eslint-disable-line no-unmodified-loop-condition
     const maskCharRest = mask[im]
-    if (tokens[maskCharRest] && !tokens[maskCharRest].repeat) {
+    if (tokens[maskCharRest]) {
       rest = ''
       break
     }
-    if (!tokens[maskCharRest]) {
-      rest += maskCharRest
-    }
+    rest += maskCharRest
     im++
   }
 
