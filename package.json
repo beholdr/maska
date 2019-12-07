@@ -1,6 +1,6 @@
 {
   "name": "maska",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Simple zero-dependency input mask for Vue.js and vanilla JS",
   "keywords": [
     "mask",

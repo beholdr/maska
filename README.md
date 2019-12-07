@@ -5,7 +5,7 @@ Simple zero-dependency input mask for Vue.js and vanilla JS. [Demo and examples]
 - No dependencies
 - Small size (~2 Kb gziped)
 - Ability to define custom tokens
-- Supports repeat symbols
+- Supports repeat symbols and dynamic masks
 - Works on any input (custom or native)
 
 ## Install
@@ -100,6 +100,24 @@ Default tokens:
 - Repeat symbol allows repeating current token until it’s valid (e.g. mask `#*` for all digits or `A* A*` for `CARDHOLDER NAME`)
 
 You can add your own tokens by passing them in `maska` directive or `create` method at initialization (see above). **Important**: `pattern` field should be JS *regular expression* (`/[0-9]/`) or *string without delimiters* (`"[0-9]"`).
+
+## Dynamic masks
+
+To use several masks on single input, pass array instead of string as mask value.
+
+You could use it with Vue directives:
+
+``` html
+<input v-maska="['+1 (###) ##-##-##', '+1 (###) ###-##-##']">
+
+<input v-maska="{ mask: ['!#HHHHHH', '!#HHHHHH-HH'], tokens: { 'H': { pattern: /[0-9a-fA-F]/, uppercase: true }}}">
+```
+
+and with vanilla JS attribute, but make sure that mask value is proper `JSON`, so use double quotes inside array:
+
+``` html
+<input data-mask='["# cm", "#.# cm", "#.## cm"]'>
+```
 
 ## Source of Inspiration
 

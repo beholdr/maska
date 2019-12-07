@@ -25,9 +25,9 @@
                         <div class="field">
                             <label class="label">Phone with code: {{ phone }}</label>
                             <div class="control">
-                                <input v-maska="'+1 (###) ###-##-##'" class="input" type="tel" autocomplete="tel" v-model="phone">
+                                <input v-maska="['+1 (###) ##-##-##', '+1 (###) ###-##-##']" class="input" type="tel" autocomplete="tel" v-model="phone">
                             </div>
-                            <p class="help is-family-code">v-maska="'+1 (###) ###-##-##'"</p>
+                            <p class="help is-family-code">v-maska="['+1 (###) ##-##-##', '+1 (###) ###-##-##']"</p>
                         </div>
                         <div class="field">
                             <label class="label">Hex color (custom tokens): {{ color }}</label>
@@ -65,6 +65,13 @@
                                     </div>
                                     <p class="help is-family-code">data-mask="#*"</p>
                                 </div>
+                                <div class="field">
+                                    <label class="label">Dynamic mask</label>
+                                    <div class="control">
+                                        <input data-mask='["# cm", "#.# cm", "#.## cm"]' class="masked input">
+                                    </div>
+                                    <p class="help is-family-code">data-mask='["# cm", "#.# cm", "#.## cm"]'</p>
+                                </div>
                             </div>
                             <div class="column">
                                 <div class="field">
@@ -87,6 +94,13 @@
                                         <input data-mask="###" class="unmasked input">
                                     </div>
                                     <p class="help is-family-code">data-mask="###"</p>
+                                </div>
+                                <div class="field">
+                                    <label class="label">CPF/CNPJ</label>
+                                    <div class="control">
+                                        <input data-mask='["###.###.###-##", "##.###.###/####-##"]' class="masked input">
+                                    </div>
+                                    <p class="help is-family-code">data-mask='["###.###.###-##", "##.###.###/####-##"]'</p>
                                 </div>
                             </div>
                         </div>

@@ -109,3 +109,14 @@ test('123abc -> # (A*)', () => {
 test('Raw 123abc ##(A*)', () => {
     expect(mask('123abc', '##(A*)', tokens, false)).toBe('12ABC')
 })
+
+test('Dynamic floats', () => {
+    expect(mask('1', '["# cm", "#.# cm", "#.## cm"]', tokens)).toBe('1 cm')
+    expect(mask('12', '["# cm", "#.# cm", "#.## cm"]', tokens)).toBe('1.2 cm')
+    expect(mask('123', '["# cm", "#.# cm", "#.## cm"]', tokens)).toBe('1.23 cm')
+})
+
+test('Dynamic CPF/CNPJ', () => {
+    expect(mask('12345678901', '["###.###.###-##", "##.###.###/####-##"]', tokens)).toBe('123.456.789-01')
+    expect(mask('12345678901234', '["###.###.###-##", "##.###.###/####-##"]', tokens)).toBe('12.345.678/9012-34')
+})

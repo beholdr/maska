@@ -1,4 +1,35 @@
 export default function mask (value, mask, tokens, masked = true) {
+  return (processMask(mask).length > 1)
+    ? dynamic(mask)(value, mask, tokens, masked)
+    : process(value, mask, tokens, masked)
+}
+
+function processMask (mask) {
+  try {
+    return JSON.parse(mask)
+  } catch {
+    return [mask]
+  }
+}
+
+function dynamic (mask) {
+  const masks = processMask(mask).sort((a, b) => a.length - b.length)
+
+  return function (value, mask, tokens, masked = true) {
+    let i = 0
+    while (i < masks.length) {
+      const currentMask = masks[i]
+      i++
+      const nextMask = masks[i]
+      if (!(nextMask && process(value, nextMask, tokens, true).length > currentMask.length)) {
+        return process(value, currentMask, tokens, masked)
+      }
+    }
+    return '' // empty masks
+  }
+}
+
+function process (value, mask, tokens, masked = true) {
   let im = 0
   let iv = 0
   let ret = ''

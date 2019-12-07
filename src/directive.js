@@ -4,11 +4,11 @@ import { isString } from './utils'
 function getOpts (mask) {
   const opts = {}
 
-  if (isString(mask)) {
-    opts.mask = mask
-  } else if (mask.mask) {
-    opts.mask = mask.mask
+  if (mask.mask) {
+    opts.mask = Array.isArray(mask.mask) ? JSON.stringify(mask.mask) : mask.mask
     opts.tokens = mask.tokens ? { ...mask.tokens } : {}
+  } else {
+    opts.mask = Array.isArray(mask) ? JSON.stringify(mask) : mask
   }
 
   return opts
