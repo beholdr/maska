@@ -27,7 +27,7 @@ export default class Maska {
   init () {
     for (let i = 0; i < this._el.length; i++) {
       const el = findInputElement(this._el[i])
-      if (!el.dataset.mask && this._opts.mask) {
+      if ((!el.dataset.mask && this._opts.mask) || el.dataset.mask !== this._opts.mask) {
         el.dataset.mask = this._opts.mask
       }
       this.updateValue(el)

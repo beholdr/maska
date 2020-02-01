@@ -30,6 +30,13 @@
                             <p class="help is-family-code">v-maska="['+1 (###) ##-##-##', '+1 (###) ###-##-##']"</p>
                         </div>
                         <div class="field">
+                            <label class="label">Reactive mask: <input type="checkbox" v-model="dotFormat"> use dot as date separator?</label>
+                            <div class="control">
+                                <input v-maska="dateMask" class="input">
+                            </div>
+                            <p class="help is-family-code">v-maska="dateMask" — reactive mask by `dateMask` computed property</p>
+                        </div>
+                        <div class="field">
                             <label class="label">Hex color (custom tokens): {{ color }}</label>
                             <div class="control">
                                 <input v-maska="{ mask: '!#HHHHHH', tokens: { 'H': { pattern: /[0-9a-fA-F]/, uppercase: true }}}" class="input" v-model="color">
@@ -118,7 +125,14 @@
             el: '#vue-form',
             data: {
                 phone: '19992345678',
+                dotFormat: false,
                 color: null
+            },
+
+            computed: {
+                dateMask: function() {
+                    return this.dotFormat ? '##.##.####' : '##/##/####'
+                }
             }
         });
 

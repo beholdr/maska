@@ -15,15 +15,11 @@ function getOpts (mask) {
 }
 
 function needUpdate (mask) {
-  if (isString(mask.value) && isString(mask.oldValue) && mask.value === mask.oldValue) {
-    return false
-  }
-
-  if (mask.value && mask.oldValue && mask.value.mask === mask.oldValue.mask) {
-    return false
-  }
-
-  return true
+  return !(
+    (isString(mask.value) && mask.value === mask.oldValue) ||
+    (Array.isArray(mask.value) && JSON.stringify(mask.value) === JSON.stringify(mask.oldValue)) ||
+    (mask.value && mask.value.mask && mask.oldValue && mask.oldValue.mask && mask.value.mask === mask.oldValue.mask)
+  )
 }
 
 export default function directive (el, mask) {
