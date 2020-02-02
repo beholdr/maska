@@ -31,7 +31,10 @@ export default class Maska {
         el.dataset.mask = this._opts.mask
       }
       this.updateValue(el)
-      el.addEventListener('input', evt => this.updateValue(evt.target))
+      if (!el.dataset.maskInited) {
+        el.dataset.maskInited = true
+        el.addEventListener('input', evt => this.updateValue(evt.target))
+      }
     }
   }
 
@@ -40,6 +43,7 @@ export default class Maska {
       const el = findInputElement(this._el[i])
       el.removeEventListener('input', evt => this.updateValue(evt.target))
       delete el.dataset.mask
+      delete el.dataset.maskInited
     }
   }
 
