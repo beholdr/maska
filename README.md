@@ -57,6 +57,8 @@ export default {
 </script>
 ```
 
+With Vue you could use computed property as mask value. In this case mask will be reactive.
+
 ## Usage with vanilla JS
 
 Just load script `maska.js` and init it, passing element(s) or `document.querySelector` expression:
