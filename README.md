@@ -121,6 +121,10 @@ and with vanilla JS attribute, but make sure that mask value is proper `JSON`, s
 <input data-mask='["# cm", "#.# cm", "#.## cm"]'>
 ```
 
+## Known issues
+
+When used on input of type `number` could have inconsistent behavior in different browsers. Use attribute `inputmode` if you just need a numeric keyboard for given input.
+
 ## Source of Inspiration
 
 - [vue-the-mask](https://vuejs-tips.github.io/vue-the-mask/)

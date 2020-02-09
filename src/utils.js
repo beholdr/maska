@@ -16,7 +16,8 @@ function fixInputSelection (el, position, digit) {
     position++
   }
 
-  if (el === document.activeElement) {
+  const selectionRange = (el.type && el.type.match(/^(text|search|password|tel|url)$/i) || !el.type)
+  if (selectionRange && el === document.activeElement) {
     el.setSelectionRange(position, position)
     setTimeout(function () {
       el.setSelectionRange(position, position)

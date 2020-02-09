@@ -34,6 +34,7 @@ export default class Maska {
       if (!el.dataset.maskInited) {
         el.dataset.maskInited = true
         el.addEventListener('input', evt => this.updateValue(evt.target))
+        el.addEventListener('beforeinput', evt => this.beforeInput(evt))
       }
     }
   }
@@ -42,13 +43,15 @@ export default class Maska {
     for (let i = 0; i < this._el.length; i++) {
       const el = findInputElement(this._el[i])
       el.removeEventListener('input', evt => this.updateValue(evt.target))
+      el.removeEventListener('beforeinput', evt => this.beforeInput(evt))
       delete el.dataset.mask
       delete el.dataset.maskInited
     }
   }
 
   updateValue (el) {
-    if (!el.value || !el.dataset.mask) return
+    const wrongNum = el.type.match(/^number$/i) && el.validity.badInput
+    if ((!el.value && !wrongNum) || !el.dataset.mask) return
 
     const position = el.selectionEnd
     const oldValue = el.value
@@ -57,6 +60,12 @@ export default class Maska {
     fixInputSelection(el, position, digit)
     if (el.value !== oldValue) {
       el.dispatchEvent(event('input'))
+    }
+  }
+
+  beforeInput (e) {
+    if (e.target.type.match(/^number$/i) && e.data && isNaN(e.target.value + e.data)) {
+      e.preventDefault()
     }
   }
 }
