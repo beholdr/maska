@@ -15,22 +15,25 @@
   },
   "license": "MIT",
   "scripts": {
-    "serve": "rimraf dist && webpack --watch",
-    "build": "rimraf dist && webpack -p",
+    "serve": "rimraf dist && NODE_ENV=development rollup -c --watch",
+    "build": "rimraf dist && NODE_ENV=production rollup -c && NODE_ENV=production DISABLE_BABEL=yes rollup -c",
     "test": "jest",
     "lint": "standard 'src/**'"
   },
-  "module": "src/index.js",
+  "main": "dist/maska.umd.js",
+  "module": "dist/maska.esm.js",
+  "unpkg": "dist/maska.umd.js",
+  "jsdelivr": "dist/maska.umd.js",
   "devDependencies": {
     "@babel/core": "^7.7.5",
     "@babel/preset-env": "^7.7.5",
     "babel-jest": "^24.9.0",
-    "babel-loader": "^8.0.6",
     "jest": "^24.9.0",
     "rimraf": "^3.0.0",
-    "standard": "^14.3.1",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "rollup": "^2.0.2",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-terser": "^5.3.0",
+    "standard": "^14.3.1"
   },
   "browserslist": "> 0.25%, ie 11",
   "babel": {
