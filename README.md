@@ -67,6 +67,20 @@ Just load script `maska.js` and init it, passing element(s) or `document.querySe
 var mask = Maska.create('.masked');
 ```
 
+Mask could be set as `data-mask` attribute on element:
+
+``` html
+<input data-mask='##/##/####'>
+```
+
+or can be set by `mask` option on initialization:
+
+``` javascript
+var mask = Maska.create('.masked', {
+    mask: '##/##/####'
+});
+```
+
 You can pass custom tokens while initialization:
 
 ``` javascript
