@@ -12,7 +12,7 @@ function findInputElement (el) {
 }
 
 function fixInputSelection (el, position, digit) {
-  while (position < el.value.length && el.value.charAt(position - 1) !== digit) {
+  while (position && position < el.value.length && el.value.charAt(position - 1) !== digit) {
     position++
   }
 
