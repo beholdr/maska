@@ -1,8 +1,11 @@
 /* global HTMLInputElement */
 
-function event (name) {
+function event (name, inputType = null) {
   const event = document.createEvent('Event')
   event.initEvent(name, true, true)
+  if (inputType) {
+    event.inputType = inputType
+  }
 
   return event
 }

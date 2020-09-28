@@ -33,7 +33,7 @@ export default class Maska {
       this.updateValue(el)
       if (!el.dataset.maskInited) {
         el.dataset.maskInited = true
-        el.addEventListener('input', evt => this.updateValue(evt.target))
+        el.addEventListener('input', evt => this.updateValue(evt.target, evt))
         el.addEventListener('beforeinput', evt => this.beforeInput(evt))
       }
     }
@@ -42,24 +42,27 @@ export default class Maska {
   destroy () {
     for (let i = 0; i < this._el.length; i++) {
       const el = findInputElement(this._el[i])
-      el.removeEventListener('input', evt => this.updateValue(evt.target))
+      el.removeEventListener('input', evt => this.updateValue(evt.target, evt))
       el.removeEventListener('beforeinput', evt => this.beforeInput(evt))
       delete el.dataset.mask
       delete el.dataset.maskInited
     }
   }
 
-  updateValue (el) {
+  updateValue (el, evt) {
     const wrongNum = el.type.match(/^number$/i) && el.validity.badInput
     if ((!el.value && !wrongNum) || !el.dataset.mask) return
 
-    const position = el.selectionEnd
+    let position = el.selectionEnd
     const oldValue = el.value
     const digit = oldValue[position - 1]
     el.value = mask(el.value, el.dataset.mask, this._opts.tokens)
+    if (evt && evt.inputType === 'insertText' && position === oldValue.length) {
+      position = el.value.length
+    }
     fixInputSelection(el, position, digit)
     if (el.value !== oldValue) {
-      el.dispatchEvent(event('input'))
+      el.dispatchEvent(event('input', (evt && evt.inputType) || null))
     }
   }
 

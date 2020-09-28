@@ -14,7 +14,7 @@ test('1 [(#)]', () => {
 })
 
 test('1 #.#', () => {
-    expect(mask('1', '#.#', tokens)).toBe('1')
+    expect(mask('1', '#.#', tokens)).toBe('1.')
 })
 
 test('1. #.#', () => {

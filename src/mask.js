@@ -44,6 +44,11 @@ function process (value, mask, tokens, masked = true) {
       if (token.pattern.test(valueChar)) {
         ret += tokenTransform(valueChar, token)
         im++
+        // check next char
+        if (masked && mask[im] && !tokens[mask[im]]) {
+          ret += mask[im]
+          im++
+        }
       }
       iv++
     } else if (token && token.repeat) {
