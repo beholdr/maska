@@ -69,7 +69,7 @@ function process (value, mask, tokens, masked = true) {
     }
   }
 
-  // fix mask that ends with parentesis
+  // fix mask that ends with parenthesis
   while (masked && im < mask.length) { // eslint-disable-line no-unmodified-loop-condition
     const maskCharRest = mask[im]
     if (tokens[maskCharRest]) {
@@ -83,7 +83,16 @@ function process (value, mask, tokens, masked = true) {
   return ret + rest
 }
 
+/**
+ *
+ * @param {String} value
+ * @param {'uppercase' | 'lowercase' | 'transform'} token
+ */
 function tokenTransform (value, token) {
+  if (token.transform) {
+    value = token.transform(value)
+  }
+
   if (token.uppercase) {
     return value.toLocaleUpperCase()
   } else if (token.lowercase) {

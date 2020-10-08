@@ -18,7 +18,8 @@
     "serve": "rimraf dist && NODE_ENV=development rollup -c --watch",
     "build": "rimraf dist && NODE_ENV=production rollup -c && NODE_ENV=production DISABLE_BABEL=yes rollup -c",
     "test": "jest",
-    "lint": "standard 'src/**'"
+    "lint": "standard 'src/**'",
+    "lint:fix": "standard 'src/**' --fix"
   },
   "main": "dist/maska.umd.js",
   "module": "dist/maska.esm.js",

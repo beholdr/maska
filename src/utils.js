@@ -19,7 +19,7 @@ function fixInputSelection (el, position, digit) {
     position++
   }
 
-  const selectionRange = (el.type && el.type.match(/^(text|search|password|tel|url)$/i) || !el.type)
+  const selectionRange = el.type ? el.type.match(/^(text|search|password|tel|url)$/i) : !el.type
   if (selectionRange && el === document.activeElement) {
     el.setSelectionRange(position, position)
     setTimeout(function () {
@@ -32,4 +32,9 @@ function isString (val) {
   return Object.prototype.toString.call(val) === '[object String]'
 }
 
-export { event, findInputElement, fixInputSelection, isString }
+export {
+  event,
+  findInputElement,
+  fixInputSelection,
+  isString
+}
