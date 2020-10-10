@@ -120,3 +120,75 @@ test('Dynamic CPF/CNPJ', () => {
     expect(mask('12345678901', '["###.###.###-##", "##.###.###/####-##"]', tokens)).toBe('123.456.789-01')
     expect(mask('12345678901234', '["###.###.###-##", "##.###.###/####-##"]', tokens)).toBe('12.345.678/9012-34')
 })
+
+test('Custom transform: odd number -> 1, even number -> 0', () => {
+    // isOdd
+    const transform = (numberLike) => String(Number(numberLike) % 2)
+
+    expect((mask('1234567890', '#*', {
+        ...tokens,
+        ...{
+            '#': {
+                pattern: /[0-9]/,
+                transform
+            }
+        }
+    }))).toBe('1010101010')
+})
+
+function transliterate(char) {
+    const rule = Object.entries({
+        a: 'а',
+        b: 'в',
+        k: 'к',
+        m: 'м',
+        h: 'н',
+        o: 'о',
+        p: 'р',
+        c: 'с',
+        t: 'т',
+        y: 'у',
+        x: 'х',
+    }).reduce((acc, [from, to]) => {
+        acc[from] = to
+        acc[from.toLocaleUpperCase()] = to.toLocaleUpperCase()
+        return acc
+    }, {})
+    return rule[char]
+}
+
+test('Custom transform: transliterate abkTYX -> авкТУХ', () => {
+    expect(mask('abkTYX', 'T*', {
+        ...tokens,
+        ...{
+            'T': {
+                pattern: /[a-zA-Z]/,
+                transform: transliterate
+            }
+        }
+    })).toBe('авкТУХ')
+})
+
+test('Custom transform with `uppercase` and `lowercase` enabled: abkTYX -> АВКТУХ, abkTYX -> авктух', () => {
+    expect(mask('abkTYX', 'T*', {
+        ...tokens,
+        ...{
+            'T': {
+                pattern: /[a-zA-Z]/,
+                transform: transliterate,
+                uppercase: true,
+            }
+        }
+    })).toBe('АВКТУХ')
+
+    expect(mask('abkTYX', 'T*', {
+        ...tokens,
+        ...{
+            'T': {
+                pattern: /[a-zA-Z]/,
+                transform: transliterate,
+                lowercase: true,
+            }
+        }
+    })).toBe('авктух')
+})
