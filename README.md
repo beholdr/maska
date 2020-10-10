@@ -117,6 +117,16 @@ Default tokens:
 
 You can add your own tokens by passing them in `maska` directive or `create` method at initialization (see above). **Important**: `pattern` field should be JS *regular expression* (`/[0-9]/`) or *string without delimiters* (`"[0-9]"`).
 
+### Transform function for tokens
+
+While specifying custom tokens you can also add a symbol-transformation behavior such as uppercase, lowercase, or even define a transform function:
+
+``` javascript
+{
+    'T': { pattern: /[0-9]/, transform: (char) => String(Number(char) % 2) } // '1234567890' -> '1010101010'
+}
+```
+
 ## Dynamic masks
 
 To use several masks on single input, pass array instead of string as mask value.

@@ -43,6 +43,22 @@
                             </div>
                             <p class="help is-family-code">v-maska="{ mask: '!#HHHHHH', tokens: { 'H': { pattern: /[0-9a-fA-F]/, uppercase: true }}}"</p>
                         </div>
+                        <div class="field">
+                            <div class="field-body">
+                                <div class="field">
+                                    <label class="label">Masked input:</label>
+                                    <div class="control">
+                                        <input v-maska="customMask" class="input">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label">mask to apply:</label>
+                                    <div class="control">
+                                        <input class="input" v-model="customMask">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
 
@@ -66,6 +82,13 @@
                                     <p class="help is-family-code">data-mask="A* A*"</p>
                                 </div>
                                 <div class="field">
+                                    <label class="label">Leet speak (tokens with transform)</label>
+                                    <div class="control">
+                                        <input data-mask="T*" class="transform-masked input">
+                                    </div>
+                                    <p class="help is-family-code">data-mask="T*"</p>
+                                </div>
+                                <div class="field">
                                     <label class="label">All digits</label>
                                     <div class="control">
                                         <input data-mask="#*" class="masked input">
@@ -87,6 +110,13 @@
                                         <input data-mask="##/##/####" class="masked input">
                                     </div>
                                     <p class="help is-family-code">data-mask="##/##/####"</p>
+                                </div>
+                                <div class="field">
+                                    <label class="label">Credit card</label>
+                                    <div class="control">
+                                        <input data-mask="#### #### #### ####" class="masked input">
+                                    </div>
+                                    <p class="help is-family-code">data-mask="#### #### #### ####"</p>
                                 </div>
                                 <div class="field">
                                     <label class="label">Hex color (custom tokens)</label>
@@ -118,7 +148,7 @@
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6/dist/vue.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/maska@1.2.0/dist/maska.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/maska@1.3.0/dist/maska.js"></script>
     <script>
         // vue
         new Vue({
@@ -126,7 +156,8 @@
             data: {
                 phone: '19992345678',
                 dotFormat: false,
-                color: null
+                color: null,
+                customMask: '#*'
             },
 
             computed: {
@@ -136,12 +167,28 @@
             }
         });
 
+        function leetSpeak(char) {
+            const letters = Object.entries({
+                'a': '4', 'b': '8', 'e': '3', 'f': 'ph', 'g': '9', 'i': '1', 'o': '0', 's': '5', 't': '7'
+            }).reduce((acc, [from, to]) => {
+                acc[from] = to
+                acc[from.toLocaleUpperCase()] = to
+                return acc
+            }, {})
+
+            return letters[char] ? letters[char] : char
+        }
+
         // vanilla default
         Maska.create('#vanilla-form .masked');
 
         // vanilla custom tokens
         Maska.create('#vanilla-form .custom-masked', {
             tokens: { 'H': { pattern: '[0-9a-fA-F]', uppercase: true }}
+        });
+
+        Maska.create('#vanilla-form .transform-masked', {
+            tokens: { 'T': { pattern: '[ 0-9a-zA-Z]', transform: leetSpeak }}
         });
 
         // vanilla destroy
