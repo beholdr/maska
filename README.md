@@ -18,7 +18,7 @@ To load latest version from CDN you can use:
 <script src="https://cdn.jsdelivr.net/npm/maska@latest/dist/maska.js"></script>
 ```
 
-## Usage with Vue.js
+## Usage with Vue 2.x
 
 If you load Vue.js via `<script>` then just add `v-maska` directive to your input:
 
@@ -58,6 +58,19 @@ export default {
 ```
 
 With Vue you could use computed property as mask value. In this case mask will be reactive.
+
+## Usage with Vue 3.x
+
+With Vue 3.x you need to explicitly add Maska `plugin` or `directive` to your app:
+
+``` javascript
+const app = Vue.createApp({...})
+// use as plugin
+app.use(Maska.install);
+// or as directive
+// app.directive('maska', Maska.maska);
+app.mount('#app');
+```
 
 ## Usage with vanilla JS
 
