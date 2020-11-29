@@ -66,7 +66,7 @@ With Vue 3.x you need to explicitly add Maska `plugin` or `directive` to your ap
 ``` javascript
 const app = Vue.createApp({...})
 // use as plugin
-app.use(Maska.install);
+app.use(Maska);
 // or as directive
 // app.directive('maska', Maska.maska);
 app.mount('#app');

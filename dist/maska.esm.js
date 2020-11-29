@@ -1,5 +1,5 @@
 /*!
- * maska v1.3.1
+ * maska v1.3.2
  * (c) 2019-2020 Alexander Shabunevich
  * Released under the MIT License.
  */
