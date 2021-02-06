@@ -140,6 +140,10 @@ While specifying custom tokens you can also add a symbol-transformation behavior
 }
 ```
 
+## Getting raw (unmasked) value
+
+To get raw value read `data-mask-raw-value` property of input. You can subscribe to `@maska` event to know when this value updates. Please see [examples page](https://beholdr.github.io/maska/).
+
 ## Dynamic masks
 
 To use several masks on single input, pass array instead of string as mask value.

@@ -51,18 +51,27 @@ export default class Maska {
 
   updateValue (el, evt) {
     const wrongNum = el.type.match(/^number$/i) && el.validity.badInput
-    if ((!el.value && !wrongNum) || !el.dataset.mask) return
+    if ((!el.value && !wrongNum) || !el.dataset.mask) {
+      el.dataset.maskRawValue = ''
+      this.dispatch('maska', el, evt)
+      return
+    }
 
     let position = el.selectionEnd
     const oldValue = el.value
     const digit = oldValue[position - 1]
+
+    el.dataset.maskRawValue = mask(el.value, el.dataset.mask, this._opts.tokens, false)
     el.value = mask(el.value, el.dataset.mask, this._opts.tokens)
+
     if (evt && evt.inputType === 'insertText' && position === oldValue.length) {
       position = el.value.length
     }
     fixInputSelection(el, position, digit)
+
+    this.dispatch('maska', el, evt)
     if (el.value !== oldValue) {
-      el.dispatchEvent(event('input', (evt && evt.inputType) || null))
+      this.dispatch('input', el, evt)
     }
   }
 
@@ -70,5 +79,9 @@ export default class Maska {
     if (e.target.type.match(/^number$/i) && e.data && isNaN(e.target.value + e.data)) {
       e.preventDefault()
     }
+  }
+
+  dispatch (name, el, evt) {
+    el.dispatchEvent(event(name, (evt && evt.inputType) || null))
   }
 }

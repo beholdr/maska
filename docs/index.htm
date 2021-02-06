@@ -23,9 +23,9 @@
                 <div class="box">
                     <form id="vue-form">
                         <div class="field">
-                            <label class="label">Phone with code: {{ phone }}</label>
+                            <label class="label">Phone with code: {{ phone }} (raw value: {{ phoneRaw }})</label>
                             <div class="control">
-                                <input v-maska="['+1 (###) ##-##-##', '+1 (###) ###-##-##']" class="input" type="tel" autocomplete="tel" v-model="phone">
+                                <input v-maska="['+1 (###) ##-##-##', '+1 (###) ###-##-##']" class="input" type="tel" autocomplete="tel" v-model="phone" @maska="onMaska">
                             </div>
                             <p class="help is-family-code">v-maska="['+1 (###) ##-##-##', '+1 (###) ###-##-##']"</p>
                         </div>
@@ -148,13 +148,14 @@
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6/dist/vue.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/maska@1.3.2/dist/maska.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/maska@1.4.0/dist/maska.js"></script>
     <script>
         // vue
         new Vue({
             el: '#vue-form',
             data: {
                 phone: '19992345678',
+                phoneRaw: '',
                 dotFormat: false,
                 color: null,
                 customMask: '#*'
@@ -163,6 +164,12 @@
             computed: {
                 dateMask: function() {
                     return this.dotFormat ? '##.##.####' : '##/##/####'
+                }
+            },
+
+            methods: {
+                onMaska: function(event) {
+                    this.phoneRaw = event.target.dataset.maskRawValue
                 }
             }
         });
