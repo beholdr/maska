@@ -16,16 +16,26 @@ function dynamic (mask) {
   const masks = processMask(mask).sort((a, b) => a.length - b.length)
 
   return function (value, mask, tokens, masked = true) {
-    let i = 0
-    while (i < masks.length) {
-      const currentMask = masks[i]
-      i++
-      const nextMask = masks[i]
-      if (!(nextMask && process(value, nextMask, tokens, true).length > currentMask.length)) {
-        return process(value, currentMask, tokens, masked)
+    const processed = masks.map(m => process(value, m, tokens, false))
+    const last = processed.pop()
+
+    for (let i in masks) {
+      if (checkMask(last, masks[i], tokens)) {
+        return process(value, masks[i], tokens, masked)
       }
     }
+
     return '' // empty masks
+  }
+
+  function checkMask (variant, mask, tokens) {
+    for (let tok in tokens) {
+      if (tokens[tok].escape) {
+        mask = mask.replace(new RegExp(tok + '.{1}', 'g'), '')
+      }
+    }
+
+    return (mask.split('').filter(el => tokens[el] && tokens[el].pattern).length >= variant.length)
   }
 }
 

@@ -121,6 +121,15 @@ test('Dynamic CPF/CNPJ', () => {
     expect(mask('12345678901234', '["###.###.###-##", "##.###.###/####-##"]', tokens)).toBe('12.345.678/9012-34')
 })
 
+test('Dynamic boundaries', () => {
+    expect(mask('12', '["!###", "!###-##", "!###-##-##"]', tokens)).toBe('#12')
+    expect(mask('1234', '["!###", "!###-##", "!###-##-##"]', tokens)).toBe('#12-34')
+    expect(mask('1234567', '["!###", "!###-##", "!###-##-##"]', tokens)).toBe('#12-34-56')
+    expect(mask('123', '["###", "###-##", "###.##.##"]', tokens)).toBe('123')
+    expect(mask('12345', '["###", "###-##", "###.##.##"]', tokens)).toBe('123-45')
+    expect(mask('12345678', '["###", "###-##", "###.##.##"]', tokens)).toBe('123.45.67')
+})
+
 test('Custom transform: odd number -> 1, even number -> 0', () => {
     // isOdd
     const transform = (numberLike) => String(Number(numberLike) % 2)
