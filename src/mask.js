@@ -55,9 +55,14 @@ function process (value, mask, tokens, masked = true) {
         ret += tokenTransform(valueChar, token)
         im++
         // check next char
-        if (masked && mask[im] && !tokens[mask[im]]) {
-          ret += mask[im]
-          im++
+        if (masked && mask[im]) {
+          if (!tokens[mask[im]]) {
+            ret += mask[im]
+            im++
+          } else if (tokens[mask[im]] && tokens[mask[im]].escape) {
+            ret += mask[im+1]
+            im = im+2
+          }
         }
       }
       iv++

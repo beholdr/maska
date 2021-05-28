@@ -21,6 +21,10 @@ test('1. #.#', () => {
     expect(mask('1.', '#.#', tokens)).toBe('1.')
 })
 
+test('1-23A #-##!A', () => {
+    expect(mask('123', '#-##!A', tokens)).toBe('1-23A')
+})
+
 test('123 #.#', () => {
     expect(mask('123', '#.#', tokens)).toBe('1.2')
 })
