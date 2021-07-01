@@ -1,4 +1,6 @@
-export default function mask (value, mask, tokens, masked = true) {
+import defaultTokens from './tokens'
+
+export default function mask (value, mask, tokens = defaultTokens, masked = true) {
   return (processMask(mask).length > 1)
     ? dynamic(mask)(value, mask, tokens, masked)
     : process(value, mask, tokens, masked)
