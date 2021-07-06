@@ -25,7 +25,7 @@
                         <div class="field">
                             <label class="label">Phone with code: {{ phone }} (raw value: {{ phoneRaw }})</label>
                             <div class="control">
-                                <input v-maska="['+1 (###) ##-##-##', '+1 (###) ###-##-##']" class="input" type="tel" autocomplete="tel" v-model="phone" @maska="onMaska">
+                                <input v-maska="['+1 (###) ##-##-##', '+1 (###) ###-##-##']" class="input" type="tel" autocomplete="tel" v-model="phone" @maska="phoneRaw = $event.target.dataset.maskRawValue">
                             </div>
                             <p class="help is-family-code">v-maska="['+1 (###) ##-##-##', '+1 (###) ###-##-##']"</p>
                         </div>
@@ -164,12 +164,6 @@
             computed: {
                 dateMask: function() {
                     return this.dotFormat ? '##.##.####' : '##/##/####'
-                }
-            },
-
-            methods: {
-                onMaska: function(event) {
-                    this.phoneRaw = event.target.dataset.maskRawValue
                 }
             }
         });
