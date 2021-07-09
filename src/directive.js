@@ -22,10 +22,15 @@ function needUpdate (mask) {
   )
 }
 
-export default function directive (el, mask) {
-  if (!mask.value) return
+const directive = () => {
+  const state = new WeakMap();
+  
+  return (el, mask) => {
+    if (!mask.value) return;
+    if(state.get(el) && needUpdate(mask)) return state.get(el).updateValue(el);
 
-  if (mask.value && needUpdate(mask)) {
-    return new Maska(el, getOpts(mask.value))
+    state.set(el, new Maska(el, getOpts(mask.value)));
   }
 }
+
+export default directive();
