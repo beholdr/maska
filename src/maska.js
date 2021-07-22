@@ -50,6 +50,8 @@ export default class Maska {
   }
 
   updateValue (el, evt) {
+    if (!el || !el.type) return
+
     const wrongNum = el.type.match(/^number$/i) && el.validity.badInput
     if ((!el.value && !wrongNum) || !el.dataset.mask) {
       el.dataset.maskRawValue = ''
@@ -76,7 +78,7 @@ export default class Maska {
   }
 
   beforeInput (e) {
-    if (e.target.type.match(/^number$/i) && e.data && isNaN(e.target.value + e.data)) {
+    if (e && e.target && e.target.type && e.target.type.match(/^number$/i) && e.data && isNaN(e.target.value + e.data)) {
       e.preventDefault()
     }
   }
