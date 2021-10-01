@@ -30,7 +30,7 @@ export default class Maska {
       if (this._opts.mask && (!el.dataset.mask || el.dataset.mask !== this._opts.mask)) {
         el.dataset.mask = this._opts.mask
       }
-      this.updateValue(el)
+      setTimeout(() => this.updateValue(el), 0)
       if (!el.dataset.maskInited) {
         el.dataset.maskInited = true
         el.addEventListener('input', evt => this.updateValue(evt.target, evt))
