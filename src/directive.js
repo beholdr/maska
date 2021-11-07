@@ -29,7 +29,7 @@ const directive = () => {
     if (!mask.value) return
 
     if (state.has(el) && !needUpdate(mask)) {
-      return state.get(el).updateValue(el)
+      return
     }
 
     state.set(el, new Maska(el, getOpts(mask.value)))
