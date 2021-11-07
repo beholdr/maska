@@ -20,6 +20,7 @@ export default class Maska {
       tokens: { ...tokens, ...opts.tokens }
     }
     this._el = isString(el) ? document.querySelectorAll(el) : !el.length ? [el] : el
+    this.inputEvent = (e) => this.updateValue(e.target, e)
 
     this.init()
   }
@@ -33,8 +34,8 @@ export default class Maska {
       setTimeout(() => this.updateValue(el), 0)
       if (!el.dataset.maskInited) {
         el.dataset.maskInited = true
-        el.addEventListener('input', evt => this.updateValue(evt.target, evt))
-        el.addEventListener('beforeinput', evt => this.beforeInput(evt))
+        el.addEventListener('input', this.inputEvent)
+        el.addEventListener('beforeinput', this.beforeInput)
       }
     }
   }
@@ -42,8 +43,8 @@ export default class Maska {
   destroy () {
     for (let i = 0; i < this._el.length; i++) {
       const el = findInputElement(this._el[i])
-      el.removeEventListener('input', evt => this.updateValue(evt.target, evt))
-      el.removeEventListener('beforeinput', evt => this.beforeInput(evt))
+      el.removeEventListener('input', this.inputEvent)
+      el.removeEventListener('beforeinput', this.beforeInput)
       delete el.dataset.mask
       delete el.dataset.maskInited
     }
