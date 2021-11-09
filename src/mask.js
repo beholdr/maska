@@ -21,7 +21,7 @@ function dynamic (mask) {
     const processed = masks.map(m => process(value, m, tokens, false))
     const last = processed.pop()
 
-    for (let i in masks) {
+    for (const i in masks) {
       if (checkMask(last, masks[i], tokens)) {
         return process(value, masks[i], tokens, masked)
       }
@@ -31,7 +31,7 @@ function dynamic (mask) {
   }
 
   function checkMask (variant, mask, tokens) {
-    for (let tok in tokens) {
+    for (const tok in tokens) {
       if (tokens[tok].escape) {
         mask = mask.replace(new RegExp(tok + '.{1}', 'g'), '')
       }
@@ -62,8 +62,8 @@ function process (value, mask, tokens, masked = true) {
             ret += mask[im]
             im++
           } else if (tokens[mask[im]] && tokens[mask[im]].escape) {
-            ret += mask[im+1]
-            im = im+2
+            ret += mask[im + 1]
+            im = im + 2
           }
         }
       }

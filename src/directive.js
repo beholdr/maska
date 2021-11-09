@@ -7,7 +7,7 @@ function getOpts (mask) {
   if (mask.mask) {
     opts.mask = Array.isArray(mask.mask) ? JSON.stringify(mask.mask) : mask.mask
     opts.tokens = mask.tokens ? { ...mask.tokens } : {}
-    opts.preprocessor = mask.preprocessor;
+    opts.preprocessor = mask.preprocessor
   } else {
     opts.mask = Array.isArray(mask) ? JSON.stringify(mask) : mask
   }
@@ -32,7 +32,7 @@ const directive = () => {
     if (state.has(el) && !needUpdate(mask)) {
       return
     }
-    
+
     state.set(el, new Maska(el, getOpts(mask.value)))
   }
 }

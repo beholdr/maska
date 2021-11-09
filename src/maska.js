@@ -6,7 +6,7 @@ export default class Maska {
   constructor (el, opts = {}) {
     if (!el) throw new Error('Maska: no element for mask')
 
-    if (opts.preprocessor != null && typeof opts.preprocessor != 'function') {
+    if (opts.preprocessor != null && typeof opts.preprocessor !== 'function') {
       throw new Error('Maska: preprocessor must be a function')
     }
 
@@ -18,7 +18,6 @@ export default class Maska {
         }
       }
     }
-
 
     this._opts = {
       mask: opts.mask,
@@ -71,10 +70,10 @@ export default class Maska {
     const digit = oldValue[position - 1]
 
     el.dataset.maskRawValue = mask(el.value, el.dataset.mask, this._opts.tokens, false)
-    let elValue = el.value;
-    
+    let elValue = el.value
+
     if (this._opts.preprocessor) {
-      elValue = this._opts.preprocessor(elValue);
+      elValue = this._opts.preprocessor(elValue)
     }
 
     el.value = mask(elValue, el.dataset.mask, this._opts.tokens)

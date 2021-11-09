@@ -1,5 +1,6 @@
 import mask from './../src/mask'
 import tokens from './../src/tokens'
+import Maska from './../src/maska'
 
 test('12 #.#', () => {
     expect(mask('12', '#.#', tokens)).toBe('1.2')
@@ -204,4 +205,20 @@ test('Custom transform with `uppercase` and `lowercase` enabled: abkTYX -> АВ�
             }
         }
     })).toBe('авктух')
+})
+
+test('Custom value preprocessing', () => {
+    const elem = document.createElement('input')
+    document.body.appendChild(elem)
+
+    const mask = new Maska(elem, {
+        mask: 'S*',
+        preprocessor: function(val) {
+            return val.toLocaleUpperCase()
+        }
+    })
+    elem.value = "abkTYX"
+    elem.dispatchEvent(new Event('input', {bubbles: true}))
+
+    expect(elem.value).toBe("ABKTYX")   
 })
