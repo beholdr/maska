@@ -3,6 +3,7 @@ export default class Maska {
     _opts: {
         mask: any;
         tokens: any;
+        preprocessor?: (value: string) => string;
     };
     _el: any;
     init(): void;
