@@ -6,6 +6,10 @@ export default class Maska {
   constructor (el, opts = {}) {
     if (!el) throw new Error('Maska: no element for mask')
 
+    if (opts.preprocessor != null && typeof opts.preprocessor !== 'function') {
+      throw new Error('Maska: preprocessor must be a function')
+    }
+
     if (opts.tokens) {
       for (const i in opts.tokens) {
         opts.tokens[i] = { ...opts.tokens[i] }
@@ -17,7 +21,8 @@ export default class Maska {
 
     this._opts = {
       mask: opts.mask,
-      tokens: { ...tokens, ...opts.tokens }
+      tokens: { ...tokens, ...opts.tokens },
+      preprocessor: opts.preprocessor
     }
     this._el = isString(el) ? document.querySelectorAll(el) : !el.length ? [el] : el
     this.inputEvent = (e) => this.updateValue(e.target, e)
@@ -65,7 +70,13 @@ export default class Maska {
     const digit = oldValue[position - 1]
 
     el.dataset.maskRawValue = mask(el.value, el.dataset.mask, this._opts.tokens, false)
-    el.value = mask(el.value, el.dataset.mask, this._opts.tokens)
+    let elValue = el.value
+
+    if (this._opts.preprocessor) {
+      elValue = this._opts.preprocessor(elValue)
+    }
+
+    el.value = mask(elValue, el.dataset.mask, this._opts.tokens)
 
     if (evt && evt.inputType === 'insertText' && position === oldValue.length) {
       position = el.value.length
