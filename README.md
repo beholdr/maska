@@ -102,6 +102,17 @@ var mask = Maska.create('.masked', {
 });
 ```
 
+You also can pass custom preprocessing transformation function for entire input:
+
+``` javascript
+var mask = Maska.create('.masked', {
+    tokens: { 'Z': { pattern: /[а-яА-Я]/ }},
+    preprocessor: value => {
+        return value.toUpperCase();
+    }
+});
+```
+
 You can destroy mask like that:
 
 ``` javascript
