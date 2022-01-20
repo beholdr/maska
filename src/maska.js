@@ -1,5 +1,3 @@
-/* modified */
-
 import mask from './mask'
 import tokens from './tokens'
 import { event, findInputElement, fixInputSelection, isString } from './utils'
