@@ -164,6 +164,9 @@ You can use `mask` function directly by importing it (or using `Maska.mask` if y
 ## Getting raw (unmasked) value
 
 To get raw value read `data-mask-raw-value` property of input. You can subscribe to `@maska` event to know when this value updates. Please see [examples page](https://beholdr.github.io/maska/).
+```html
+@maska="rawValue = $event.target.dataset.maskRawValue"
+```
 
 ## Dynamic masks
 
