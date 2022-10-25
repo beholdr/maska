@@ -132,12 +132,14 @@ Default tokens:
     'A': { pattern: /[a-zA-Z]/, uppercase: true },
     'a': { pattern: /[a-zA-Z]/, lowercase: true },
     '!': { escape: true },
-    '*': { repeat: true }
+    '*': { repeat: true },
+    '?': { optional: true }
 }
 ```
 
 - Escape symbol escapes next token (mask `!#` will render `#`)
 - Repeat symbol allows repeating current token until it’s valid (e.g. mask `#*` for all digits or `A* A*` for `CARDHOLDER NAME`)
+- Optional symbol allows to skip current token (e.g. mask `-?#*` for a digit with optional minus sign)
 
 You can add your own tokens by passing them in `maska` directive or `create` method at initialization (see above). **Important**: `pattern` field should be JS *regular expression* (`/[0-9]/`) or *string without delimiters* (`"[0-9]"`).
 

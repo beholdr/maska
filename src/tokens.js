@@ -6,5 +6,6 @@ export default {
   'A': { pattern: /[a-zA-Z]/, uppercase: true },
   'a': { pattern: /[a-zA-Z]/, lowercase: true },
   '!': { escape: true },
-  '*': { repeat: true }
+  '*': { repeat: true },
+  '?': { optional: true }
 }

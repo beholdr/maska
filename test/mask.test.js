@@ -115,6 +115,19 @@ test('Raw 123abc ##(A*)', () => {
     expect(mask('123abc', '##(A*)', tokens, false)).toBe('12ABC')
 })
 
+test('Optional token', () => {
+    expect(mask('123a123', '#*A?#*', tokens)).toBe('123A123')
+    expect(mask('123123', '#*A?#*', tokens)).toBe('123123')
+    expect(mask('1234', '1?2?34', tokens)).toBe('1234')
+    expect(mask('234', '1?2?34', tokens)).toBe('234')
+    expect(mask('134', '1?2?34', tokens)).toBe('134')
+    expect(mask('34', '1?2?34', tokens)).toBe('34')
+    expect(mask('1234', '#?#.##?', tokens)).toBe('12.34')
+    expect(mask('123', '#?#.##?', tokens)).toBe('12.3')
+    expect(mask('12', '#?#.##?', tokens)).toBe('12.')
+    expect(mask('1', '#?#.##?', tokens)).toBe('1')
+})
+
 test('Dynamic floats', () => {
     expect(mask('1', '["# cm", "#.# cm", "#.## cm"]', tokens)).toBe('1 cm')
     expect(mask('12', '["# cm", "#.# cm", "#.## cm"]', tokens)).toBe('1.2 cm')

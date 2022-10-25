@@ -66,8 +66,17 @@ function process (value, mask, tokens, masked = true) {
             im = im + 2
           }
         }
+        iv++
+      } else {
+        const tokenNext = tokens[mask[im + 1]]
+        if (tokenNext && tokenNext.optional) {
+          im = im + 2
+        } else {
+          iv++
+        }
       }
-      iv++
+    } else if (token && token.optional) {
+      im++
     } else if (token && token.repeat) {
       const tokenPrev = tokens[mask[im - 1]]
       if (tokenPrev && !tokenPrev.pattern.test(valueChar)) {
@@ -80,8 +89,15 @@ function process (value, mask, tokens, masked = true) {
         im++
         maskChar = mask[im]
       }
-      if (masked) ret += maskChar
-      if (valueChar === maskChar) iv++
+      if (valueChar === maskChar) {
+        if (masked) ret += maskChar
+        iv++
+      } else {
+        const tokenNext = tokens[mask[im + 1]]
+        if (!tokenNext || !tokenNext.optional) {
+          if (masked) ret += maskChar          
+        }
+      }
       im++
     }
   }
