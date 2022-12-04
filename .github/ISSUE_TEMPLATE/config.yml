@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Feature Request
+    url: https://github.com/beholdr/maska/discussions/categories/ideas
+    about: Do you have an idea how to improve Maska? Feel free to post it to the discussion forum that allows voting for other users.
+  - name: Help & Support
+    url: https://github.com/beholdr/maska/discussions/categories/q-a
+    about: Need help with installation or usage of Maska? Please use the discussion forum.
