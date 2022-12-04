@@ -24,7 +24,7 @@ jobs:
         run: npm ci
 
       - name: Test and Coverage
-        run: npm run coverage
+        run: npm run test:coverage
 
       - name: Parse coverage
         uses: sergeysova/jq-action@v2
