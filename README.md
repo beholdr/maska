@@ -3,7 +3,7 @@
 Simple zero-dependency input mask for Vue 2/3 or Vanilla JS.
 
 [![npm bundle size](https://img.shields.io/bundlephobia/minzip/maska)](https://bundlephobia.com/package/maska)
-[![build](https://github.com/beholdr/pos/actions/workflows/build.yml/badge.svg)](https://github.com/beholdr/pos/actions/workflows/build.yml)
+[![build](https://github.com/beholdr/maska/actions/workflows/build.yml/badge.svg)](https://github.com/beholdr/maska/actions/workflows/build.yml)
 ![code coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/beholdr/7f2a04de5e494f9a3820832520ee2562/raw/badge.json)
 
 **[Documentation & demo →](https://beholdr.github.io/maska/)**
