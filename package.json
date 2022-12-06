@@ -36,7 +36,7 @@
     "test:coverage": "vitest run --coverage",
     "lint": "ts-standard src",
     "lint:fix": "ts-standard --fix src",
-    "preversion": "npm run build && npm test"
+    "version": "npm run build && npm test"
   },
   "devDependencies": {
     "@testing-library/dom": "^8.17.1",
