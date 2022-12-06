@@ -1,13 +1,16 @@
 import { Directive } from 'vue'
 import { MaskaDetail, MaskInput, MaskInputOptions } from './mask-input'
 
-type MaskaDirective = Directive<HTMLInputElement, MaskaDetail | undefined>
+type MaskaDirective = Directive<HTMLElement, MaskaDetail | undefined>
 
 const masks = new WeakMap<HTMLInputElement, MaskInput>()
 
 export const vMaska: MaskaDirective = (el, binding) => {
-  if (masks.get(el) != null) {
-    masks.get(el)?.destroy()
+  const input = el instanceof HTMLInputElement ? el : el.querySelector('input')
+  if (input == null) return
+
+  if (masks.get(input) != null) {
+    masks.get(input)?.destroy()
   }
 
   const opts = { ...(binding.arg as MaskInputOptions) } ?? {}
@@ -21,5 +24,5 @@ export const vMaska: MaskaDirective = (el, binding) => {
     }
   }
 
-  masks.set(el, new MaskInput(el, opts))
+  masks.set(input, new MaskInput(input, opts))
 }

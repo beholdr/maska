@@ -12,6 +12,7 @@ import Dynamic from './components/Dynamic.vue'
 import Events from './components/Events.vue'
 import Hooks from './components/Hooks.vue'
 import Options from './components/Options.vue'
+import Parent from './components/Parent.vue'
 import Simple from './components/Simple.vue'
 
 test('simple directive', async () => {
@@ -25,6 +26,17 @@ test('simple directive', async () => {
 
 test('data-attr', async () => {
   const wrapper = mount(DataAttr)
+  const input = wrapper.get('input')
+
+  await input.setValue('1')
+  expect(input.element.value).toBe('1-')
+
+  await input.setValue('123')
+  expect(input.element.value).toBe('1-2')
+})
+
+test('parent element', async () => {
+  const wrapper = mount(Parent)
   const input = wrapper.get('input')
 
   await input.setValue('1')
