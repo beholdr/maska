@@ -1,6 +1,6 @@
 {
   "name": "maska",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "Simple zero-dependency input mask for Vue.js and vanilla JS",
   "keywords": [
     "mask",
@@ -8,7 +8,6 @@
     "vue"
   ],
   "author": "Alexander Shabunevich <alex@aether.ru>",
-  "homepage": "https://beholdr.github.io/maska/",
   "repository": {
     "url": "https://github.com/beholdr/maska",
     "type": "git"

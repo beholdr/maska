@@ -15,7 +15,7 @@ Simple zero-dependency input mask for Vue.js and vanilla JS. [Demo and examples]
 To load latest version from CDN you can use:
 
 ``` html
-<script src="https://cdn.jsdelivr.net/npm/maska@latest/dist/maska.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/maska@1/dist/maska.js"></script>
 ```
 
 ## Usage with Vue 2.x
