@@ -20,7 +20,7 @@ npm i maska
 To include library from CDN, use UMD format and prefix all classes and directives with `Maska.`
 
 ``` html
-<script src="https://cdn.jsdelivr.net/npm/maska@latest/dist/maska.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/maska@2/dist/maska.umd.js"></script>
 <script>
   new Maska.MaskInput("[data-maska]") // for masked input
   const mask = new Maska.Mask({ mask: "#-#" }) // for programmatic use
@@ -201,6 +201,9 @@ export default {
 </template>
 ```
 <!-- tabs:end -->
+
+!> Don’t use `v-model` on masked input: it possible will be buggy,
+because its value is taken from the input event instead of the input value.
 
 #### Global registration of directive
 
