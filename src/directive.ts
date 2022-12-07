@@ -17,11 +17,18 @@ export const vMaska: MaskaDirective = (el, binding) => {
 
   if (binding.value != null) {
     const binded = binding.value
-    opts.onMaska = (detail: MaskaDetail) => {
+    const onMaska = (detail: MaskaDetail): void => {
       binded.masked = detail.masked
       binded.unmasked = detail.unmasked
       binded.completed = detail.completed
     }
+
+    opts.onMaska =
+      opts.onMaska == null
+        ? onMaska
+        : Array.isArray(opts.onMaska)
+          ? [...opts.onMaska, onMaska]
+          : [opts.onMaska, onMaska]
   }
 
   masks.set(input, new MaskInput(input, opts))

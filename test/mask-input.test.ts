@@ -63,6 +63,26 @@ describe('test init', () => {
     )
   })
 
+  test('test callbacks', async () => {
+    document.body.innerHTML = `<input id="input" data-maska="#-#">`
+    const input = <HTMLInputElement>document.getElementById('input')
+    const onMaska1 = vi.fn()
+    const onMaska2 = vi.fn()
+
+    new MaskInput(input, { onMaska: [onMaska1, onMaska2] })
+
+    await user.type(input, '12')
+    expect(onMaska1).toHaveBeenCalledTimes(2)
+    expect(onMaska2).toHaveBeenCalledTimes(2)
+    expect(onMaska1).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        masked: '1-2',
+        unmasked: '12',
+        completed: true
+      })
+    )
+  })
+
   test('test hooks', async () => {
     document.body.innerHTML = `<input id="input" data-maska="@-@">`
     const input = <HTMLInputElement>document.getElementById('input')

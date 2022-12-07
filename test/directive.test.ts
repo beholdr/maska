@@ -5,6 +5,7 @@ import { mount } from '@vue/test-utils'
 import BindInitial from './components/BindInitial.vue'
 import BindMasked from './components/BindMasked.vue'
 import BindUnmasked from './components/BindUnmasked.vue'
+import Callbacks from './components/Callbacks.vue'
 import Completed from './components/Completed.vue'
 import Config from './components/Config.vue'
 import DataAttr from './components/DataAttr.vue'
@@ -152,6 +153,35 @@ test('events', async () => {
   await input.setValue('12')
   expect(wrapper.emitted('mask')).toHaveLength(2)
   expect(wrapper.emitted('mask')[1][0]).toHaveProperty('completed', true)
+})
+
+test('callbacks', async () => {
+  const wrapper = mount(Callbacks)
+  const input1 = wrapper.get('#input1')
+  const input2 = wrapper.get('#input2')
+
+  await input1.setValue('1')
+  expect(wrapper.emitted()).toHaveProperty('mask1')
+  expect(wrapper.emitted('mask1')).toHaveLength(1)
+  expect(wrapper.emitted('mask1')[0][0]).toHaveProperty('completed', false)
+
+  await input1.setValue('12')
+  expect(wrapper.emitted('mask1')).toHaveLength(2)
+  expect(wrapper.emitted('mask1')[1][0]).toHaveProperty('completed', true)
+
+  await input2.setValue('1')
+  expect(wrapper.emitted()).toHaveProperty('mask2')
+  expect(wrapper.emitted()).toHaveProperty('mask3')
+  expect(wrapper.emitted('mask2')).toHaveLength(1)
+  expect(wrapper.emitted('mask3')).toHaveLength(1)
+  expect(wrapper.emitted('mask2')[0][0]).toHaveProperty('completed', false)
+  expect(wrapper.emitted('mask3')[0][0]).toHaveProperty('completed', false)
+
+  await input2.setValue('12')
+  expect(wrapper.emitted('mask2')).toHaveLength(2)
+  expect(wrapper.emitted('mask3')).toHaveLength(2)
+  expect(wrapper.emitted('mask2')[1][0]).toHaveProperty('completed', true)
+  expect(wrapper.emitted('mask3')[1][0]).toHaveProperty('completed', true)
 })
 
 test('options api component', async () => {

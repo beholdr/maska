@@ -1,8 +1,10 @@
 import { Mask, MaskOptions } from './mask'
 import { parseMask, parseOpts, parseTokens } from './parser'
 
+type OnMaskaType = (detail: MaskaDetail) => void
+
 export interface MaskInputOptions extends MaskOptions {
-  onMaska?: (detail: MaskaDetail) => void
+  onMaska?: OnMaskaType | OnMaskaType[]
   preProcess?: (value: string) => string
   postProcess?: (value: string) => string
 }
@@ -142,7 +144,11 @@ export class MaskInput {
     }
 
     if (this.options.onMaska != null) {
-      this.options.onMaska(detail)
+      if (Array.isArray(this.options.onMaska)) {
+        this.options.onMaska.forEach((f) => f(detail))
+      } else {
+        this.options.onMaska(detail)
+      }
     }
     input.dispatchEvent(new CustomEvent<MaskaDetail>('maska', { detail }))
   }
