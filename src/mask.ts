@@ -1,6 +1,6 @@
 import { MaskTokens, tokens } from './tokens'
 
-export type MaskType = string | string[] | ((input: string) => string)
+export type MaskType = string | string[] | ((input: string) => string) | null
 
 export interface MaskOptions {
   mask?: MaskType
@@ -11,13 +11,12 @@ export interface MaskOptions {
 }
 
 export class Mask {
-  readonly mask: MaskType = ''
-  readonly tokens = tokens
-  readonly eager = false
-  readonly reversed = false
+  readonly opts: MaskOptions = {}
   private readonly memo = new Map()
 
-  constructor (opts: MaskOptions = {}) {
+  constructor (defaults: MaskOptions = {}) {
+    const opts = { ...defaults }
+
     if (opts.tokens != null) {
       opts.tokens = (opts.tokensReplace as boolean)
         ? { ...opts.tokens }
@@ -28,19 +27,22 @@ export class Mask {
           token.pattern = new RegExp(token.pattern)
         }
       }
+    } else {
+      opts.tokens = tokens
     }
 
-    if (opts.mask == null) {
-      opts.mask = ''
-    } else if (typeof opts.mask === 'object') {
+    if (Array.isArray(opts.mask)) {
       if (opts.mask.length > 1) {
         opts.mask.sort((a, b) => a.length - b.length)
       } else {
         opts.mask = opts.mask[0] ?? ''
       }
     }
+    if (opts.mask === '') {
+      opts.mask = null
+    }
 
-    Object.assign(this, opts)
+    this.opts = opts
   }
 
   masked (value: string): string {
@@ -51,33 +53,47 @@ export class Mask {
     return this.process(value, this.findMask(value), false)
   }
 
-  completed (value: string): boolean {
-    const length = this.process(value, this.findMask(value)).length
+  isEager (): boolean {
+    return this.opts.eager === true
+  }
 
-    if (typeof this.mask === 'string') {
-      return length >= this.mask.length
-    } else if (typeof this.mask === 'function') {
-      return length >= this.findMask(value).length
+  isReversed (): boolean {
+    return this.opts.reversed === true
+  }
+
+  completed (value: string): boolean {
+    const mask = this.findMask(value)
+    if (this.opts.mask == null || mask == null) return false
+
+    const length = this.process(value, mask).length
+
+    if (typeof this.opts.mask === 'string') {
+      return length >= this.opts.mask.length
+    } else if (typeof this.opts.mask === 'function') {
+      return length >= mask.length
     } else {
       return (
-        this.mask.filter((m) => length >= m.length).length === this.mask.length
+        this.opts.mask.filter((m) => length >= m.length).length ===
+        this.opts.mask.length
       )
     }
   }
 
-  private findMask (value: string): string {
-    if (typeof this.mask === 'string') {
-      return this.mask
-    } else if (typeof this.mask === 'function') {
-      return this.mask(value)
+  private findMask (value: string): string | null {
+    const mask = this.opts.mask
+    if (mask == null) {
+      return null
+    } else if (typeof mask === 'string') {
+      return mask
+    } else if (typeof mask === 'function') {
+      return mask(value)
     }
 
-    const last = this.process(value, this.mask.slice(-1).pop() ?? '', false)
+    const last = this.process(value, mask.slice(-1).pop() ?? '', false)
 
     return (
-      this.mask.find(
-        (mask) => this.process(value, mask, false).length >= last.length
-      ) ?? ''
+      mask.find((el) => this.process(value, el, false).length >= last.length) ??
+      ''
     )
   }
 
@@ -98,32 +114,39 @@ export class Mask {
     return { mask: chars.join(''), escaped }
   }
 
-  private process (value: string, maskRaw: string, masked = true): string {
+  private process (
+    value: string,
+    maskRaw: string | null,
+    masked = true
+  ): string {
+    if (maskRaw == null) return value
+
     const key = `value=${value},mask=${maskRaw},masked=${masked ? 1 : 0}`
     if (this.memo.has(key)) return this.memo.get(key)
 
     const { mask, escaped } = this.escapeMask(maskRaw)
     const result: string[] = []
-    const offset = this.reversed ? -1 : 1
-    const method = this.reversed ? 'unshift' : 'push'
-    const lastMaskChar = this.reversed ? 0 : mask.length - 1
+    const tokens = this.opts.tokens != null ? this.opts.tokens : {}
+    const offset = this.isReversed() ? -1 : 1
+    const method = this.isReversed() ? 'unshift' : 'push'
+    const lastMaskChar = this.isReversed() ? 0 : mask.length - 1
 
-    const check = this.reversed
+    const check = this.isReversed()
       ? () => m > -1 && v > -1
       : () => m < mask.length && v < value.length
 
     const notLastMaskChar = (m: number): boolean =>
-      (!this.reversed && m <= lastMaskChar) ||
-      (this.reversed && m >= lastMaskChar)
+      (!this.isReversed() && m <= lastMaskChar) ||
+      (this.isReversed() && m >= lastMaskChar)
 
     let lastRawMaskChar
     let repeatedPos = -1
-    let m = this.reversed ? mask.length - 1 : 0
-    let v = this.reversed ? value.length - 1 : 0
+    let m = this.isReversed() ? mask.length - 1 : 0
+    let v = this.isReversed() ? value.length - 1 : 0
 
     while (check()) {
       const maskChar = mask.charAt(m)
-      const token = this.tokens[maskChar]
+      const token = tokens[maskChar]
       const valueChar =
         token?.transform != null
           ? token.transform(value.charAt(v))
@@ -151,7 +174,7 @@ export class Mask {
         } else if (token.multiple as boolean) {
           const hasValue = result[v - offset]?.match(token.pattern) != null
           const nextMask = mask.charAt(m + offset)
-          if (hasValue && nextMask !== '' && this.tokens[nextMask] == null) {
+          if (hasValue && nextMask !== '' && tokens[nextMask] == null) {
             m += offset
             v -= offset
           } else {
@@ -171,25 +194,25 @@ export class Mask {
 
         v += offset
       } else {
-        if (masked && !this.eager) {
+        if (masked && !this.isEager()) {
           result[method](maskChar)
         }
 
-        if (valueChar === maskChar && !this.eager) {
+        if (valueChar === maskChar && !this.isEager()) {
           v += offset
         } else {
           lastRawMaskChar = maskChar
         }
 
-        if (!this.eager) {
+        if (!this.isEager()) {
           m += offset
         }
       }
 
-      if (this.eager) {
+      if (this.isEager()) {
         while (
           notLastMaskChar(m) &&
-          (this.tokens[mask.charAt(m)] == null || escaped.includes(m))
+          (tokens[mask.charAt(m)] == null || escaped.includes(m))
         ) {
           if (masked) {
             result[method](mask.charAt(m))

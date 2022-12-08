@@ -76,7 +76,7 @@ export class MaskInput {
 
     // delete first character in eager mask when it's the only left
     if (
-      mask.eager &&
+      mask.isEager() &&
       'inputType' in e &&
       e.inputType.startsWith('delete') &&
       mask.unmasked(input.value).length <= 1
@@ -94,7 +94,7 @@ export class MaskInput {
     const se = input.selectionEnd
     let value = valueOld
 
-    if (mask.eager) {
+    if (mask.isEager()) {
       const unmasked = mask.unmasked(valueOld)
       const maskedUnmasked = mask.masked(unmasked)
 

@@ -3,16 +3,21 @@ import { expect, test } from 'vitest'
 import { Mask } from '../src/mask'
 
 test('null mask', () => {
-  // @ts-ignore
   const mask = new Mask({ mask: null })
 
-  expect(mask.masked('1a')).toBe('')
+  expect(mask.masked('1a')).toBe('1a')
+})
+
+test('empty string mask', () => {
+  const mask = new Mask({ mask: '' })
+
+  expect(mask.masked('1a')).toBe('1a')
 })
 
 test('undefined mask', () => {
   const mask = new Mask({ mask: undefined })
 
-  expect(mask.masked('1a')).toBe('')
+  expect(mask.masked('1a')).toBe('1a')
 })
 
 test('@ @ mask', () => {
@@ -721,7 +726,7 @@ test('multiple letters mask', () => {
 test('dynamic empty mask', () => {
   const mask = new Mask({ mask: [] })
 
-  expect(mask.masked('1')).toBe('')
+  expect(mask.masked('1')).toBe('1')
 })
 
 test('dynamic single mask', () => {

@@ -41,8 +41,8 @@ describe('test init', () => {
     `
     const mask = new MaskInput('[data-maska]')
 
-    expect([...mask.items][0][1].eager).toBe(true)
-    expect([...mask.items][1][1].eager).toBe(false)
+    expect([...mask.items][0][1].isEager()).toBe(true)
+    expect([...mask.items][1][1].isEager()).toBe(false)
   })
 
   test('test callback', async () => {
@@ -126,8 +126,8 @@ describe('test init', () => {
     const input = <HTMLInputElement>document.getElementById('input')
     new MaskInput('#input')
 
-    await user.type(input, '1')
-    expect(input).toHaveValue('')
+    await user.type(input, '1a')
+    expect(input).toHaveValue('1a')
   })
 
   test('no mask param', async () => {
@@ -135,8 +135,8 @@ describe('test init', () => {
     const input = <HTMLInputElement>document.getElementById('input')
     new MaskInput(input)
 
-    await user.type(input, '1')
-    expect(input).toHaveValue('')
+    await user.type(input, '1a')
+    expect(input).toHaveValue('1a')
   })
 })
 
@@ -149,74 +149,74 @@ describe('test data-attr', () => {
 
   test('empty mask', () => {
     const mask = prepareMaskWithHtml(`<input id="input" data-maska>`)
-    expect([...mask.items][0][1].mask).toBe('')
+    expect([...mask.items][0][1].opts.mask).toBe(undefined)
   })
 
   test('simple mask', () => {
     const mask = prepareMaskWithHtml(`<input id="input" data-maska="#-#">`)
-    expect([...mask.items][0][1].mask).toBe('#-#')
+    expect([...mask.items][0][1].opts.mask).toBe('#-#')
   })
 
   test('dynamic mask', () => {
     const mask = prepareMaskWithHtml(
       `<input id="input" data-maska="['#--#', '#-#--#']">`
     )
-    expect([...mask.items][0][1].mask.length).toBe(2)
+    expect([...mask.items][0][1].opts.mask?.length).toBe(2)
   })
 
   test('eager mask', () => {
     const mask = prepareMaskWithHtml(`<input id="input" data-maska-eager>`)
-    expect([...mask.items][0][1].eager).toBe(true)
+    expect([...mask.items][0][1].isEager()).toBe(true)
   })
 
   test('eager mask true', () => {
     const mask = prepareMaskWithHtml(
       `<input id="input" data-maska-eager="true">`
     )
-    expect([...mask.items][0][1].eager).toBe(true)
+    expect([...mask.items][0][1].isEager()).toBe(true)
   })
 
   test('eager mask false', () => {
     const mask = prepareMaskWithHtml(
       `<input id="input" data-maska-eager="false">`
     )
-    expect([...mask.items][0][1].eager).toBe(false)
+    expect([...mask.items][0][1].isEager()).toBe(false)
   })
 
   test('reversed mask', () => {
     const mask = prepareMaskWithHtml(`<input id="input" data-maska-reversed>`)
-    expect([...mask.items][0][1].reversed).toBe(true)
+    expect([...mask.items][0][1].opts.reversed).toBe(true)
   })
 
   test('custom tokens mask', () => {
     const mask = prepareMaskWithHtml(
       `<input id="input" data-maska-tokens='{ "Z": { "pattern": "[0-9]" } }'>`
     )
-    expect([...mask.items][0][1].tokens).toHaveProperty('#.pattern')
-    expect([...mask.items][0][1].tokens).toHaveProperty('Z.pattern')
+    expect([...mask.items][0][1].opts.tokens).toHaveProperty('#.pattern')
+    expect([...mask.items][0][1].opts.tokens).toHaveProperty('Z.pattern')
   })
 
   test('replace tokens mask', () => {
     const mask = prepareMaskWithHtml(
       `<input id="input" data-maska-tokens='{ "Z": { "pattern": "[0-9]" } }' data-maska-tokens-replace>`
     )
-    expect([...mask.items][0][1].tokens).toHaveProperty('Z.pattern')
-    expect([...mask.items][0][1].tokens).not.toHaveProperty('#.pattern')
+    expect([...mask.items][0][1].opts.tokens).toHaveProperty('Z.pattern')
+    expect([...mask.items][0][1].opts.tokens).not.toHaveProperty('#.pattern')
   })
 
   test('single quotes tokens mask', () => {
     const mask = prepareMaskWithHtml(
       `<input id="input" data-maska-tokens="{ 'Z': { 'pattern': '[0-9]' } }">`
     )
-    expect([...mask.items][0][1].tokens).toHaveProperty('Z.pattern')
+    expect([...mask.items][0][1].opts.tokens).toHaveProperty('Z.pattern')
   })
 
   test('simple tokens mask', () => {
     const mask = prepareMaskWithHtml(
       `<input id="input" data-maska-tokens="Z:[0-9]|X:[0-9]:optional">`
     )
-    expect([...mask.items][0][1].tokens).toHaveProperty('Z.optional', false)
-    expect([...mask.items][0][1].tokens).toHaveProperty('X.optional', true)
+    expect([...mask.items][0][1].opts.tokens).toHaveProperty('Z.optional', false)
+    expect([...mask.items][0][1].opts.tokens).toHaveProperty('X.optional', true)
   })
 })
 
