@@ -202,9 +202,6 @@ export default {
 ```
 <!-- tabs:end -->
 
-!> Don’t use `v-model` on masked input: it possible will be buggy,
-because its value is taken from the input event instead of the input value.
-
 #### Global registration of directive
 
 <!-- tabs:start -->
@@ -244,10 +241,10 @@ Options passed on init will be used as defaults and could be overriden by `data-
 <!-- tabs:start -->
 ### **Description**
 
-- `mask` / `data-maska` — mask to apply (**string**, **array of strings** or **function**)
+- `mask` / `data-maska` — mask to apply (**string**, **array of strings** or **function**). If you pass empty string or `null` it will disable a mask
 - `tokens` / `data-maska-tokens` — custom tokens object
 - `tokensReplace` / `data-maska-tokens-replace` — if custom tokens should replace default tokens (if not set they will merge)
-- `eager` / `data-maska-eager` — eager mode
+- `eager` / `data-maska-eager` — eager mode, e.g. with eager mask `#-#` you will get `1-` when you input `1` (in non-eager mode mask will be equal `1`)
 - `reversed` / `data-maska-reversed` — reversed mode
 
 ### **Types**
