@@ -86,7 +86,14 @@ export class MaskInput {
   }
 
   private readonly inputEvent = (e: Event | InputEvent): void => {
-    if (e instanceof InputEvent && e.data === '__MASKA__') return
+    if (
+      e instanceof CustomEvent &&
+      e.type === 'input' &&
+      e.detail != null &&
+      'masked' in e.detail
+    ) {
+      return
+    }
 
     const input = e.target as HTMLInputElement
     const mask = this.items.get(input) as Mask
@@ -153,6 +160,6 @@ export class MaskInput {
       }
     }
     input.dispatchEvent(new CustomEvent<MaskaDetail>('maska', { detail }))
-    input.dispatchEvent(new InputEvent('input', { data: '__MASKA__' }))
+    input.dispatchEvent(new CustomEvent<MaskaDetail>('input', { detail }))
   }
 }

@@ -410,7 +410,12 @@ new MaskInput("input", {
 
 # Events
 
-You can subscribe to `maska` event, fired every time when mask applied:
+There are two events you can subscribe to get the masking result:
+
+- `maska` event
+- `input` event
+
+They are essentially the same, but the `input` event could be fired by any input logic, and the `maska` event is library specific.
 
 <!-- tabs:start -->
 ## **Vanilla JS**
@@ -426,7 +431,7 @@ document.querySelector("input").addEventListener("maska", onMaska)
 ```
 <!-- tabs:end -->
 
-Callback will receive custom event contains `detail` property with given structure:
+Both events contains `detail` property with given structure:
 
 <!-- tabs:start -->
 ### **Description**
