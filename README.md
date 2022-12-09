@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/maska.svg">
+  <img src="https://beholdr.github.io/maska/maska.svg">
 </p>
 
 <p align="center">
