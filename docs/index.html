@@ -15,14 +15,24 @@
 
   <style>
     :root {
-      --theme-hue: 42;
+      --theme-hue: 281;
       --heading-h1-font-size: var(--modular-scale-3);
       --heading-h2-font-size: var(--modular-scale-2);
       --heading-h3-font-size: var(--modular-scale-1);
     }
 
     .sidebar > .app-name {
-      font-weight: 500;
+      display: none;
+    }
+    .sidebar-nav li.active {
+      background: #990bdb;
+      color: #fff;
+      margin-left: -10px;
+      padding-left: 10px;
+      border-radius: 2px;
+    }
+    .sidebar-nav li.active a {
+      color: #fff;
     }
 
     @media screen and (max-width: 500px) {
