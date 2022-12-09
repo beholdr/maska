@@ -1,5 +1,5 @@
 import { Mask, MaskOptions } from './mask'
-import { parseMask, parseOpts, parseTokens } from './parser'
+import { parseInput } from './parser'
 
 type OnMaskaType = (detail: MaskaDetail) => void
 
@@ -41,24 +41,7 @@ export class MaskInput {
 
   private init (inputs: HTMLInputElement[], defaults: MaskOptions): void {
     for (const input of inputs) {
-      const opts = { ...defaults }
-      if (input.dataset.maska != null && input.dataset.maska !== '') {
-        opts.mask = parseMask(input.dataset.maska)
-      }
-      if (input.dataset.maskaEager != null) {
-        opts.eager = parseOpts(input.dataset.maskaEager)
-      }
-      if (input.dataset.maskaReversed != null) {
-        opts.reversed = parseOpts(input.dataset.maskaReversed)
-      }
-      if (input.dataset.maskaTokensReplace != null) {
-        opts.tokensReplace = parseOpts(input.dataset.maskaTokensReplace)
-      }
-      if (input.dataset.maskaTokens != null) {
-        opts.tokens = parseTokens(input.dataset.maskaTokens)
-      }
-
-      const mask = new Mask(opts)
+      const mask = new Mask(parseInput(input, defaults))
       this.items.set(input, mask)
 
       if (input.value !== '') {
