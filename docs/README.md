@@ -241,11 +241,11 @@ Options passed on init will be used as defaults and could be overriden by `data-
 <!-- tabs:start -->
 ### **Description**
 
-- `mask` / `data-maska` — mask to apply (**string**, **array of strings** or **function**). If you pass empty string or `null` it will disable a mask
-- `tokens` / `data-maska-tokens` — custom tokens object
-- `tokensReplace` / `data-maska-tokens-replace` — if custom tokens should replace default tokens (if not set they will merge)
-- `eager` / `data-maska-eager` — eager mode, e.g. with eager mask `#-#` you will get `1-` when you input `1` (in non-eager mode mask will be equal `1`)
-- `reversed` / `data-maska-reversed` — reversed mode
+- `mask / data-maska` — mask to apply (**string**, **array of strings** or **function**). If you pass empty string or `null` it will disable a mask
+- `tokens / data-maska-tokens` — custom tokens object
+- `tokensReplace / data-maska-tokens-replace` — if custom tokens should replace default tokens (if not set, they will merge)
+- `eager / data-maska-eager` — eager mode will show static characters before you type them, e.g. when you type `1`, eager mask `#-#` will show `1-` and non-eager will show `1`
+- `reversed / data-maska-reversed` — in reversed mode mask will grow backwards, e.g. for numbers
 
 ### **Types**
 ``` js
