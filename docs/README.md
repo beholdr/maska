@@ -1,3 +1,7 @@
+![maska](maska.svg)
+
+---
+
 # Live Demo
 
 Here are several examples of basic masks that you could create with **Maska**.

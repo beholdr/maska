@@ -1,12 +1,23 @@
+<p align="center">
+  <img src="docs/maska.svg">
+</p>
+
+<p align="center">
+  Simple zero-dependency input mask for Vue 2/3 or vanilla JS.
+</p>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/maska"><img src="https://img.shields.io/npm/v/maska"></a>
+  <a href="https://bundlephobia.com/package/maska"><img src="https://img.shields.io/bundlephobia/minzip/maska"></a>
+  <a href="https://github.com/beholdr/maska/actions/workflows/build.yml"><img src="https://github.com/beholdr/maska/actions/workflows/build.yml/badge.svg"></a>
+  <img src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/beholdr/7f2a04de5e494f9a3820832520ee2562/raw/badge.json">
+</p>
+
+<h3 align="center">
+  <a href="https://beholdr.github.io/maska/"><b>Documentation & demo</b></a>
+</h3>
+
 # Maska
-
-Simple zero-dependency input mask for Vue 2/3 or Vanilla JS.
-
-[![npm bundle size](https://img.shields.io/bundlephobia/minzip/maska)](https://bundlephobia.com/package/maska)
-[![build](https://github.com/beholdr/maska/actions/workflows/build.yml/badge.svg)](https://github.com/beholdr/maska/actions/workflows/build.yml)
-![code coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/beholdr/7f2a04de5e494f9a3820832520ee2562/raw/badge.json)
-
-**[Documentation & demo →](https://beholdr.github.io/maska/)**
 
 ## Features ✨
 
