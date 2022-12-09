@@ -8,10 +8,13 @@ import BindUnmasked from './components/BindUnmasked.vue'
 import Callbacks from './components/Callbacks.vue'
 import Completed from './components/Completed.vue'
 import Config from './components/Config.vue'
+import Custom from './components/Custom.vue'
 import DataAttr from './components/DataAttr.vue'
 import Dynamic from './components/Dynamic.vue'
 import Events from './components/Events.vue'
 import Hooks from './components/Hooks.vue'
+import Model from './components/Model.vue'
+import Multiple from './components/Multiple.vue'
 import Options from './components/Options.vue'
 import Parent from './components/Parent.vue'
 import Simple from './components/Simple.vue'
@@ -101,6 +104,67 @@ test('bind completed', async () => {
 
   expect(input.element.value).toBe('1-2-3')
   expect(wrapper.get('div').element.textContent).toBe('Completed')
+})
+
+test('v-model', async () => {
+  const wrapper = mount(Model)
+  const input = wrapper.get('input')
+
+  await new Promise((r) => setTimeout(r))
+
+  expect(input.element.value).toBe('1-2')
+  expect(wrapper.get('div').element.textContent).toBe('1-2')
+
+  await input.setValue('1')
+  expect(input.element.value).toBe('1-')
+  expect(wrapper.get('div').element.textContent).toBe('1-')
+
+  await input.setValue('123')
+  expect(input.element.value).toBe('1-2')
+  expect(wrapper.get('div').element.textContent).toBe('1-2')
+})
+
+test('custom component', async () => {
+  const wrapper = mount(Custom)
+  const input = wrapper.get('input')
+
+  await input.setValue('1')
+  expect(input.element.value).toBe('1-')
+  expect(wrapper.get('div').element.textContent).toBe('1-')
+
+  await input.setValue('123')
+  expect(input.element.value).toBe('1-2')
+  expect(wrapper.get('div').element.textContent).toBe('1-2')
+})
+
+test('multiple inputs', async () => {
+  const wrapper = mount(Multiple)
+  const input = wrapper.get<HTMLInputElement>('#input1')
+  const checkbox = wrapper.get<HTMLInputElement>('#checkbox')
+
+  await new Promise((r) => setTimeout(r))
+
+  expect(wrapper.get('#value1').element.textContent).toBe('1-2')
+  expect(wrapper.get('#value2').element.textContent).toBe('3-2')
+
+  expect(wrapper.emitted()).toHaveProperty('mask1')
+  expect(wrapper.emitted()).toHaveProperty('mask2')
+  expect(wrapper.emitted('mask1')).toHaveLength(1)
+  expect(wrapper.emitted('mask2')).toHaveLength(1)
+
+  await input.setValue('1')
+  expect(input.element.value).toBe('1')
+  expect(wrapper.get('#value1').element.textContent).toBe('1')
+  expect(wrapper.emitted()).toHaveProperty('mask1')
+  expect(wrapper.emitted('mask1')).toHaveLength(2)
+  expect(wrapper.emitted('mask2')).toHaveLength(1)
+
+  await checkbox.setValue()
+  expect(checkbox.element).toBeChecked()
+
+  expect(input.element.value).toBe('1-')
+  expect(wrapper.emitted('mask1')).toHaveLength(3)
+  expect(wrapper.emitted('mask2')).toHaveLength(1)
 })
 
 test('config and bind', async () => {

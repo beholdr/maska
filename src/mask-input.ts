@@ -22,12 +22,16 @@ export class MaskInput {
     target: string | NodeListOf<HTMLInputElement> | HTMLInputElement,
     readonly options: MaskInputOptions = {}
   ) {
-    const { onMaska, preProcess, postProcess, ...opts } = options
-
     if (typeof target === 'string') {
-      this.init(Array.from(document.querySelectorAll(target)), opts)
+      this.init(
+        Array.from(document.querySelectorAll(target)),
+        this.getMaskOpts(options)
+      )
     } else {
-      this.init('length' in target ? Array.from(target) : [target], opts)
+      this.init(
+        'length' in target ? Array.from(target) : [target],
+        this.getMaskOpts(options)
+      )
     }
   }
 
@@ -37,6 +41,19 @@ export class MaskInput {
       input.removeEventListener('beforeinput', this.beforeinputEvent)
     }
     this.items.clear()
+  }
+
+  needUpdate (input: HTMLInputElement, opts: MaskInputOptions): boolean {
+    const mask = this.items.get(input) as Mask
+    const maskNew = new Mask(parseInput(input, this.getMaskOpts(opts)))
+
+    return JSON.stringify(mask.opts) !== JSON.stringify(maskNew.opts)
+  }
+
+  private getMaskOpts (options: MaskInputOptions): MaskOptions {
+    const { onMaska, preProcess, postProcess, ...opts } = options
+
+    return opts
   }
 
   private init (inputs: HTMLInputElement[], defaults: MaskOptions): void {

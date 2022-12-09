@@ -7,13 +7,18 @@ const masks = new WeakMap<HTMLInputElement, MaskInput>()
 
 export const vMaska: MaskaDirective = (el, binding) => {
   const input = el instanceof HTMLInputElement ? el : el.querySelector('input')
+  const opts = { ...(binding.arg as MaskInputOptions) } ?? {}
+
   if (input == null) return
 
-  if (masks.get(input) != null) {
-    masks.get(input)?.destroy()
-  }
+  const existed = masks.get(input)
+  if (existed != null) {
+    if (!existed.needUpdate(input, opts)) {
+      return
+    }
 
-  const opts = { ...(binding.arg as MaskInputOptions) } ?? {}
+    existed.destroy()
+  }
 
   if (binding.value != null) {
     const binded = binding.value
@@ -32,4 +37,11 @@ export const vMaska: MaskaDirective = (el, binding) => {
   }
 
   masks.set(input, new MaskInput(input, opts))
+
+  // check initial value for v-model
+  setTimeout(() => {
+    if (input.value !== '') {
+      input.dispatchEvent(new InputEvent('input'))
+    }
+  })
 }
