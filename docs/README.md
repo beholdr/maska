@@ -2,6 +2,10 @@
 
 ---
 
+# Support
+
+Do you like **Maska**? Please support a developer via [Boosty](https://boosty.to/beholdr).
+
 # Live Demo
 
 Here are several examples of basic masks that you could create with **Maska**.

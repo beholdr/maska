@@ -19,6 +19,10 @@
 
 # Maska
 
+## Support
+
+Do you like **Maska**? Please support a developer via [Boosty](https://boosty.to/beholdr).
+
 ## Features ✨
 
 - No dependencies and small size: ~2.5 Kb gziped
