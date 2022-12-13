@@ -1,4 +1,4 @@
-![maska](maska.svg)
+<object data="maska.svg" type="image/svg+xml"></object>
 
 ---
 
