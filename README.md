@@ -19,9 +19,9 @@
 
 # Maska
 
-## Support
+## Support ☕️
 
-Do you like **Maska**? Please support a developer via [Boosty](https://boosty.to/beholdr).
+Do you like **Maska**? Please support me via [Boosty](https://boosty.to/beholdr).
 
 ## Features ✨
 
