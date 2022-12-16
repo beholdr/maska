@@ -38,7 +38,11 @@ const examples = [
     code: `const options = {\n  postProcess: (val) => {\n    const max = "" + new Date().getFullYear()\n    return val > max ? max : val\n  }\n}\n\n<input v-maska:[options] data-maska="####">`
   },
   {
-    label: 'Money format: repeated and reversed',
+    label: 'Money format simple',
+    code: `<input\n  v-maska\n  data-maska="0,99"\n  data-maska-tokens="0:\\d:multiple|9:\\d:optional"\n>`
+  },
+  {
+    label: 'Money format with thousand separators',
     code: `<input\n  v-maska\n  data-maska="9 99#,##"\n  data-maska-tokens="9:[0-9]:repeated"\n  data-maska-reversed\n>`
   }
 ]
