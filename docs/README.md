@@ -1,4 +1,4 @@
-<object data="maska.svg" type="image/svg+xml"></object>
+<object data="maska.svg" type="image/svg+xml" style="max-width: 90%"></object>
 
 ---
 
@@ -23,17 +23,44 @@ This demo is interactive: feel free to edit the examples.
 npm i maska
 ```
 
-## **From CDN**
+## **CDN / Global build**
 
-To include library from CDN, use UMD format and prefix all classes and directives with `Maska.`
+You can use **Maska** directly from CDN with simple script tag.
+Library API will be exposed on the global `Maska` object:
 
 ``` html
 <script src="https://cdn.jsdelivr.net/npm/maska@2/dist/maska.umd.js"></script>
 <script>
-  new Maska.MaskInput("[data-maska]") // for masked input
-  const mask = new Maska.Mask({ mask: "#-#" }) // for programmatic use
+  const { Mask, MaskInput, vMaska } = Maska
+
+  new MaskInput("[data-maska]") // for masked input
+  const mask = new Mask({ mask: "#-#" }) // for programmatic use
+  Vue.createApp({ directives: { maska: vMaska }}).mount('#app') // Vue directive
 </script>
 ```
+
+## **CDN / ES modules**
+
+For modern browsers you can use ES modules build with (optional) [import maps](https://caniuse.com/import-maps):
+
+``` html
+<script type="importmap">
+  {
+    "imports": {
+      "maska": "https://cdn.jsdelivr.net/npm/maska@2/dist/maska.js"
+    }
+  }
+</script>
+<script type="module">
+  import { Mask, MaskInput, vMaska } from 'maska'
+
+  new MaskInput("[data-maska]") // for masked input
+  const mask = new Mask({ mask: "#-#" }) // for programmatic use
+  Vue.createApp({ directives: { maska: vMaska }}).mount('#app') // Vue directive
+</script>
+```
+
+Notice that we are using `<script type="module">` in this case.
 <!-- tabs:end -->
 
 # Usage
