@@ -134,7 +134,67 @@ export default {
 ```
 <!-- tabs:end -->
 
-### Set options with directive
+### Get value
+
+To get masked value you can use standard `v-model` directive.
+But if you want to access an unmasked (raw) value, you can pass a variable as `v-maska` directive value.
+This variable should be a reactive object that will contains three fields after mask processing:
+
+- `masked`: string with masked result
+- `unmasked`: string with unmasked result
+- `completed`: boolean flag indicating that mask is completed
+
+<!-- tabs:start -->
+### **Composition API**
+
+``` html
+<script setup>
+import { reactive, ref } from "vue"
+import { vMaska } from "maska"
+
+const maskedValue = ref('')
+const bindedObject = reactive({})
+</script>
+
+<template>
+  <input v-maska="bindedObject" v-model="maskedValue">
+
+  Masked value: {{ maskedValue }} or {{ bindedObject.masked }}
+  Unmasked value: {{ bindedObject.unmasked }}
+  <span v-if="bindedObject.completed">✅ Mask completed</span>
+</template>
+```
+
+### **Options API**
+
+``` html
+<script>
+import { vMaska } from "maska"
+
+export default {
+  directives: { maska: vMaska },
+  data: () => ({
+    maskedValue: "",
+    bindedObject: {
+      masked: "",
+      unmasked: "",
+      completed: false
+    }
+  })
+}
+</script>
+
+<template>
+  <input v-maska="bindedObject" v-model="maskedValue">
+
+  Masked value: {{ maskedValue }} or {{ bindedObject.masked }}
+  Unmasked value: {{ bindedObject.unmasked }}
+  <span v-if="bindedObject.completed">✅ Mask completed</span>
+</template>
+```
+<!-- tabs:end -->
+
+### Set mask options
 
 To set default options for the mask you could use directive *argument* (part after `v-maska:`). It can be plain or reactive object and should be wrapped in `[]`:
 
@@ -176,63 +236,6 @@ export default {
 
 <template>
   <input v-maska:[options]>
-</template>
-```
-<!-- tabs:end -->
-
-### Bind to variable
-
-It’s very easy to bind mask result to a variable.
-This variable should be reactive object and will contains three fields:
-
-- `masked`: string with masked result
-- `unmasked`: string with unmasked result
-- `completed`: boolean flag indicating that mask is completed
-
-<!-- tabs:start -->
-### **Composition API**
-
-``` html
-<script setup>
-import { reactive } from "vue"
-import { vMaska } from "maska"
-
-const binded = reactive({})
-</script>
-
-<template>
-  <input v-maska="binded">
-  <p v-if="binded.completed">
-    Masked value: {{ binded.masked }}
-    Unmasked value: {{ binded.unmasked }}
-  </p>
-</template>
-```
-
-### **Options API**
-
-``` html
-<script>
-import { vMaska } from "maska"
-
-export default {
-  directives: { maska: vMaska },
-  data: () => ({
-    binded: {
-      masked: "",
-      unmasked: "",
-      completed: false
-    }
-  })
-}
-</script>
-
-<template>
-  <input v-maska="binded">
-  <p v-if="binded.completed">
-    Masked value: {{ binded.masked }}
-    Unmasked value: {{ binded.unmasked }}
-  </p>
 </template>
 ```
 <!-- tabs:end -->
