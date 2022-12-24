@@ -145,6 +145,7 @@ export class MaskInput {
     }
 
     input.value = value
+    input.dataset.maskaValue = value
 
     const detail = {
       masked: mask.masked(value),

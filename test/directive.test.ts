@@ -6,6 +6,7 @@ import BindInitial from './components/BindInitial.vue'
 import BindMasked from './components/BindMasked.vue'
 import BindUnmasked from './components/BindUnmasked.vue'
 import Callbacks from './components/Callbacks.vue'
+import ChangeValue from './components/ChangeValue.vue'
 import Completed from './components/Completed.vue'
 import Config from './components/Config.vue'
 import Custom from './components/Custom.vue'
@@ -135,6 +136,19 @@ test('custom component', async () => {
   await input.setValue('123')
   expect(input.element.value).toBe('1-2')
   expect(wrapper.get('div').element.textContent).toBe('1-2')
+})
+
+test('change value', async () => {
+  const wrapper = mount(ChangeValue)
+  const input = wrapper.get('input')
+
+  await new Promise((r) => setTimeout(r))
+
+  expect(input.element.value).toBe('1-2')
+
+  await wrapper.get('button').trigger('click')
+
+  expect(input.element.value).toBe('3-4')
 })
 
 test('multiple inputs', async () => {
