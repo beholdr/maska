@@ -90,6 +90,7 @@ export class MaskInput {
       e instanceof CustomEvent &&
       e.type === 'input' &&
       e.detail != null &&
+      typeof e.detail === 'object' &&
       'masked' in e.detail
     ) {
       return
