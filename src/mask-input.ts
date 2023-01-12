@@ -127,7 +127,10 @@ export class MaskInput {
         e.inputType.startsWith('delete') ||
         (ss != null && ss < valueOld.length)
       ) {
-        input.setSelectionRange(ss, se)
+        try {
+          // see https://github.com/beholdr/maska/issues/118
+          input.setSelectionRange(ss, se)
+        } catch {}
       }
     }
   }
