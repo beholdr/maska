@@ -89,11 +89,10 @@ export class Mask {
       return mask(value)
     }
 
-    const last = this.process(value, mask.slice(-1).pop() ?? '', false)
+    const l = this.process(value, mask.slice(-1).pop() ?? '', false)
 
     return (
-      mask.find((el) => this.process(value, el, false).length >= last.length) ??
-      ''
+      mask.find((el) => this.process(value, el, false).length >= l.length) ?? ''
     )
   }
 
