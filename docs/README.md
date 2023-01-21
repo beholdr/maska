@@ -82,20 +82,20 @@ Start with simple input element and `data-maska` attribute:
 
 Then import and init `MaskInput`, passing input element(s) or `querySelector` expression as first argument:
 
-``` js
+``` ts
 import { MaskInput } from "maska"
 new MaskInput("[data-maska]")
 ```
 
 Usually you set mask via `data-maska` attribute. But you can pass mask and other [options](#options) via second argument (it will be a default options that can be overriden by `data-maska-` attributes):
 
-``` js
+``` ts
 new MaskInput("input", { mask: "#-#" })
 ```
 
 To destroy mask use `destroy()` method:
 
-``` js
+``` ts
 const mask = new MaskInput(...)
 mask.destroy()
 ```
@@ -245,7 +245,7 @@ export default {
 <!-- tabs:start -->
 ### **Vue 3**
 
-``` js
+``` ts
 import { createApp } from "vue"
 import { vMaska } from "maska"
 
@@ -257,7 +257,7 @@ Vue.createApp({}).directive("maska", Maska.vMaska)
 
 ### **Vue 2**
 
-``` js
+``` ts
 import Vue from "vue"
 import { vMaska } from "maska"
 
@@ -286,7 +286,7 @@ Options passed on init will be used as defaults and could be overriden by `data-
 - `reversed / data-maska-reversed` — in reversed mode mask will grow backwards, e.g. for numbers
 
 ### **Types**
-``` js
+``` ts
 interface MaskOptions {
   mask?: MaskType
   tokens?: MaskTokens
@@ -314,7 +314,7 @@ Along with `MaskInput` options you could pass any `Mask` options as well (or set
 - `postProcess` — [hook](#hooks) after mask processing
 
 ### **Types**
-``` js
+``` ts
 interface MaskInputOptions extends MaskOptions {
   onMaska?: (detail: MaskaDetail) => void
   preProcess?: (value: string) => string
@@ -323,11 +323,11 @@ interface MaskInputOptions extends MaskOptions {
 ```
 <!-- tabs:end -->
 
-``` js
+``` ts
 new MaskInput("input", {
   mask: "#-#",
   reversed: true,
-  onMaska: (detail) => console.log(detail.completed)
+  onMaska: (detail: MaskaDetail) => console.log(detail.completed)
 })
 ```
 
@@ -335,7 +335,7 @@ new MaskInput("input", {
 
 There are 3 tokens defined by default:
 
-``` js
+``` ts
 {
   '#': { pattern: /[0-9]/ },       // digits
   '@': { pattern: /[a-zA-Z]/ },    // letters
@@ -374,11 +374,11 @@ If you need this, use `tokens` option instead.
 
 When using `tokens` option, pattern should be a valid regular expression object:
 
-``` js
+``` ts
 new MaskInput("[data-maska]", {
   mask: "A-A",
   tokens: {
-    A: { pattern: /[A-Z]/, transform: (chr) => chr.toUpperCase() }
+    A: { pattern: /[A-Z]/, transform: (chr: string) => chr.toUpperCase() }
   }
 })
 ```
@@ -388,7 +388,7 @@ new MaskInput("[data-maska]", {
 
 Every token can have a modifier, for example:
 
-``` js
+``` ts
 {
   0: { pattern: /[0-9]/, optional: true },
   9: { pattern: /[0-9]/, repeated: true },
@@ -410,9 +410,9 @@ Every token can have a modifier, for example:
 For custom tokens you can define `transform` function, applied to a character before masking.
 For example, transforming letters to uppercase on input:
 
-``` js
+``` ts
 {
-  A: { pattern: /[A-Z]/, transform: (chr) => chr.toUpperCase() }
+  A: { pattern: /[A-Z]/, transform: (chr: string) => chr.toUpperCase() }
 }
 ```
 
@@ -425,9 +425,9 @@ Pass `mask` as **array** or **function** to make it dynamic:
 - With **array** a suitable mask will be chosen by length (smallest first)
 - With **function** you can select mask with custom logic using value
 
-``` js
+``` ts
 new MaskInput("input", {
-  mask: (value) => value.startsWith('1') ? '#-#' : '##-##'
+  mask: (value: string) => value.startsWith('1') ? '#-#' : '##-##'
 })
 ```
 
@@ -440,9 +440,9 @@ Use hooks for transforming whole value:
 
 For example, you can use it to check for a maximum length of masked string:
 
-``` js
+``` ts
 new MaskInput("input", {
-  postProcess: (value) => value.slice(0, 5)
+  postProcess: (value: string) => value.slice(0, 5)
 })
 ```
 
@@ -458,7 +458,7 @@ They are essentially the same, but the `input` event could be fired by any input
 <!-- tabs:start -->
 ## **Vanilla JS**
 
-``` js
+``` ts
 document.querySelector("input").addEventListener("maska", onMaska)
 ```
 
@@ -479,7 +479,7 @@ Both events contains `detail` property with given structure:
 - `completed`: flag that current mask is completed
 
 ### **Types**
-``` js
+``` ts
 interface MaskaDetail {
   masked: string
   unmasked: string
@@ -488,8 +488,8 @@ interface MaskaDetail {
 ```
 <!-- tabs:end -->
 
-``` js
-const onMaska = (event) => {
+``` ts
+const onMaska = (event: CustomEvent<MaskaDetail>) => {
   console.log({
     masked: event.detail.masked,
     unmasked: event.detail.unmasked,
@@ -502,9 +502,9 @@ Alternatively, you can pass callback function directly with `MaskInput` option `
 
 <!-- tabs:start -->
 ### **Vanilla JS**
-``` js
+``` ts
 new MaskInput("input", {
-  onMaska: (detail) => console.log(detail.completed)
+  onMaska: (detail: MaskaDetail) => console.log(detail.completed)
 })
 ```
 
@@ -512,7 +512,7 @@ new MaskInput("input", {
 ``` html
 <script setup>
 const options = {
-  onMaska: (detail) => console.log(detail.completed)
+  onMaska: (detail: MaskaDetail) => console.log(detail.completed)
 }
 </script>
 
@@ -531,7 +531,7 @@ There are three methods available:
 - `unmasked(value)` returns unmasked version of given value
 - `completed(value)` returns `true` if given value makes mask complete
 
-``` js
+``` ts
 import { Mask } from "maska"
 
 const mask = new Mask({ mask: "#-#" })
