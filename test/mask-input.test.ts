@@ -1,4 +1,13 @@
-import { afterEach, beforeAll, describe, expect, test, vi } from 'vitest'
+import {
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  SpyInstance,
+  test,
+  vi
+} from 'vitest'
 import userEvent from '@testing-library/user-event'
 
 import { MaskInput, MaskInputOptions } from '../src/mask-input'
@@ -83,33 +92,6 @@ describe('test init', () => {
     )
   })
 
-  test('test hooks', async () => {
-    document.body.innerHTML = `<input id="input" data-maska="@-@">`
-    const input = <HTMLInputElement>document.getElementById('input')
-
-    const hooks = {
-      preProcess: (value: string) => value.toUpperCase(),
-      postProcess: (value: string) => value.toLowerCase()
-    }
-    const preProcess: any = vi.spyOn(hooks, 'preProcess')
-    const postProcess: any = vi.spyOn(hooks, 'postProcess')
-
-    new MaskInput(input, { preProcess, postProcess })
-
-    await user.type(input, 'ab')
-
-    expect(input).toHaveValue('a-b')
-
-    expect(preProcess).toHaveBeenCalledTimes(2)
-    expect(postProcess).toHaveBeenCalledTimes(2)
-
-    expect(preProcess).toHaveBeenLastCalledWith('ab')
-    expect(preProcess).toHaveLastReturnedWith('AB')
-
-    expect(postProcess).toHaveBeenLastCalledWith('A-B')
-    expect(postProcess).toHaveLastReturnedWith('a-b')
-  })
-
   test('init with element list', async () => {
     document.body.innerHTML = `<input class="input"><input class="input">`
     const inputs = <NodeListOf<HTMLInputElement>>(
@@ -137,6 +119,231 @@ describe('test init', () => {
 
     await user.type(input, '1a')
     expect(input).toHaveValue('1a')
+  })
+})
+
+interface HooksTestContext {
+  onMaska: SpyInstance
+  preProcess: SpyInstance
+  postProcess: SpyInstance
+}
+
+describe('test hooks', () => {
+  beforeEach<HooksTestContext>((context) => {
+    document.body.innerHTML = `<input id="input"
+      data-maska="0.99"
+      data-maska-tokens="0:[0-9]:multiple|9:[0-9]:optional">`
+    input = <HTMLInputElement>document.getElementById('input')
+
+    const hooks = {
+      onMaska: (value) => value,
+      preProcess: (value: string) => value.replace(/[$,]/g, ''),
+      postProcess: (value: string) => {
+        if (!value) return ''
+
+        const parts = value.split('.')
+        const sub = parts.length === 1 ? 3 : 2 - parts[1].length
+        const result = Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD'
+        })
+          .formatToParts(Number(value))
+          .map((v) => v.value)
+          .join('')
+
+        return result.substring(0, result.length - sub)
+      }
+    }
+
+    context.onMaska = vi.spyOn(hooks, 'onMaska')
+    context.preProcess = vi.spyOn(hooks, 'preProcess')
+    context.postProcess = vi.spyOn(hooks, 'postProcess')
+
+    new MaskInput(input, {
+      onMaska: context.onMaska as any,
+      preProcess: context.preProcess as any,
+      postProcess: context.postProcess as any
+    })
+  })
+
+  test<HooksTestContext>('input 1', async (context) => {
+    await user.type(input, '1')
+    expect(input).toHaveValue('$1')
+
+    expect(context.preProcess).toHaveBeenCalledOnce()
+    expect(context.postProcess).toHaveBeenCalledOnce()
+
+    expect(context.onMaska).toHaveBeenCalledOnce()
+    expect(context.onMaska).toHaveBeenCalledWith({
+      completed: false,
+      masked: '1',
+      unmasked: '1'
+    })
+  })
+
+  test<HooksTestContext>('input 123', async (context) => {
+    await user.type(input, '123')
+    expect(input).toHaveValue('$123')
+
+    expect(context.preProcess).toHaveBeenCalledTimes(3)
+    expect(context.postProcess).toHaveBeenCalledTimes(3)
+
+    expect(context.onMaska).toHaveBeenCalledTimes(3)
+    expect(context.onMaska).toHaveBeenLastCalledWith({
+      completed: false,
+      masked: '123',
+      unmasked: '123'
+    })
+  })
+
+  test<HooksTestContext>('input 1234', async (context) => {
+    await user.type(input, '1234')
+    expect(input).toHaveValue('$1,234')
+
+    expect(context.preProcess).toHaveBeenCalledTimes(4)
+    expect(context.postProcess).toHaveBeenCalledTimes(4)
+
+    expect(context.onMaska).toHaveBeenCalledTimes(4)
+    expect(context.onMaska).toHaveBeenLastCalledWith({
+      completed: true,
+      masked: '1234',
+      unmasked: '1234'
+    })
+  })
+
+  test<HooksTestContext>('input 1234567', async (context) => {
+    await user.type(input, '1234567')
+    expect(input).toHaveValue('$1,234,567')
+
+    expect(context.preProcess).toHaveBeenCalledTimes(7)
+    expect(context.postProcess).toHaveBeenCalledTimes(7)
+
+    expect(context.onMaska).toHaveBeenCalledTimes(7)
+    expect(context.onMaska).toHaveBeenLastCalledWith({
+      completed: true,
+      masked: '1234567',
+      unmasked: '1234567'
+    })
+  })
+
+  test<HooksTestContext>('input 123.4', async (context) => {
+    await user.type(input, '123.4')
+    expect(input).toHaveValue('$123.4')
+
+    expect(context.preProcess).toHaveBeenCalledTimes(5)
+    expect(context.postProcess).toHaveBeenCalledTimes(5)
+
+    expect(context.onMaska).toHaveBeenCalledTimes(5)
+    expect(context.onMaska).toHaveBeenLastCalledWith({
+      completed: true,
+      masked: '123.4',
+      unmasked: '1234'
+    })
+  })
+
+  test<HooksTestContext>('input 123.45', async (context) => {
+    await user.type(input, '123.45')
+    expect(input).toHaveValue('$123.45')
+
+    expect(context.preProcess).toHaveBeenCalledTimes(6)
+    expect(context.postProcess).toHaveBeenCalledTimes(6)
+
+    expect(context.onMaska).toHaveBeenCalledTimes(6)
+    expect(context.onMaska).toHaveBeenLastCalledWith({
+      completed: true,
+      masked: '123.45',
+      unmasked: '12345'
+    })
+  })
+
+  test<HooksTestContext>('input 123.456', async (context) => {
+    await user.type(input, '123.456')
+    expect(input).toHaveValue('$123.45')
+
+    expect(context.preProcess).toHaveBeenCalledTimes(7)
+    expect(context.postProcess).toHaveBeenCalledTimes(7)
+
+    expect(context.onMaska).toHaveBeenCalledTimes(7)
+    expect(context.onMaska).toHaveBeenLastCalledWith({
+      completed: true,
+      masked: '123.45',
+      unmasked: '12345'
+    })
+  })
+
+  test<HooksTestContext>('input 1234.567', async (context) => {
+    await user.type(input, '1234.567')
+    expect(input).toHaveValue('$1,234.56')
+
+    expect(context.preProcess).toHaveBeenCalledTimes(8)
+    expect(context.postProcess).toHaveBeenCalledTimes(8)
+
+    expect(context.onMaska).toHaveBeenCalledTimes(8)
+    expect(context.onMaska).toHaveBeenLastCalledWith({
+      completed: true,
+      masked: '1234.56',
+      unmasked: '123456'
+    })
+  })
+
+  test<HooksTestContext>('input $1234.56', async (context) => {
+    await user.type(input, '$1234.56')
+    expect(input).toHaveValue('$1,234.56')
+
+    expect(context.preProcess).toHaveBeenCalledTimes(8)
+    expect(context.postProcess).toHaveBeenCalledTimes(8)
+
+    expect(context.onMaska).toHaveBeenCalledTimes(8)
+    expect(context.onMaska).toHaveBeenLastCalledWith({
+      completed: true,
+      masked: '1234.56',
+      unmasked: '123456'
+    })
+  })
+
+  test<HooksTestContext>('input 1234.56 and {backspace}', async (context) => {
+    await user.type(input, '1234.56{backspace}')
+    expect(input).toHaveValue('$1,234.5')
+
+    expect(context.preProcess).toHaveBeenCalledTimes(8)
+    expect(context.postProcess).toHaveBeenCalledTimes(8)
+
+    expect(context.onMaska).toHaveBeenCalledTimes(8)
+    expect(context.onMaska).toHaveBeenLastCalledWith({
+      completed: true,
+      masked: '1234.5',
+      unmasked: '12345'
+    })
+  })
+
+  test<HooksTestContext>('input 1234.56 and {backspace}×2', async (context) => {
+    await user.type(input, '1234.56{backspace}{backspace}')
+    expect(input).toHaveValue('$1,234.')
+
+    expect(context.preProcess).toHaveBeenCalledTimes(9)
+    expect(context.postProcess).toHaveBeenCalledTimes(9)
+
+    expect(context.onMaska).toHaveBeenCalledTimes(9)
+    expect(context.onMaska).toHaveBeenLastCalledWith({
+      completed: true,
+      masked: '1234.',
+      unmasked: '1234'
+    })
+  })
+
+  test<HooksTestContext>('input 1234.56 and {backspace}×3', async (context) => {
+    await user.type(input, '1234.56{backspace}{backspace}{backspace}')
+    expect(input).toHaveValue('$1,234')
+
+    expect(context.preProcess).toHaveBeenCalledTimes(10)
+    expect(context.postProcess).toHaveBeenCalledTimes(10)
+
+    expect(context.onMaska).toHaveBeenCalledTimes(10)
+    expect(context.onMaska).toHaveBeenLastCalledWith({
+      completed: true,
+      masked: '1234',
+      unmasked: '1234'
+    })
   })
 })
 

@@ -144,18 +144,18 @@ export class MaskInput {
 
     value = mask.masked(value)
 
+    const detail = {
+      masked: mask.masked(value),
+      unmasked: mask.unmasked(value),
+      completed: mask.completed(value)
+    }
+
     if (this.options.postProcess != null) {
       value = this.options.postProcess(value)
     }
 
     input.value = value
     input.dataset.maskaValue = value
-
-    const detail = {
-      masked: mask.masked(value),
-      unmasked: mask.unmasked(value),
-      completed: mask.completed(value)
-    }
 
     if (this.options.onMaska != null) {
       if (Array.isArray(this.options.onMaska)) {
