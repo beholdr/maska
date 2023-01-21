@@ -105,7 +105,7 @@ const code = computed(() => examples[selectedExample.value].code)
   padding: 2.3rem var(--docsifytabs-content-padding);
   background-color: var(--code-theme-background);
   border-radius: 0 0 0 5px;
-  width: 85%;
+  width: 100%;
   position: relative;
 }
 .VueLive-container .VueLive-editor::after {
@@ -127,6 +127,7 @@ const code = computed(() => examples[selectedExample.value].code)
   border-radius: 0 0 5px 0;
   background-color: transparent;
   position: relative;
+  width: 45%;
 }
 .VueLive-container .VueLivePreview::after {
   content: 'Result';
@@ -149,7 +150,7 @@ const code = computed(() => examples[selectedExample.value].code)
   max-width: 100%;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 999px) {
   .VueLive-container {
     flex-direction: column;
   }
