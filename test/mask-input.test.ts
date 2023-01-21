@@ -422,7 +422,10 @@ describe('test data-attr', () => {
     const mask = prepareMaskWithHtml(
       `<input id="input" data-maska-tokens="Z:[0-9]|X:[0-9]:optional">`
     )
-    expect([...mask.items][0][1].opts.tokens).toHaveProperty('Z.optional', false)
+    expect([...mask.items][0][1].opts.tokens).toHaveProperty(
+      'Z.optional',
+      false
+    )
     expect([...mask.items][0][1].opts.tokens).toHaveProperty('X.optional', true)
   })
 })
@@ -486,7 +489,7 @@ describe('#-# mask', () => {
     expect(input).toHaveValue('1-')
   })
 
-  test('input 12{backspace}{backspace}', async () => {
+  test('input 12{backspace}×2', async () => {
     await user.type(input, '12{backspace}{backspace}')
     expect(input).toHaveValue('1')
   })
@@ -579,7 +582,7 @@ describe('#-# eager mask', () => {
     expect(input).toHaveValue('1-')
   })
 
-  test('input 12{backspace}{backspace}', async () => {
+  test('input 12{backspace}×2', async () => {
     await user.type(input, '12{backspace}{backspace}')
     expect(input).toHaveValue('')
   })
@@ -677,12 +680,12 @@ describe('#-#--# mask', () => {
     expect(input).toHaveValue('1-2--')
   })
 
-  test('input 1234{backspace}{backspace}', async () => {
+  test('input 1234{backspace}×2', async () => {
     await user.type(input, '1234{backspace}{backspace}')
     expect(input).toHaveValue('1-2-')
   })
 
-  test('input 123 and {backspace}{backspace} --', async () => {
+  test('input 123 and {backspace}×2 --', async () => {
     await user.type(input, '123')
     await user.type(input, '{backspace}{backspace}', {
       initialSelectionStart: 5
@@ -726,12 +729,12 @@ describe('#-#--# eager mask', () => {
     expect(input).toHaveValue('1-2--')
   })
 
-  test('input 1234{backspace}{backspace}', async () => {
+  test('input 1234{backspace}×2', async () => {
     await user.type(input, '1234{backspace}{backspace}')
     expect(input).toHaveValue('1-2--')
   })
 
-  test('input 123 and {backspace}{backspace} --', async () => {
+  test('input 123 and {backspace}×2 --', async () => {
     await user.type(input, '123')
     await user.type(input, '{backspace}{backspace}', {
       initialSelectionStart: 5
@@ -1143,7 +1146,7 @@ describe("Multiple pattern '+ +' mask", () => {
     expect(input).toHaveValue('12 ')
   })
 
-  test('input 12{ }{ }3{backspace}{backspace}', async () => {
+  test('input 12{ }{ }3{backspace}×2', async () => {
     await user.type(input, '12{ }{ }3{backspace}{backspace}')
     expect(input).toHaveValue('12')
   })
