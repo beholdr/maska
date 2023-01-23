@@ -43,7 +43,7 @@ const examples = [
   },
   {
     label: 'Money format: full via hooks',
-    code: `const options = {\n  preProcess: val => val.replace(/[$,]/g, ''),\n  postProcess: val => {\n    if (!val) return ''\n\n    const sub = 3 - (val.includes('.') ? val.length - val.indexOf('.') : 0)\n\n    return Intl.NumberFormat('en-US', {\n      style: 'currency',\n      currency: 'USD'\n    }).formatToParts(val)\n      .map(v => v.value)\n      .join('')\n      .slice(0, sub ? -sub : undefined)\n  }\n}\n\n<input\n  v-maska:[options]\n  data-maska="0.99"\n  data-maska-tokens="0:\\d:multiple|9:\\d:optional"\n>`
+    code: `const options = {\n  preProcess: val => val.replace(/[$,]/g, ''),\n  postProcess: val => {\n    if (!val) return ''\n\n    const sub = 3 - (val.includes('.') ? val.length - val.indexOf('.') : 0)\n\n    return Intl.NumberFormat('en-US', {\n      style: 'currency',\n      currency: 'USD'\n    }).format(val)\n      .slice(0, sub ? -sub : undefined)\n  }\n}\n\n<input\n  v-maska:[options]\n  data-maska="0.99"\n  data-maska-tokens="0:\\d:multiple|9:\\d:optional"\n>`
   },
   {
     label: 'Reversed number format with thousand separators',
