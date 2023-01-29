@@ -142,13 +142,12 @@ export class MaskInput {
       value = this.options.preProcess(value)
     }
 
-    value = mask.masked(value)
+    const masked = mask.masked(value)
+    const unmasked = mask.unmasked(mask.isEager() ? masked : value)
+    const completed = mask.completed(value)
+    const detail = { masked, unmasked, completed }
 
-    const detail = {
-      masked: mask.masked(value),
-      unmasked: mask.unmasked(value),
-      completed: mask.completed(value)
-    }
+    value = masked
 
     if (this.options.postProcess != null) {
       value = this.options.postProcess(value)

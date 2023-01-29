@@ -347,6 +347,172 @@ describe('test hooks', () => {
   })
 })
 
+describe('test callback', () => {
+  beforeEach<HooksTestContext>((context) => {
+    document.body.innerHTML = `<input id="input" data-maska="+1 ###">`
+    input = <HTMLInputElement>document.getElementById('input')
+
+    const hooks = {
+      onMaska: (value) => value,
+    }
+
+    context.onMaska = vi.spyOn(hooks, 'onMaska')
+
+    new MaskInput(input, {
+      onMaska: context.onMaska as any,
+    })
+  })
+
+  test<HooksTestContext>('input 1', async (context) => {
+    await user.type(input, '1')
+    expect(input).toHaveValue('+1')
+
+    expect(context.onMaska).toHaveBeenLastCalledWith({
+      completed: false,
+      masked: '+1',
+      unmasked: ''
+    })
+  })
+
+  test<HooksTestContext>('input 12', async (context) => {
+    await user.type(input, '12')
+    expect(input).toHaveValue('+1 2')
+
+    expect(context.onMaska).toHaveBeenLastCalledWith({
+      completed: false,
+      masked: '+1 2',
+      unmasked: '2'
+    })
+  })
+
+  test<HooksTestContext>('input 2', async (context) => {
+    await user.type(input, '2')
+    expect(input).toHaveValue('+1 2')
+
+    expect(context.onMaska).toHaveBeenLastCalledWith({
+      completed: false,
+      masked: '+1 2',
+      unmasked: '2'
+    })
+  })
+
+  test<HooksTestContext>('input 23', async (context) => {
+    await user.type(input, '23')
+    expect(input).toHaveValue('+1 23')
+
+    expect(context.onMaska).toHaveBeenLastCalledWith({
+      completed: false,
+      masked: '+1 23',
+      unmasked: '23'
+    })
+  })
+
+  test<HooksTestContext>('input 234', async (context) => {
+    await user.type(input, '234')
+    expect(input).toHaveValue('+1 234')
+
+    expect(context.onMaska).toHaveBeenLastCalledWith({
+      completed: true,
+      masked: '+1 234',
+      unmasked: '234'
+    })
+  })
+
+  test<HooksTestContext>('input 2345', async (context) => {
+    await user.type(input, '2345')
+    expect(input).toHaveValue('+1 234')
+
+    expect(context.onMaska).toHaveBeenLastCalledWith({
+      completed: true,
+      masked: '+1 234',
+      unmasked: '234'
+    })
+  })
+})
+
+describe('test eager callback', () => {
+  beforeEach<HooksTestContext>((context) => {
+    document.body.innerHTML = `<input id="input" data-maska="+1 ###" data-maska-eager>`
+    input = <HTMLInputElement>document.getElementById('input')
+
+    const hooks = {
+      onMaska: (value) => value,
+    }
+
+    context.onMaska = vi.spyOn(hooks, 'onMaska')
+
+    new MaskInput(input, {
+      onMaska: context.onMaska as any,
+    })
+  })
+
+  test<HooksTestContext>('input 1', async (context) => {
+    await user.type(input, '1')
+    expect(input).toHaveValue('+1 1')
+
+    expect(context.onMaska).toHaveBeenLastCalledWith({
+      completed: false,
+      masked: '+1 1',
+      unmasked: '1'
+    })
+  })
+
+  test<HooksTestContext>('input 12', async (context) => {
+    await user.type(input, '12')
+    expect(input).toHaveValue('+1 12')
+
+    expect(context.onMaska).toHaveBeenLastCalledWith({
+      completed: false,
+      masked: '+1 12',
+      unmasked: '12'
+    })
+  })
+
+  test<HooksTestContext>('input 2', async (context) => {
+    await user.type(input, '2')
+    expect(input).toHaveValue('+1 2')
+
+    expect(context.onMaska).toHaveBeenLastCalledWith({
+      completed: false,
+      masked: '+1 2',
+      unmasked: '2'
+    })
+  })
+
+  test<HooksTestContext>('input 23', async (context) => {
+    await user.type(input, '23')
+    expect(input).toHaveValue('+1 23')
+
+    expect(context.onMaska).toHaveBeenLastCalledWith({
+      completed: false,
+      masked: '+1 23',
+      unmasked: '23'
+    })
+  })
+
+  test<HooksTestContext>('input 234', async (context) => {
+    await user.type(input, '234')
+    expect(input).toHaveValue('+1 234')
+
+    expect(context.onMaska).toHaveBeenLastCalledWith({
+      completed: true,
+      masked: '+1 234',
+      unmasked: '234'
+    })
+  })
+
+  test<HooksTestContext>('input 2345', async (context) => {
+    await user.type(input, '2345')
+    expect(input).toHaveValue('+1 234')
+
+    expect(context.onMaska).toHaveBeenLastCalledWith({
+      completed: true,
+      masked: '+1 234',
+      unmasked: '234'
+    })
+  })
+})
+
 describe('test data-attr', () => {
   function prepareMaskWithHtml(html: string) {
     document.body.innerHTML = html
