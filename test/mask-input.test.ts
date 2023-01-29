@@ -802,6 +802,71 @@ describe('#-# eager mask', () => {
   })
 })
 
+describe('+1 (#) #-# eager mask', () => {
+  beforeAll(() => {
+    input = prepareInput({ mask: '+1 (#) #-#', eager: true })
+  })
+
+  afterEach(async () => {
+    await user.clear(input)
+  })
+
+  test('input 1', async () => {
+    await user.type(input, '1')
+    expect(input).toHaveValue('+1 (1) ')
+  })
+
+  test('input 12', async () => {
+    await user.type(input, '12')
+    expect(input).toHaveValue('+1 (1) 2-')
+  })
+
+  test('input 123', async () => {
+    await user.type(input, '123')
+    expect(input).toHaveValue('+1 (1) 2-3')
+  })
+
+  test('input 123', async () => {
+    await user.type(input, '123')
+    expect(input).toHaveValue('+1 (1) 2-3')
+  })
+
+  test('input 2', async () => {
+    await user.type(input, '2')
+    expect(input).toHaveValue('+1 (2) ')
+  })
+
+  test('input 234', async () => {
+    await user.type(input, '234')
+    expect(input).toHaveValue('+1 (2) 3-4')
+  })
+
+  test('input 2{ArrowLeft}3', async () => {
+    await user.type(input, '2{ArrowLeft}3')
+    expect(input).toHaveValue('+1 (2) 3-')
+  })
+
+  test('input 234{backspace}', async () => {
+    await user.type(input, '234{backspace}')
+    expect(input).toHaveValue('+1 (2) 3-')
+  })
+
+  test('input 234{backspace}×2', async () => {
+    await user.type(input, '234{backspace}{backspace}')
+    expect(input).toHaveValue('+1 (2) 3-')
+  })
+
+  test('input 234{backspace}×3', async () => {
+    await user.type(input, '234{backspace}{backspace}{backspace}')
+    expect(input).toHaveValue('+1 (2) ')
+  })
+
+  test('input 234{backspace}×4', async () => {
+    await user.type(input, '234{backspace}{backspace}{backspace}{backspace}')
+    expect(input).toHaveValue('')
+  })
+})
+
 describe('#-#--# mask', () => {
   beforeAll(() => {
     input = prepareInput({ mask: '#-#--#' })
@@ -1102,6 +1167,11 @@ describe('12## eager mask', () => {
   test('input 3', async () => {
     await user.type(input, '3')
     expect(input).toHaveValue('123')
+  })
+
+  test('input 11', async () => {
+    await user.type(input, '11')
+    expect(input).toHaveValue('1211')
   })
 
   test('input 12', async () => {
@@ -1577,6 +1647,16 @@ describe('IP eager mask', () => {
   test('input 123.456.789.0123', async () => {
     await user.type(input, '123.456.789.0123')
     expect(input).toHaveValue('123.456.789.012')
+  })
+
+  test('input 12.3{ArrowLeft}a', async () => {
+    await user.type(input, '12.3{ArrowLeft}a')
+    expect(input).toHaveValue('12.3')
+  })
+
+  test('input 12.3{ArrowLeft}1', async () => {
+    await user.type(input, '12.3{ArrowLeft}1')
+    expect(input).toHaveValue('12.13')
   })
 })
 

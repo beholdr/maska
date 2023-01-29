@@ -105,16 +105,13 @@ export class MaskInput {
     let value = valueOld
 
     if (mask.isEager()) {
+      const masked = mask.masked(valueOld)
       const unmasked = mask.unmasked(valueOld)
-      const maskedUnmasked = mask.masked(unmasked)
 
       if (unmasked === '' && 'data' in e && e.data != null) {
         // empty state and something like `space` pressed
         value = e.data
-      } else if (
-        maskedUnmasked.startsWith(valueOld) ||
-        mask.completed(unmasked)
-      ) {
+      } else if (unmasked !== mask.unmasked(masked)) {
         value = unmasked
       }
     }
