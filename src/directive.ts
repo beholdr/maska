@@ -6,13 +6,11 @@ type MaskaDirective = Directive<HTMLElement, MaskaDetail | undefined>
 const masks = new WeakMap<HTMLInputElement, MaskInput>()
 
 const checkValue = (input: HTMLInputElement): void => {
-  const value = input.dataset.maskaValue
-  if (
-    (value == null && input.value !== '') ||
-    (value != null && value !== input.value)
-  ) {
-    input.dispatchEvent(new CustomEvent('input'))
-  }
+  setTimeout(() => {
+    if (masks.get(input)?.needUpdateValue(input) === true) {
+      input.dispatchEvent(new CustomEvent('input'))
+    }
+  })
 }
 
 export const vMaska: MaskaDirective = (el, binding) => {
@@ -21,10 +19,10 @@ export const vMaska: MaskaDirective = (el, binding) => {
 
   if (input == null) return
 
+  checkValue(input)
+
   const existed = masks.get(input)
   if (existed != null) {
-    checkValue(input)
-
     if (!existed.needUpdateOptions(input, opts)) {
       return
     }
@@ -49,9 +47,4 @@ export const vMaska: MaskaDirective = (el, binding) => {
   }
 
   masks.set(input, new MaskInput(input, opts))
-
-  // timeout to process initial v-model value
-  setTimeout(() => {
-    checkValue(input)
-  })
 }

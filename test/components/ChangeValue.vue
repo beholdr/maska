@@ -2,10 +2,10 @@
 import { ref } from 'vue'
 import { vMaska } from '../../src'
 
-const data = ref('123')
+const data = ref('1234')
 </script>
 
 <template>
-  <input v-maska data-maska="#-#" v-model="data" />
-  <button @click="data = '345'">Set</button>
+  <input v-maska data-maska="##-#" v-model="data" data-maska-eager />
+  <button @click="data = '5678'">Set</button>
 </template>

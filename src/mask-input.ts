@@ -50,6 +50,15 @@ export class MaskInput {
     return JSON.stringify(mask.opts) !== JSON.stringify(maskNew.opts)
   }
 
+  needUpdateValue (input: HTMLInputElement): boolean {
+    const value = input.dataset.maskaValue
+
+    return (
+      (value == null && input.value !== '') ||
+      (value != null && value !== input.value)
+    )
+  }
+
   private getMaskOpts (options: MaskInputOptions): MaskOptions {
     const { onMaska, preProcess, postProcess, ...opts } = options
 
@@ -98,7 +107,6 @@ export class MaskInput {
 
     const input = e.target as HTMLInputElement
     const mask = this.items.get(input) as Mask
-
     const valueOld = input.value
     const ss = input.selectionStart
     const se = input.selectionEnd

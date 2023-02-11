@@ -138,17 +138,20 @@ test('custom component', async () => {
   expect(wrapper.get('div').element.textContent).toBe('1-2')
 })
 
+// TODO: find a way to test keyboard input, like backspace after input '567'
 test('change value', async () => {
   const wrapper = mount(ChangeValue)
   const input = wrapper.get('input')
 
   await new Promise((r) => setTimeout(r))
 
-  expect(input.element.value).toBe('1-2')
+  expect(input.element.value).toBe('12-3')
 
   await wrapper.get('button').trigger('click')
 
-  expect(input.element.value).toBe('3-4')
+  await new Promise((r) => setTimeout(r))
+
+  expect(input.element.value).toBe('56-7')
 })
 
 test('multiple inputs', async () => {
