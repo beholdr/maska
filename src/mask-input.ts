@@ -43,7 +43,7 @@ export class MaskInput {
     this.items.clear()
   }
 
-  needUpdate (input: HTMLInputElement, opts: MaskInputOptions): boolean {
+  needUpdateOptions (input: HTMLInputElement, opts: MaskInputOptions): boolean {
     const mask = this.items.get(input) as Mask
     const maskNew = new Mask(parseInput(input, this.getMaskOpts(opts)))
 

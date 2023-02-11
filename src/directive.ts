@@ -25,7 +25,7 @@ export const vMaska: MaskaDirective = (el, binding) => {
   if (existed != null) {
     checkValue(input)
 
-    if (!existed.needUpdate(input, opts)) {
+    if (!existed.needUpdateOptions(input, opts)) {
       return
     }
 
