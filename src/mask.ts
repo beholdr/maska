@@ -33,7 +33,7 @@ export class Mask {
 
     if (Array.isArray(opts.mask)) {
       if (opts.mask.length > 1) {
-        opts.mask.sort((a, b) => a.length - b.length)
+        opts.mask = [...opts.mask].sort((a, b) => a.length - b.length);
       } else {
         opts.mask = opts.mask[0] ?? ''
       }
