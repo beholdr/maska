@@ -1449,6 +1449,42 @@ describe("Optional with multiple '-9' mask", () => {
   })
 })
 
+describe("Custom escape with '$#!99' mask", () => {
+  beforeAll(() => {
+    input = prepareInput({
+      mask: '$#!99',
+      tokens: {
+        '$': { pattern: /\$/, escape: true },
+        '9': { pattern: /\d/, multiple: true }
+      },
+    })
+  })
+
+  afterEach(async () => {
+    await user.clear(input)
+  })
+
+  test('input { }', async () => {
+    await user.type(input, '{ }')
+    expect(input).toHaveValue('#9')
+  })
+
+  test('input 1', async () => {
+    await user.type(input, '1')
+    expect(input).toHaveValue('#91')
+  })
+
+  test('input 91', async () => {
+    await user.type(input, '91')
+    expect(input).toHaveValue('#91')
+  })
+
+  test('input 1234', async () => {
+    await user.type(input, '1234')
+    expect(input).toHaveValue('#91234')
+  })
+})
+
 describe('IP mask', () => {
   beforeAll(() => {
     input = prepareInput({

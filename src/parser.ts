@@ -46,7 +46,8 @@ const parseTokens = (value: string): MaskTokens => {
       pattern: new RegExp(parts[1]),
       optional: parts[2] === 'optional',
       multiple: parts[2] === 'multiple',
-      repeated: parts[2] === 'repeated'
+      repeated: parts[2] === 'repeated',
+      escape: parts[2] === 'escape'
     }
   })
 

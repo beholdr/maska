@@ -96,6 +96,19 @@ export class Mask {
     )
   }
 
+  private isEscape (ch: string) {
+    if (ch === '!' && !this.opts.tokensReplace) {
+      return true
+    } else {
+      for (let tokensKey in this.opts.tokens) {
+        if (tokensKey === ch && this.opts.tokens[tokensKey].escape) {
+          return true
+        }
+      }
+    }
+    return false;
+  }
+
   private escapeMask (maskRaw: string): {
     mask: string
     escaped: number[]
@@ -103,7 +116,7 @@ export class Mask {
     const chars: string[] = []
     const escaped: number[] = []
     maskRaw.split('').forEach((ch, i) => {
-      if (ch === '!' && maskRaw[i - 1] !== '!') {
+      if (this.isEscape(ch) && !this.isEscape(maskRaw[i - 1])) {
         escaped.push(i - escaped.length)
       } else {
         chars.push(ch)
