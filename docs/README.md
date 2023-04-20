@@ -267,6 +267,24 @@ Vue.directive("maska", vMaska)
 Vue.directive("maska", Maska.vMaska)
 ```
 <!-- tabs:end -->
+
+## **Nuxt 3**
+
+To use Maska in Nuxt 3 you can make a simple plugin. Create file `maska.ts` in `plugins` folder:
+
+``` ts
+import { vMaska } from "maska"
+
+export default defineNuxtPlugin((nuxtApp) => {
+  nuxtApp.vueApp.directive("maska", vMaska)
+})
+```
+
+Now you can use `v-maska` directive in your app:
+
+``` html
+<input v-model="value" v-maska data-maska="#-#" />
+```
 <!-- tabs:end -->
 
 # Options
