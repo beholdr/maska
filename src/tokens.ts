@@ -3,7 +3,6 @@ interface MaskToken {
   multiple?: boolean
   optional?: boolean
   repeated?: boolean
-  escape?: boolean
   transform?: (char: string) => string
 }
 
