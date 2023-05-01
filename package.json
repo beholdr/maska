@@ -39,20 +39,20 @@
     "version": "npm run build && npm test"
   },
   "devDependencies": {
-    "@testing-library/dom": "^8.17.1",
+    "@testing-library/dom": "^9.2.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/user-event": "^14.4.3",
     "@types/node": "^18.6.4",
-    "@vitejs/plugin-vue": "^3.2.0",
-    "@vitest/coverage-c8": "^0.25.0",
+    "@vitejs/plugin-vue": "^4.2.1",
+    "@vitest/coverage-c8": "^0.30.1",
     "@vue/test-utils": "^2.2.1",
-    "happy-dom": "^8.1.0",
+    "happy-dom": "^9.10.1",
     "ts-standard": "^12.0.0",
     "typescript": "^4.6.4",
-    "vite": "^3.1.0",
+    "vite": "^4.3.3",
     "vite-plugin-banner": "^0.7.0",
-    "vite-plugin-dts": "^1.6.5",
-    "vitest": "^0.25.0",
+    "vite-plugin-dts": "^2.3.0",
+    "vitest": "^0.30.1",
     "vue": "^3.2.41",
     "vue-live": "^2.1.0"
   }
