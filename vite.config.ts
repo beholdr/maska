@@ -1,6 +1,5 @@
-/// <reference types="vitest" />
 import { resolve } from 'path'
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 import vue from '@vitejs/plugin-vue'
 import banner from 'vite-plugin-banner'
 import dts from 'vite-plugin-dts'
