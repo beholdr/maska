@@ -25,7 +25,7 @@
     ".": {
       "types": "./dist/types/index.d.ts",
       "import": "./dist/maska.js",
-      "require": "./dist/maska.umd.js"
+      "require": "./dist/maska.umd.cjs"
     }
   },
   "scripts": {
