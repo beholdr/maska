@@ -12,7 +12,7 @@ export default defineConfig({
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'Maska',
       fileName: (format) =>
-        format !== 'es' ? `${pkg.name}.${format}.js` : `${pkg.name}.js`
+        format !== 'es' ? `${pkg.name}.${format}.cjs` : `${pkg.name}.js`
     }
   },
   plugins: [
