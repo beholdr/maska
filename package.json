@@ -19,7 +19,7 @@
     "dist"
   ],
   "types": "./dist/types/index.d.ts",
-  "main": "./dist/maska.umd.js",
+  "main": "./dist/maska.umd.cjs",
   "module": "./dist/maska.js",
   "exports": {
     ".": {
