@@ -240,6 +240,8 @@ export default {
 ```
 <!-- tabs:end -->
 
+?> Please see [issue#149](https://github.com/beholdr/maska/issues/149): options object should be assigned in the current file.
+
 #### Global registration of directive
 
 <!-- tabs:start -->
