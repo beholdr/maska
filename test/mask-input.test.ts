@@ -563,7 +563,7 @@ describe('test data-attr', () => {
 
   test('custom tokens mask', () => {
     const mask = prepareMaskWithHtml(
-      `<input id="input" data-maska-tokens='{ "Z": { "pattern": "[0-9]" } }'>`
+      `<input id="input" data-maska-tokens="{ 'Z': { 'pattern': '[0-9]' } }">`
     )
     expect([...mask.items][0][1].opts.tokens).toHaveProperty('#.pattern')
     expect([...mask.items][0][1].opts.tokens).toHaveProperty('Z.pattern')
@@ -571,7 +571,7 @@ describe('test data-attr', () => {
 
   test('replace tokens mask', () => {
     const mask = prepareMaskWithHtml(
-      `<input id="input" data-maska-tokens='{ "Z": { "pattern": "[0-9]" } }' data-maska-tokens-replace>`
+      `<input id="input" data-maska-tokens="{ 'Z': { 'pattern': '[0-9]' } }" data-maska-tokens-replace>`
     )
     expect([...mask.items][0][1].opts.tokens).toHaveProperty('Z.pattern')
     expect([...mask.items][0][1].opts.tokens).not.toHaveProperty('#.pattern')
