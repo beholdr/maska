@@ -21,7 +21,7 @@ jobs:
           node-version: 18
 
       - name: Install
-        run: npm ci
+        run: npm i
 
       - name: Test and Coverage
         run: npm run test:coverage
