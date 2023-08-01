@@ -17,7 +17,7 @@ export const vMaska: MaskaDirective = (el, binding) => {
   const input = el instanceof HTMLInputElement ? el : el.querySelector('input')
   const opts = { ...(binding.arg as MaskInputOptions) } ?? {}
 
-  if (input == null) return
+  if (input == null || input?.type === 'file') return
 
   checkValue(input)
 
