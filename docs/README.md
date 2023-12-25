@@ -134,7 +134,7 @@ export default {
 ```
 <!-- tabs:end -->
 
-### Get value
+### Bind value
 
 To get masked value you can use standard `v-model` directive.
 But if you want to access an unmasked (raw) value, you can pass a variable as `v-maska` directive value.
@@ -241,6 +241,12 @@ export default {
 <!-- tabs:end -->
 
 ?> Please see [issue#149](https://github.com/beholdr/maska/issues/149): options object should be assigned in the current file.
+
+You can set options and bind to an object at the same time:
+
+``` html
+<input v-maska:[options]="bindedObject">
+```
 
 #### Global registration of directive
 
@@ -560,3 +566,7 @@ mask.masked("12") // = 1-2
 mask.unmasked("12") // = 12
 mask.completed("12") // = true
 ```
+
+# Known issues
+
+When used on input of type `number`, could have inconsistent behavior in different browsers. Use attribute `inputmode="numeric"` with `type="text"` if you need a numeric keyboard.
