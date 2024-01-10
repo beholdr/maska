@@ -142,6 +142,7 @@ export class Mask {
     let repeatedPos = -1
     let m = this.isReversed() ? mask.length - 1 : 0
     let v = this.isReversed() ? value.length - 1 : 0
+    let multipleMatched = false
 
     while (check()) {
       const maskChar = mask.charAt(m)
@@ -166,18 +167,19 @@ export class Mask {
               m -= offset
             }
           } else if (token.multiple as boolean) {
+            multipleMatched = true
             m -= offset
           }
 
           m += offset
         } else if (token.multiple as boolean) {
-          const hasValue = result[v - offset]?.match(token.pattern) != null
-          const nextMask = mask.charAt(m + offset)
-          if (hasValue && nextMask !== '' && tokens[nextMask] == null) {
+          if (multipleMatched) {
             m += offset
             v -= offset
+
+            multipleMatched = false
           } else {
-            result[method]('')
+            // invalid input
           }
         } else if (valueChar === lastRawMaskChar) {
           // matched the last untranslated (raw) mask character that we encountered

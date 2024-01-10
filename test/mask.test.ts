@@ -685,19 +685,19 @@ test('multiple numbers mask', () => {
 
   expect(mask.masked('1')).toBe('1')
   expect(mask.masked('1 2')).toBe('1 2')
-  expect(mask.masked('1 2 3')).toBe('1 23')
+  expect(mask.masked('1 2 3')).toBe('1 2')
   expect(mask.masked('12')).toBe('12')
   expect(mask.masked('12 ')).toBe('12 ')
   expect(mask.masked('12 3')).toBe('12 3')
   expect(mask.masked('12 34')).toBe('12 34')
   expect(mask.masked('12 34 ')).toBe('12 34')
-  expect(mask.masked('12 34 5')).toBe('12 345')
-  expect(mask.masked('a12 34 5')).toBe('12 345')
-  expect(mask.masked('12.34.5')).toBe('12 345')
+  expect(mask.masked('12 34 5')).toBe('12 34')
+  expect(mask.masked('a12 34 5')).toBe('12 34')
+  expect(mask.masked('12.34.5')).toBe('12 34')
 
-  expect(mask.unmasked('a1 2 3')).toBe('123')
+  expect(mask.unmasked('a1 2 3')).toBe('12')
   expect(mask.unmasked('12 3')).toBe('123')
-  expect(mask.unmasked('12 34 5')).toBe('12345')
+  expect(mask.unmasked('12 34 5')).toBe('1234')
 })
 
 test('multiple letters mask', () => {
@@ -714,13 +714,13 @@ test('multiple letters mask', () => {
   expect(mask.masked('ab c')).toBe('ab c')
   expect(mask.masked('ab cd')).toBe('ab cd')
   expect(mask.masked('ab cd ')).toBe('ab cd')
-  expect(mask.masked('ab cd e')).toBe('ab cde')
-  expect(mask.masked('1ab cd e')).toBe('ab cde')
-  expect(mask.masked('ab.cd.e')).toBe('ab cde')
+  expect(mask.masked('ab cd e')).toBe('ab cd')
+  expect(mask.masked('1ab cd e')).toBe('ab cd')
+  expect(mask.masked('ab.cd.e')).toBe('ab cd')
 
-  expect(mask.unmasked('1a b c')).toBe('abc')
+  expect(mask.unmasked('1a b c')).toBe('ab')
   expect(mask.unmasked('ab c')).toBe('abc')
-  expect(mask.unmasked('ab cd e')).toBe('abcde')
+  expect(mask.unmasked('ab cd e')).toBe('abcd')
 })
 
 test('dynamic empty mask', () => {
