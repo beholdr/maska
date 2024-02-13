@@ -2,7 +2,7 @@
 import { reactive } from 'vue'
 import { vMaska, MaskaDetail, MaskInputOptions } from '../../src'
 
-const binded = reactive<Partial<MaskaDetail>>({})
+const bound = reactive<Partial<MaskaDetail>>({})
 const config = reactive<MaskInputOptions>({
   mask: 'A A',
   tokens: {
@@ -16,6 +16,6 @@ const config = reactive<MaskInputOptions>({
 </script>
 
 <template>
-  <input v-maska:[config]="binded" />
-  <div>{{ binded.masked }}</div>
+  <input v-maska:[config]="bound" />
+  <div>{{ bound.masked }}</div>
 </template>
