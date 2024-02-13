@@ -2,10 +2,10 @@
 import { reactive } from 'vue'
 import { MaskaDetail, vMaska } from '../../src'
 
-const binded = reactive<Partial<MaskaDetail>>({})
+const bound = reactive<Partial<MaskaDetail>>({})
 </script>
 
 <template>
-  <input v-maska="binded" data-maska="#-#" value="123" />
-  <div>{{ binded.masked }}</div>
+  <input v-maska="bound" data-maska="#-#" value="123" />
+  <div>{{ bound.masked }}</div>
 </template>

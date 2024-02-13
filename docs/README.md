@@ -153,15 +153,15 @@ import { reactive, ref } from "vue"
 import { vMaska } from "maska"
 
 const maskedValue = ref('')
-const bindedObject = reactive({})
+const boundObject = reactive({})
 </script>
 
 <template>
-  <input v-maska="bindedObject" v-model="maskedValue">
+  <input v-maska="boundObject" v-model="maskedValue">
 
-  Masked value: {{ maskedValue }} or {{ bindedObject.masked }}
-  Unmasked value: {{ bindedObject.unmasked }}
-  <span v-if="bindedObject.completed">✅ Mask completed</span>
+  Masked value: {{ maskedValue }} or {{ boundObject.masked }}
+  Unmasked value: {{ boundObject.unmasked }}
+  <span v-if="boundObject.completed">✅ Mask completed</span>
 </template>
 ```
 
@@ -175,7 +175,7 @@ export default {
   directives: { maska: vMaska },
   data: () => ({
     maskedValue: "",
-    bindedObject: {
+    boundObject: {
       masked: "",
       unmasked: "",
       completed: false
@@ -185,11 +185,11 @@ export default {
 </script>
 
 <template>
-  <input v-maska="bindedObject" v-model="maskedValue">
+  <input v-maska="boundObject" v-model="maskedValue">
 
-  Masked value: {{ maskedValue }} or {{ bindedObject.masked }}
-  Unmasked value: {{ bindedObject.unmasked }}
-  <span v-if="bindedObject.completed">✅ Mask completed</span>
+  Masked value: {{ maskedValue }} or {{ boundObject.masked }}
+  Unmasked value: {{ boundObject.unmasked }}
+  <span v-if="boundObject.completed">✅ Mask completed</span>
 </template>
 ```
 <!-- tabs:end -->
@@ -245,7 +245,7 @@ export default {
 You can set options and bind to an object at the same time:
 
 ``` html
-<input v-maska:[options]="bindedObject">
+<input v-maska:[options]="boundObject">
 ```
 
 #### Global registration of directive
