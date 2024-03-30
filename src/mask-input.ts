@@ -115,11 +115,10 @@ export class MaskInput {
     const input = e.target as HTMLInputElement
 
     if (e.inputType.startsWith('delete') || (s != null && s < value.length)) {
+      // see https://github.com/beholdr/maska/issues/118
       try {
         input.setSelectionRange(s, s)
-      } catch {
-        // see https://github.com/beholdr/maska/issues/118
-      }
+      } catch {}
     }
   }
 
