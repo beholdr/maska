@@ -31,11 +31,11 @@ export const vMaska: MaskaDirective = (el, binding) => {
   }
 
   if (binding.value != null) {
-    const binded = binding.value
+    const bound = binding.value
     const onMaska = (detail: MaskaDetail): void => {
-      binded.masked = detail.masked
-      binded.unmasked = detail.unmasked
-      binded.completed = detail.completed
+      bound.masked = detail.masked
+      bound.unmasked = detail.unmasked
+      bound.completed = detail.completed
     }
 
     opts.onMaska =

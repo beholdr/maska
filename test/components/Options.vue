@@ -4,7 +4,7 @@ import { vMaska } from '../../src'
 export default {
   data() {
     return {
-      binded: {
+      bound: {
         masked: ''
       }
     }
@@ -16,6 +16,6 @@ export default {
 </script>
 
 <template>
-  <input v-maska="binded" data-maska="#-#" />
-  <div>{{ binded.masked }}</div>
+  <input v-maska="bound" data-maska="#-#" />
+  <div>{{ bound.masked }}</div>
 </template>
