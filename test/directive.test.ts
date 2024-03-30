@@ -255,7 +255,7 @@ test('callbacks', async () => {
   expect(wrapper.emitted('mask1')).toHaveLength(2)
   expect(wrapper.emitted('mask1')[1][0]).toHaveProperty('completed', true)
 
-  await input2.setValue('1')
+  await input2.setValue('3')
   expect(wrapper.emitted()).toHaveProperty('mask2')
   expect(wrapper.emitted()).toHaveProperty('mask3')
   expect(wrapper.emitted('mask2')).toHaveLength(1)
@@ -263,11 +263,14 @@ test('callbacks', async () => {
   expect(wrapper.emitted('mask2')[0][0]).toHaveProperty('completed', false)
   expect(wrapper.emitted('mask3')[0][0]).toHaveProperty('completed', false)
 
-  await input2.setValue('12')
+  await input2.setValue('34')
   expect(wrapper.emitted('mask2')).toHaveLength(2)
   expect(wrapper.emitted('mask3')).toHaveLength(2)
   expect(wrapper.emitted('mask2')[1][0]).toHaveProperty('completed', true)
   expect(wrapper.emitted('mask3')[1][0]).toHaveProperty('completed', true)
+
+  expect(wrapper.get('.bound1').element.textContent).toBe('1-2')
+  expect(wrapper.get('.bound2').element.textContent).toBe('3-4')
 })
 
 test('options api component', async () => {
