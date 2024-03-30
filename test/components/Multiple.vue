@@ -27,7 +27,7 @@ const onMaska2 = () => {
   <input id="checkbox" type="checkbox" v-model="isEager" />
   <input
     id="input1"
-    v-maska:[options]
+    v-maska="options"
     data-maska="#-#"
     v-model="value1"
     @maska="onMaska1"

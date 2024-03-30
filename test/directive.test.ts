@@ -2,18 +2,18 @@ import { nextTick } from 'vue'
 import { expect, test } from 'vitest'
 import { mount } from '@vue/test-utils'
 
-import BindInitial from './components/BindInitial.vue'
+import BindCompleted from './components/BindCompleted.vue'
 import BindMasked from './components/BindMasked.vue'
 import BindUnmasked from './components/BindUnmasked.vue'
 import Callbacks from './components/Callbacks.vue'
 import ChangeValue from './components/ChangeValue.vue'
-import Completed from './components/Completed.vue'
 import Config from './components/Config.vue'
 import Custom from './components/Custom.vue'
 import DataAttr from './components/DataAttr.vue'
 import Dynamic from './components/Dynamic.vue'
 import Events from './components/Events.vue'
 import Hooks from './components/Hooks.vue'
+import Initial from './components/Initial.vue'
 import Model from './components/Model.vue'
 import Multiple from './components/Multiple.vue'
 import Options from './components/Options.vue'
@@ -63,13 +63,14 @@ test('dynamic mask', async () => {
 })
 
 test('initial value', async () => {
-  const wrapper = mount(BindInitial)
-  const input = wrapper.get('input')
+  const wrapper = mount(Initial)
+  const input1 = wrapper.get<HTMLInputElement>('#input1')
+  const input2 = wrapper.get<HTMLInputElement>('#input2')
 
-  await nextTick()
+  await new Promise((r) => setTimeout(r))
 
-  expect(input.element.value).toBe('1-2')
-  expect(wrapper.get('div').element.textContent).toBe('1-2')
+  expect(input1.element.value).toBe('1-2')
+  expect(input2.element.value).toBe('3-4')
 })
 
 test('bind masked', async () => {
@@ -77,6 +78,7 @@ test('bind masked', async () => {
   const input = wrapper.get('input')
 
   await input.setValue('123')
+
   expect(input.element.value).toBe('1-2')
   expect(wrapper.get('div').element.textContent).toBe('1-2')
 })
@@ -86,12 +88,13 @@ test('bind unmasked', async () => {
   const input = wrapper.get('input')
 
   await input.setValue('123')
+
   expect(input.element.value).toBe('1-2')
   expect(wrapper.get('div').element.textContent).toBe('12')
 })
 
 test('bind completed', async () => {
-  const wrapper = mount(Completed)
+  const wrapper = mount(BindCompleted)
   const input = wrapper.get('input')
 
   await input.setValue('12')
@@ -178,6 +181,8 @@ test('multiple inputs', async () => {
 
   await checkbox.setValue()
   expect(checkbox.element).toBeChecked()
+
+  await new Promise((r) => setTimeout(r))
 
   expect(input.element.value).toBe('1-')
   expect(wrapper.emitted('mask1')).toHaveLength(3)

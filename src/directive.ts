@@ -1,50 +1,54 @@
-import { Directive } from 'vue'
+import { Directive, DirectiveBinding } from 'vue'
 import { MaskaDetail, MaskInput, MaskInputOptions } from './mask-input'
 
-type MaskaDirective = Directive<HTMLElement, MaskaDetail | undefined>
+type MaskaDirective = Directive<HTMLElement, MaskInputOptions | undefined>
 
 const masks = new WeakMap<HTMLInputElement, MaskInput>()
 
-const checkValue = (input: HTMLInputElement): void => {
-  setTimeout(() => {
-    if (masks.get(input)?.needUpdateValue(input) === true) {
-      input.dispatchEvent(new CustomEvent('input'))
-    }
-  })
+// hacky way to update binding.arg without using defineExposed
+const setArg = (binding: DirectiveBinding, value: string | boolean) => {
+  if (!binding.arg || !binding.instance) return
+
+  const inst = binding.instance as any
+  if (binding.arg in inst) {
+    inst[binding.arg] = value // options api
+  } else if (inst.$?.setupState && binding.arg in inst.$.setupState) {
+    inst.$.setupState[binding.arg] = value // composition api
+  }
 }
 
 export const vMaska: MaskaDirective = (el, binding) => {
   const input = el instanceof HTMLInputElement ? el : el.querySelector('input')
-  const opts = { ...(binding.arg as MaskInputOptions) } ?? {}
+  const opts = { ...binding.value } ?? {}
 
   if (input == null || input?.type === 'file') return
 
-  checkValue(input)
-
-  const existed = masks.get(input)
-  if (existed != null) {
-    if (!existed.needUpdateOptions(input, opts)) {
-      return
-    }
-
-    existed.destroy()
-  }
-
-  if (binding.value != null) {
-    const bound = binding.value
-    const onMaska = (detail: MaskaDetail): void => {
-      bound.masked = detail.masked
-      bound.unmasked = detail.unmasked
-      bound.completed = detail.completed
+  if (binding.arg) {
+    const updateArg = (detail: MaskaDetail) => {
+      const value = binding.modifiers.unmasked
+        ? detail.unmasked
+        : binding.modifiers.completed
+        ? detail.completed
+        : detail.masked
+      setArg(binding, value)
     }
 
     opts.onMaska =
       opts.onMaska == null
-        ? onMaska
+        ? updateArg
         : Array.isArray(opts.onMaska)
-          ? [...opts.onMaska, onMaska]
-          : [opts.onMaska, onMaska]
+        ? [...opts.onMaska, updateArg]
+        : [opts.onMaska, updateArg]
   }
 
-  masks.set(input, new MaskInput(input, opts))
+  let mask = masks.get(input)
+  if (!mask) {
+    mask = new MaskInput(input, opts)
+    masks.set(input, mask)
+  } else {
+    mask.update(opts)
+  }
+
+  // delay init to wait for v-model value
+  setTimeout(() => mask?.checkValue(input))
 }

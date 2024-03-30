@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
-import { vMaska, MaskaDetail, MaskInputOptions } from '../../src'
+import { ref } from 'vue'
+import { MaskInputOptions, vMaska } from '../../src'
 
-const bound = reactive<Partial<MaskaDetail>>({})
-const config = reactive<MaskInputOptions>({
+const bound = ref('')
+const config = <MaskInputOptions>{
   mask: 'A A',
   tokens: {
     A: {
@@ -12,10 +12,10 @@ const config = reactive<MaskInputOptions>({
       transform: (chr) => chr.toUpperCase()
     }
   }
-})
+}
 </script>
 
 <template>
-  <input v-maska:[config]="bound" />
-  <div>{{ bound.masked }}</div>
+  <input v-maska:bound="config" />
+  <div>{{ bound }}</div>
 </template>

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
-import { MaskaDetail, vMaska } from '../../src'
+import { ref } from 'vue'
+import { vMaska } from '../../src'
 
-const bound = reactive<Partial<MaskaDetail>>({})
+const bound = ref('')
 </script>
 
 <template>
-  <input v-maska="bound" data-maska="#-#" />
-  <div>{{ bound.masked }}</div>
+  <input v-maska:bound.masked data-maska="#-#" />
+  <div>{{ bound }}</div>
 </template>

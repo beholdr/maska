@@ -176,7 +176,7 @@ describe('test hooks', () => {
     expect(context.onMaska).toHaveBeenCalledOnce()
     expect(context.onMaska).toHaveBeenCalledWith({
       completed: false,
-      masked: '1',
+      masked: '$1',
       unmasked: '1'
     })
   })
@@ -191,7 +191,7 @@ describe('test hooks', () => {
     expect(context.onMaska).toHaveBeenCalledTimes(3)
     expect(context.onMaska).toHaveBeenLastCalledWith({
       completed: false,
-      masked: '123',
+      masked: '$123',
       unmasked: '123'
     })
   })
@@ -206,7 +206,7 @@ describe('test hooks', () => {
     expect(context.onMaska).toHaveBeenCalledTimes(4)
     expect(context.onMaska).toHaveBeenLastCalledWith({
       completed: true,
-      masked: '1234',
+      masked: '$1,234',
       unmasked: '1234'
     })
   })
@@ -221,7 +221,7 @@ describe('test hooks', () => {
     expect(context.onMaska).toHaveBeenCalledTimes(7)
     expect(context.onMaska).toHaveBeenLastCalledWith({
       completed: true,
-      masked: '1234567',
+      masked: '$1,234,567',
       unmasked: '1234567'
     })
   })
@@ -236,7 +236,7 @@ describe('test hooks', () => {
     expect(context.onMaska).toHaveBeenCalledTimes(5)
     expect(context.onMaska).toHaveBeenLastCalledWith({
       completed: true,
-      masked: '123.4',
+      masked: '$123.4',
       unmasked: '1234'
     })
   })
@@ -251,7 +251,7 @@ describe('test hooks', () => {
     expect(context.onMaska).toHaveBeenCalledTimes(6)
     expect(context.onMaska).toHaveBeenLastCalledWith({
       completed: true,
-      masked: '123.45',
+      masked: '$123.45',
       unmasked: '12345'
     })
   })
@@ -266,7 +266,7 @@ describe('test hooks', () => {
     expect(context.onMaska).toHaveBeenCalledTimes(7)
     expect(context.onMaska).toHaveBeenLastCalledWith({
       completed: true,
-      masked: '123.45',
+      masked: '$123.45',
       unmasked: '12345'
     })
   })
@@ -281,7 +281,7 @@ describe('test hooks', () => {
     expect(context.onMaska).toHaveBeenCalledTimes(8)
     expect(context.onMaska).toHaveBeenLastCalledWith({
       completed: true,
-      masked: '1234.56',
+      masked: '$1,234.56',
       unmasked: '123456'
     })
   })
@@ -296,7 +296,7 @@ describe('test hooks', () => {
     expect(context.onMaska).toHaveBeenCalledTimes(8)
     expect(context.onMaska).toHaveBeenLastCalledWith({
       completed: true,
-      masked: '1234.56',
+      masked: '$1,234.56',
       unmasked: '123456'
     })
   })
@@ -311,7 +311,7 @@ describe('test hooks', () => {
     expect(context.onMaska).toHaveBeenCalledTimes(8)
     expect(context.onMaska).toHaveBeenLastCalledWith({
       completed: true,
-      masked: '1234.5',
+      masked: '$1,234.5',
       unmasked: '12345'
     })
   })
@@ -326,7 +326,7 @@ describe('test hooks', () => {
     expect(context.onMaska).toHaveBeenCalledTimes(9)
     expect(context.onMaska).toHaveBeenLastCalledWith({
       completed: true,
-      masked: '1234.',
+      masked: '$1,234.',
       unmasked: '1234'
     })
   })
@@ -341,7 +341,7 @@ describe('test hooks', () => {
     expect(context.onMaska).toHaveBeenCalledTimes(10)
     expect(context.onMaska).toHaveBeenLastCalledWith({
       completed: true,
-      masked: '1234',
+      masked: '$1,234',
       unmasked: '1234'
     })
   })
