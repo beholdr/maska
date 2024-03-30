@@ -42,13 +42,12 @@ export const vMaska: MaskaDirective = (el, binding) => {
   }
 
   let mask = masks.get(input)
-  if (!mask) {
+  if (mask) {
+    mask.update(opts)
+  } else {
     mask = new MaskInput(input, opts)
     masks.set(input, mask)
-  } else {
-    mask.update(opts)
+    // delay for possible v-model change
+    setTimeout(() => mask?.checkValue(input))
   }
-
-  // delay init to wait for v-model value
-  setTimeout(() => mask?.checkValue(input))
 }

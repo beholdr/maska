@@ -43,15 +43,13 @@ export class MaskInput {
 
   private init(inputs: HTMLInputElement[], defaults: MaskOptions): void {
     for (const input of inputs) {
-      const inited = this.items.has(input)
-
-      this.items.set(input, new Mask(parseInput(input, defaults)))
-
-      if (!inited) {
+      if (!this.items.has(input)) {
         input.addEventListener('input', this.inputEvent)
         input.addEventListener('beforeinput', this.beforeinputEvent)
-        this.checkValue(input)
       }
+
+      this.items.set(input, new Mask(parseInput(input, defaults)))
+      this.checkValue(input)
     }
   }
 
