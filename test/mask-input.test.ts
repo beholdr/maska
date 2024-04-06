@@ -448,23 +448,23 @@ describe('test eager callback', () => {
 
   test<HooksTestContext>('input 1', async (context) => {
     await user.type(input, '1')
-    expect(input).toHaveValue('+1 1')
+    expect(input).toHaveValue('+1 ')
 
     expect(context.onMaska).toHaveBeenLastCalledWith({
       completed: false,
-      masked: '+1 1',
-      unmasked: '1'
+      masked: '+1 ',
+      unmasked: ''
     })
   })
 
   test<HooksTestContext>('input 12', async (context) => {
     await user.type(input, '12')
-    expect(input).toHaveValue('+1 12')
+    expect(input).toHaveValue('+1 2')
 
     expect(context.onMaska).toHaveBeenLastCalledWith({
       completed: false,
-      masked: '+1 12',
-      unmasked: '12'
+      masked: '+1 2',
+      unmasked: '2'
     })
   })
 
@@ -813,22 +813,22 @@ describe('+1 (#) #-# eager mask', () => {
 
   test('input 1', async () => {
     await user.type(input, '1')
-    expect(input).toHaveValue('+1 (1) ')
+    expect(input).toHaveValue('+1 (')
   })
 
   test('input 12', async () => {
     await user.type(input, '12')
-    expect(input).toHaveValue('+1 (1) 2-')
+    expect(input).toHaveValue('+1 (2) ')
   })
 
   test('input 123', async () => {
     await user.type(input, '123')
-    expect(input).toHaveValue('+1 (1) 2-3')
+    expect(input).toHaveValue('+1 (2) 3-')
   })
 
-  test('input 123', async () => {
-    await user.type(input, '123')
-    expect(input).toHaveValue('+1 (1) 2-3')
+  test('input 1234', async () => {
+    await user.type(input, '1234')
+    expect(input).toHaveValue('+1 (2) 3-4')
   })
 
   test('input 2', async () => {
@@ -1156,12 +1156,12 @@ describe('12## eager mask', () => {
 
   test('input 1', async () => {
     await user.type(input, '1')
-    expect(input).toHaveValue('121')
+    expect(input).toHaveValue('12')
   })
 
   test('input 2', async () => {
     await user.type(input, '2')
-    expect(input).toHaveValue('122')
+    expect(input).toHaveValue('12')
   })
 
   test('input 3', async () => {
@@ -1171,27 +1171,27 @@ describe('12## eager mask', () => {
 
   test('input 11', async () => {
     await user.type(input, '11')
-    expect(input).toHaveValue('1211')
+    expect(input).toHaveValue('121')
   })
 
   test('input 12', async () => {
     await user.type(input, '12')
-    expect(input).toHaveValue('1212')
+    expect(input).toHaveValue('122')
   })
 
   test('input 123', async () => {
     await user.type(input, '123')
-    expect(input).toHaveValue('1212')
+    expect(input).toHaveValue('1223')
   })
 
   test('input 13', async () => {
     await user.type(input, '13')
-    expect(input).toHaveValue('1213')
+    expect(input).toHaveValue('123')
   })
 
   test('input 133', async () => {
     await user.type(input, '133')
-    expect(input).toHaveValue('1213')
+    expect(input).toHaveValue('1233')
   })
 
   test('input { }', async () => {
@@ -1209,9 +1209,9 @@ describe('12## eager mask', () => {
     expect(input).toHaveValue('')
   })
 
-  test('input 12{backspace}', async () => {
+  test('input 123{backspace}', async () => {
     await user.type(input, '123{backspace}')
-    expect(input).toHaveValue('121')
+    expect(input).toHaveValue('122')
   })
 })
 
@@ -1274,9 +1274,14 @@ describe('+1 (###) ###-##-## eager mask', () => {
     await user.clear(input)
   })
 
+  test('input +', async () => {
+    await user.type(input, '+')
+    expect(input).toHaveValue('+1 (')
+  })
+
   test('input 1', async () => {
     await user.type(input, '1')
-    expect(input).toHaveValue('+1 (1')
+    expect(input).toHaveValue('+1 (')
   })
 
   test('input 9', async () => {
@@ -1306,7 +1311,7 @@ describe('+1 (###) ###-##-## eager mask', () => {
 
   test('input 19991234567', async () => {
     await user.type(input, '19991234567')
-    expect(input).toHaveValue('+1 (199) 912-34-56')
+    expect(input).toHaveValue('+1 (999) 123-45-67')
   })
 
   test('input 9991234567', async () => {
