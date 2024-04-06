@@ -19,21 +19,21 @@ export interface MaskaDetail {
 export class MaskInput {
   readonly items = new Map<HTMLInputElement, Mask>()
 
-  constructor(target: MaskaTarget, readonly options: MaskInputOptions = {}) {
+  constructor (target: MaskaTarget, readonly options: MaskInputOptions = {}) {
     this.init(this.getInputs(target), this.getOptions(options))
   }
 
-  update(options: MaskInputOptions = {}): void {
+  update (options: MaskInputOptions = {}): void {
     this.init(Array.from(this.items.keys()), this.getOptions(options))
   }
 
-  checkValue(input: HTMLInputElement) {
+  checkValue (input: HTMLInputElement) {
     if (input.value && input.value !== this.process(input).masked) {
       this.setMaskedValue(input, input.value)
     }
   }
 
-  destroy(): void {
+  destroy (): void {
     for (const input of this.items.keys()) {
       input.removeEventListener('input', this.inputEvent)
       input.removeEventListener('beforeinput', this.beforeinputEvent)
@@ -41,7 +41,7 @@ export class MaskInput {
     this.items.clear()
   }
 
-  private init(inputs: HTMLInputElement[], defaults: MaskOptions): void {
+  private init (inputs: HTMLInputElement[], defaults: MaskOptions): void {
     for (const input of inputs) {
       if (!this.items.has(input)) {
         input.addEventListener('input', this.inputEvent)
@@ -53,7 +53,7 @@ export class MaskInput {
     }
   }
 
-  private getInputs(target: MaskaTarget): HTMLInputElement[] {
+  private getInputs (target: MaskaTarget): HTMLInputElement[] {
     if (typeof target === 'string') {
       return Array.from(document.querySelectorAll(target))
     }
@@ -61,7 +61,7 @@ export class MaskInput {
     return 'length' in target ? Array.from(target) : [target]
   }
 
-  private getOptions(options: MaskInputOptions): MaskOptions {
+  private getOptions (options: MaskInputOptions): MaskOptions {
     const { onMaska, preProcess, postProcess, ...opts } = options
 
     return opts
@@ -107,7 +107,7 @@ export class MaskInput {
     this.updateCursor(e, selection, value)
   }
 
-  private updateCursor(e: Event | InputEvent, s: number | null, value: string) {
+  private updateCursor (e: Event | InputEvent, s: number | null, value: string) {
     if (!('inputType' in e) || s === null) return
 
     const input = e.target as HTMLInputElement
@@ -120,7 +120,7 @@ export class MaskInput {
     }
   }
 
-  private setMaskedValue(input: HTMLInputElement, value: string): void {
+  private setMaskedValue (input: HTMLInputElement, value: string): void {
     const detail = this.process(input, value)
 
     input.value = detail.masked
@@ -137,7 +137,7 @@ export class MaskInput {
     input.dispatchEvent(new CustomEvent('input', { detail: detail.masked }))
   }
 
-  private process(input: HTMLInputElement, value?: string): MaskaDetail {
+  private process (input: HTMLInputElement, value?: string): MaskaDetail {
     const mask = this.items.get(input) as Mask
     let valueNew = value ?? input.value
 

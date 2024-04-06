@@ -7,7 +7,7 @@ const masks = new WeakMap<HTMLInputElement, MaskInput>()
 
 // hacky way to update binding.arg without using defineExposed
 const setArg = (binding: DirectiveBinding, value: string | boolean) => {
-  if (!binding.arg || !binding.instance) return
+  if (!binding.arg || (binding.instance == null)) return
 
   const inst = binding.instance as any
   if (binding.arg in inst) {
@@ -28,8 +28,8 @@ export const vMaska: MaskaDirective = (el, binding) => {
       const value = binding.modifiers.unmasked
         ? detail.unmasked
         : binding.modifiers.completed
-        ? detail.completed
-        : detail.masked
+          ? detail.completed
+          : detail.masked
       setArg(binding, value)
     }
 
@@ -37,12 +37,12 @@ export const vMaska: MaskaDirective = (el, binding) => {
       opts.onMaska == null
         ? updateArg
         : Array.isArray(opts.onMaska)
-        ? [...opts.onMaska, updateArg]
-        : [opts.onMaska, updateArg]
+          ? [...opts.onMaska, updateArg]
+          : [opts.onMaska, updateArg]
   }
 
   let mask = masks.get(input)
-  if (mask) {
+  if (mask != null) {
     mask.update(opts)
   } else {
     mask = new MaskInput(input, opts)
