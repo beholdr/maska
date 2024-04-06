@@ -217,6 +217,11 @@ export class Mask {
         ) {
           if (masked) {
             result[method](mask.charAt(m))
+            if (value.charAt(v) === mask.charAt(m)) {
+              m += offset
+              v += offset
+              continue
+            }
           } else if (mask.charAt(m) === value.charAt(v)) {
             v += offset
           }
