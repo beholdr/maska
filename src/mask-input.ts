@@ -19,15 +19,18 @@ export interface MaskaDetail {
 export class MaskInput {
   readonly items = new Map<HTMLInputElement, Mask>()
 
-  constructor (target: MaskaTarget, readonly options: MaskInputOptions = {}) {
-    this.init(this.getInputs(target), this.getOptions(options))
+  constructor (target: MaskaTarget, private options: MaskInputOptions = {}) {
+    this.init(this.getInputs(target))
   }
 
   update (options: MaskInputOptions = {}): void {
-    this.init(Array.from(this.items.keys()), this.getOptions(options))
+    const needUpdate = JSON.stringify(options) !== JSON.stringify(this.options)
+    this.options = options
+
+    this.init(Array.from(this.items.keys()), needUpdate)
   }
 
-  checkValue (input: HTMLInputElement) {
+  updateValue (input: HTMLInputElement) {
     if (input.value && input.value !== this.process(input).masked) {
       this.setMaskedValue(input, input.value)
     }
@@ -41,7 +44,9 @@ export class MaskInput {
     this.items.clear()
   }
 
-  private init (inputs: HTMLInputElement[], defaults: MaskOptions): void {
+  private init (inputs: HTMLInputElement[], update = true): void {
+    const defaults = this.getOptions(this.options)
+
     for (const input of inputs) {
       if (!this.items.has(input)) {
         input.addEventListener('input', this.inputEvent)
@@ -49,7 +54,10 @@ export class MaskInput {
       }
 
       this.items.set(input, new Mask(parseInput(input, defaults)))
-      this.checkValue(input)
+
+      if (update) {
+        this.updateValue(input)
+      }
     }
   }
 
