@@ -10,6 +10,7 @@ const setArg = (binding: DirectiveBinding, value: string | boolean) => {
   if (!binding.arg || (binding.instance == null)) return
 
   const inst = binding.instance as any
+
   if (binding.arg in inst) {
     inst[binding.arg] = value // options api
   } else if (inst.$?.setupState && binding.arg in inst.$.setupState) {
@@ -30,6 +31,7 @@ export const vMaska: MaskaDirective = (el, binding) => {
         : binding.modifiers.completed
           ? detail.completed
           : detail.masked
+
       setArg(binding, value)
     }
 
@@ -50,5 +52,5 @@ export const vMaska: MaskaDirective = (el, binding) => {
   }
 
   // delay for possible v-model change
-  setTimeout(() => mask?.updateValue(input))
+  queueMicrotask(() => mask?.updateValue(input))
 }

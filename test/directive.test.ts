@@ -67,7 +67,7 @@ test('initial value', async () => {
   const input1 = wrapper.get<HTMLInputElement>('#input1')
   const input2 = wrapper.get<HTMLInputElement>('#input2')
 
-  await new Promise((r) => setTimeout(r))
+  await nextTick()
 
   expect(input1.element.value).toBe('1-2')
   expect(input2.element.value).toBe('3-4')
@@ -98,13 +98,11 @@ test('bind completed', async () => {
   const input = wrapper.get('input')
 
   await input.setValue('12')
-  await nextTick()
 
   expect(input.element.value).toBe('1-2')
   expect(wrapper.get('div').element.textContent).toBe('Uncompleted')
 
   await input.setValue('123')
-  await nextTick()
 
   expect(input.element.value).toBe('1-2-3')
   expect(wrapper.get('div').element.textContent).toBe('Completed')
@@ -120,10 +118,12 @@ test('v-model', async () => {
   expect(wrapper.get('div').element.textContent).toBe('1-2')
 
   await input.setValue('1')
+
   expect(input.element.value).toBe('1-')
   expect(wrapper.get('div').element.textContent).toBe('1-')
 
   await input.setValue('123')
+
   expect(input.element.value).toBe('1-2')
   expect(wrapper.get('div').element.textContent).toBe('1-2')
 })
@@ -133,10 +133,12 @@ test('custom component', async () => {
   const input = wrapper.get('input')
 
   await input.setValue('1')
+
   expect(input.element.value).toBe('1-')
   expect(wrapper.get('div').element.textContent).toBe('1-')
 
   await input.setValue('123')
+
   expect(input.element.value).toBe('1-2')
   expect(wrapper.get('div').element.textContent).toBe('1-2')
 })
@@ -146,13 +148,11 @@ test('change value', async () => {
   const wrapper = mount(ChangeValue)
   const input = wrapper.get('input')
 
-  await new Promise((r) => setTimeout(r))
+  await nextTick()
 
   expect(input.element.value).toBe('12-3')
 
   await wrapper.get('button').trigger('click')
-
-  await new Promise((r) => setTimeout(r))
 
   expect(input.element.value).toBe('56-7')
 })
@@ -173,6 +173,7 @@ test('multiple inputs', async () => {
   expect(wrapper.emitted('mask2')).toHaveLength(1)
 
   await input.setValue('1')
+
   expect(input.element.value).toBe('1')
   expect(wrapper.get('#value1').element.textContent).toBe('1')
   expect(wrapper.emitted()).toHaveProperty('mask1')
@@ -180,10 +181,8 @@ test('multiple inputs', async () => {
   expect(wrapper.emitted('mask2')).toHaveLength(1)
 
   await checkbox.setValue()
+
   expect(checkbox.element).toBeChecked()
-
-  await new Promise((r) => setTimeout(r))
-
   expect(input.element.value).toBe('1-')
   expect(wrapper.emitted('mask1')).toHaveLength(3)
   expect(wrapper.emitted('mask2')).toHaveLength(1)
@@ -194,18 +193,22 @@ test('config and bind', async () => {
   const input = wrapper.get('input')
 
   await input.setValue('1')
+
   expect(input.element.value).toBe('')
   expect(wrapper.get('div').element.textContent).toBe('')
 
   await input.setValue('ab')
+
   expect(input.element.value).toBe('AB')
   expect(wrapper.get('div').element.textContent).toBe('AB')
 
   await input.setValue('ab cd ')
+
   expect(input.element.value).toBe('AB CD')
   expect(wrapper.get('div').element.textContent).toBe('AB CD')
 
   await input.setValue('ab cd1')
+
   expect(input.element.value).toBe('AB CD')
   expect(wrapper.get('div').element.textContent).toBe('AB CD')
 })
@@ -247,15 +250,18 @@ test('callbacks', async () => {
   const input2 = wrapper.get('#input2')
 
   await input1.setValue('1')
+
   expect(wrapper.emitted()).toHaveProperty('mask1')
   expect(wrapper.emitted('mask1')).toHaveLength(1)
   expect(wrapper.emitted('mask1')[0][0]).toHaveProperty('completed', false)
 
   await input1.setValue('12')
+
   expect(wrapper.emitted('mask1')).toHaveLength(2)
   expect(wrapper.emitted('mask1')[1][0]).toHaveProperty('completed', true)
 
   await input2.setValue('3')
+
   expect(wrapper.emitted()).toHaveProperty('mask2')
   expect(wrapper.emitted()).toHaveProperty('mask3')
   expect(wrapper.emitted('mask2')).toHaveLength(1)
@@ -264,6 +270,7 @@ test('callbacks', async () => {
   expect(wrapper.emitted('mask3')[0][0]).toHaveProperty('completed', false)
 
   await input2.setValue('34')
+
   expect(wrapper.emitted('mask2')).toHaveLength(2)
   expect(wrapper.emitted('mask3')).toHaveLength(2)
   expect(wrapper.emitted('mask2')[1][0]).toHaveProperty('completed', true)
@@ -278,6 +285,7 @@ test('options api component', async () => {
   const input = wrapper.get('input')
 
   await input.setValue('123')
+
   expect(input.element.value).toBe('1-2')
   expect(wrapper.get('div').element.textContent).toBe('1-2')
 })
