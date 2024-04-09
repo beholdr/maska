@@ -4,6 +4,7 @@ import { mount } from '@vue/test-utils'
 
 import BindCompleted from './components/BindCompleted.vue'
 import BindMasked from './components/BindMasked.vue'
+import BindModel from './components/BindModel.vue'
 import BindUnmasked from './components/BindUnmasked.vue'
 import Callbacks from './components/Callbacks.vue'
 import ChangeValue from './components/ChangeValue.vue'
@@ -106,6 +107,23 @@ test('bind completed', async () => {
 
   expect(input.element.value).toBe('1-2-3')
   expect(wrapper.get('div').element.textContent).toBe('Completed')
+})
+
+test('bind v-model', async () => {
+  const wrapper = mount(BindModel)
+  const input = wrapper.get('input')
+
+  await new Promise((r) => setTimeout(r))
+
+  expect(input.element.value).toBe('1-2')
+  expect(wrapper.get('#value1').element.textContent).toBe('1-2')
+  expect(wrapper.get('#value2').element.textContent).toBe('12')
+
+  await input.setValue('345')
+
+  expect(input.element.value).toBe('3-4')
+  expect(wrapper.get('#value1').element.textContent).toBe('3-4')
+  expect(wrapper.get('#value2').element.textContent).toBe('34')
 })
 
 test('v-model', async () => {
