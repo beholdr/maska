@@ -138,20 +138,16 @@ describe('test hooks', () => {
     const hooks = {
       onMaska: (value) => value,
       preProcess: (value: string) => value.replace(/[$,]/g, ''),
-      postProcess: (value: string) => {
-        if (!value) return ''
+      postProcess: val => {
+        if (!val) return ''
 
-        const parts = value.split('.')
-        const sub = parts.length === 1 ? 3 : 2 - parts[1].length
-        const result = Intl.NumberFormat('en-US', {
+        const sub = 3 - (val.includes('.') ? val.length - val.indexOf('.') : 0)
+
+        return Intl.NumberFormat('en-US', {
           style: 'currency',
           currency: 'USD'
-        })
-          .formatToParts(Number(value))
-          .map((v) => v.value)
-          .join('')
-
-        return result.substring(0, result.length - sub)
+        }).format(val)
+          .slice(0, sub ? -sub : undefined)
       }
     }
 
@@ -344,6 +340,19 @@ describe('test hooks', () => {
       masked: '$1,234',
       unmasked: '1234'
     })
+  })
+
+  test('input 12345678, delete 6 and check cursor position', async () => {
+    await user.type(input, '12345678')
+    expect(input).toHaveValue('$12,345,678')
+
+    await user.type(input, '{ArrowLeft}{ArrowLeft}{backspace}')
+    expect(input).toHaveValue('$1,234,578')
+    expect(input.selectionStart).toBe(8)
+
+    await user.type(input, '6', { initialSelectionStart: 8 })
+    expect(input).toHaveValue('$12,345,678')
+    expect(input.selectionStart).toBe(9)
   })
 })
 
@@ -2065,5 +2074,33 @@ describe('Dynamic eager mask', () => {
   test('input 123{backspace}', async () => {
     await user.type(input, '123{backspace}')
     expect(input).toHaveValue('1--2')
+  })
+})
+
+describe('Cursor position eager mask', () => {
+  beforeAll(() => {
+    input = prepareInput({ mask: '##-##', eager: true })
+  })
+
+  afterEach(async () => {
+    await user.clear(input)
+  })
+
+  test('input 123 {ArrowLeft}×2 ', async () => {
+    await user.type(input, '123{ArrowLeft}{ArrowLeft}')
+    expect(input).toHaveValue('12-3')
+    expect(input.selectionStart).toBe(2)
+  })
+
+  test('input 123 {ArrowLeft}×2 0', async () => {
+    await user.type(input, '123{ArrowLeft}{ArrowLeft}0')
+    expect(input).toHaveValue('12-03')
+    expect(input.selectionStart).toBe(4)
+  })
+
+  test('input 123 {ArrowLeft} {space}', async () => {
+    await user.type(input, '123{ArrowLeft}{space}')
+    expect(input).toHaveValue('12-3')
+    expect(input.selectionStart).toBe(3)
   })
 })
