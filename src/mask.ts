@@ -63,6 +63,7 @@ export class Mask {
 
   completed (value: string): boolean {
     const mask = this.findMask(value)
+
     if (this.opts.mask == null || mask == null) return false
 
     const length = this.process(value, mask).length
@@ -96,12 +97,10 @@ export class Mask {
     )
   }
 
-  private escapeMask (maskRaw: string): {
-    mask: string
-    escaped: number[]
-  } {
+  private escapeMask (maskRaw: string): { mask: string, escaped: number[] } {
     const chars: string[] = []
     const escaped: number[] = []
+
     maskRaw.split('').forEach((ch, i) => {
       if (ch === '!' && maskRaw[i - 1] !== '!') {
         escaped.push(i - escaped.length)
@@ -113,14 +112,11 @@ export class Mask {
     return { mask: chars.join(''), escaped }
   }
 
-  private process (
-    value: string,
-    maskRaw: string | null,
-    masked = true
-  ): string {
+  private process (value: string, maskRaw: string | null, masked = true): string {
     if (maskRaw == null) return value
 
     const key = `value=${value},mask=${maskRaw},masked=${masked ? 1 : 0}`
+
     if (this.memo.has(key)) return this.memo.get(key)
 
     const { mask, escaped } = this.escapeMask(maskRaw)
@@ -147,10 +143,9 @@ export class Mask {
     while (check()) {
       const maskChar = mask.charAt(m)
       const token = tokens[maskChar]
-      const valueChar =
-        token?.transform != null
-          ? token.transform(value.charAt(v))
-          : value.charAt(v)
+      const valueChar = token?.transform != null
+        ? token.transform(value.charAt(v))
+        : value.charAt(v)
 
       if (!escaped.includes(m) && token != null) {
         if (valueChar.match(token.pattern) != null) {
@@ -211,10 +206,7 @@ export class Mask {
       }
 
       if (this.isEager()) {
-        while (
-          notLastMaskChar(m) &&
-          (tokens[mask.charAt(m)] == null || escaped.includes(m))
-        ) {
+        while (notLastMaskChar(m) && (tokens[mask.charAt(m)] == null || escaped.includes(m))) {
           if (masked) {
             result[method](mask.charAt(m))
             if (value.charAt(v) === mask.charAt(m)) {
