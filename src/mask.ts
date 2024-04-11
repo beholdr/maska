@@ -72,16 +72,14 @@ export class Mask {
       return length >= this.opts.mask.length
     } else if (typeof this.opts.mask === 'function') {
       return length >= mask.length
-    } else {
-      return (
-        this.opts.mask.filter((m) => length >= m.length).length ===
-        this.opts.mask.length
-      )
     }
+
+    return this.opts.mask.filter((m) => length >= m.length).length === this.opts.mask.length
   }
 
   private findMask (value: string): string | null {
     const mask = this.opts.mask
+
     if (mask == null) {
       return null
     } else if (typeof mask === 'string') {
@@ -92,9 +90,7 @@ export class Mask {
 
     const l = this.process(value, mask.slice(-1).pop() ?? '', false)
 
-    return (
-      mask.find((el) => this.process(value, el, false).length >= l.length) ?? ''
-    )
+    return mask.find((el) => this.process(value, el, false).length >= l.length) ?? ''
   }
 
   private escapeMask (maskRaw: string): { mask: string, escaped: number[] } {
@@ -115,9 +111,9 @@ export class Mask {
   private process (value: string, maskRaw: string | null, masked = true): string {
     if (maskRaw == null) return value
 
-    const key = `value=${value},mask=${maskRaw},masked=${masked ? 1 : 0}`
+    const memoKey = `v=${value},mr=${maskRaw},m=${masked ? 1 : 0}`
 
-    if (this.memo.has(key)) return this.memo.get(key)
+    if (this.memo.has(memoKey)) return this.memo.get(memoKey)
 
     const { mask, escaped } = this.escapeMask(maskRaw)
     const result: string[] = []
@@ -147,7 +143,9 @@ export class Mask {
         ? token.transform(value.charAt(v))
         : value.charAt(v)
 
+      // mask symbol is token
       if (!escaped.includes(m) && token != null) {
+        // value symbol matched token
         if (valueChar.match(token.pattern) != null) {
           result[method](valueChar)
 
@@ -171,7 +169,6 @@ export class Mask {
           if (multipleMatched) {
             m += offset
             v -= offset
-
             multipleMatched = false
           } else {
             // invalid input
@@ -189,7 +186,7 @@ export class Mask {
         }
 
         v += offset
-      } else {
+      } else { // mask symbol is placeholder
         if (masked && !this.isEager()) {
           result[method](maskChar)
         }
@@ -206,9 +203,11 @@ export class Mask {
       }
 
       if (this.isEager()) {
+        // fill up result with placeholder symbols
         while (notLastMaskChar(m) && (tokens[mask.charAt(m)] == null || escaped.includes(m))) {
           if (masked) {
             result[method](mask.charAt(m))
+
             if (value.charAt(v) === mask.charAt(m)) {
               m += offset
               v += offset
@@ -217,13 +216,14 @@ export class Mask {
           } else if (mask.charAt(m) === value.charAt(v)) {
             v += offset
           }
+
           m += offset
         }
       }
     }
 
-    this.memo.set(key, result.join(''))
+    this.memo.set(memoKey, result.join(''))
 
-    return this.memo.get(key)
+    return this.memo.get(memoKey)
   }
 }
