@@ -53,10 +53,15 @@ export class MaskInput {
         })
       }
 
-      this.items.set(input, new Mask(parseInput(input, defaults)))
+      const mask = new Mask(parseInput(input, defaults))
+      this.items.set(input, mask)
 
       if (update) {
         this.updateValue(input)
+
+        if (input.selectionStart === null && mask.isEager()) {
+          console.warn('Maska: input of `%s` type is not supported', input.type)
+        }
       }
     }
   }
