@@ -120,6 +120,17 @@ describe('test init', () => {
     await user.type(input, '1a')
     expect(input).toHaveValue('1a')
   })
+
+  test('wrong input type', async () => {
+    document.body.innerHTML = `<input id="input" type="email" data-maska-eager>`
+    const input = <HTMLInputElement>document.getElementById('input')
+    const logSpy = vi.spyOn(console, 'warn')
+
+    new MaskInput(input)
+
+    expect(logSpy).toHaveBeenCalledOnce();
+    expect(logSpy).toHaveBeenCalledWith('Maska: input of `%s` type is not supported', 'email');
+  })
 })
 
 interface HooksTestContext {
