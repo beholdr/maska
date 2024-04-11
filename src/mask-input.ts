@@ -31,8 +31,8 @@ export class MaskInput {
     this.init(Array.from(this.items.keys()), needUpdate)
   }
 
-  updateValue (input: HTMLInputElement) {
-    if (input.value && input.value !== this.processInput(input).masked) {
+  updateValue (input: HTMLInputElement): void {
+    if (input.value !== '' && input.value !== this.processInput(input).masked) {
       this.setValue(input, input.value)
     }
   }
@@ -97,7 +97,7 @@ export class MaskInput {
     this.fixCursor(input, isDelete, () => this.setValue(input, value))
   }
 
-  private fixCursor (input: HTMLInputElement, isDelete: boolean, closure: any) {
+  private fixCursor (input: HTMLInputElement, isDelete: boolean, closure: CallableFunction): void {
     const pos = input.selectionStart
     const value = input.value
 
