@@ -10,7 +10,7 @@ import {
 } from 'vitest'
 import userEvent from '@testing-library/user-event'
 
-import { MaskInput, MaskInputOptions } from '../src/mask-input'
+import { MaskInput, MaskInputOptions } from '../src/input'
 
 let input: HTMLInputElement
 const user = userEvent.setup()

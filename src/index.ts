@@ -1,5 +1,5 @@
 import { Mask, MaskType, MaskOptions } from './mask'
-import { MaskInput, MaskInputOptions, MaskaDetail } from './mask-input'
+import { MaskInput, MaskInputOptions, MaskaDetail } from './input'
 import { vMaska } from './vue'
 import { tokens, MaskTokens } from './tokens'
 
