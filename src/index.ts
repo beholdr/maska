@@ -4,10 +4,4 @@ import { vMaska } from './vue'
 import { tokens, MaskTokens } from './tokens'
 
 export { Mask, MaskInput, tokens, vMaska }
-export type {
-  MaskaDetail,
-  MaskInputOptions,
-  MaskOptions,
-  MaskTokens,
-  MaskType
-}
+export type { MaskaDetail, MaskInputOptions, MaskOptions, MaskTokens, MaskType }
