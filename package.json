@@ -1,7 +1,7 @@
 {
   "name": "maska",
-  "version": "2.1.11",
-  "description": "Simple zero-dependency input mask for Vue 2/3 or Vanilla JS",
+  "version": "3.0.0",
+  "description": "Simple zero-dependency input mask for Vue or Vanilla JS",
   "keywords": [
     "mask",
     "inputmask",
@@ -18,20 +18,19 @@
   "files": [
     "dist"
   ],
-  "types": "./dist/types/index.d.ts",
-  "main": "./dist/maska.umd.js",
+  "main": "./dist/maska.umd.cjs",
   "module": "./dist/maska.js",
+  "types": "./dist/maska.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/types/index.d.ts",
+      "types": "./dist/maska.d.ts",
       "import": "./dist/maska.js",
-      "require": "./dist/maska.umd.js"
+      "require": "./dist/maska.umd.cjs"
     }
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "build:watch": "vite build --watch",
+    "build": "vue-tsc && vite build",
     "build:demo": "vite build --config vite.config.demo.ts",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
@@ -40,21 +39,22 @@
     "version": "npm run build && npm test"
   },
   "devDependencies": {
-    "@testing-library/dom": "^9.2.0",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/user-event": "^14.4.3",
-    "@types/node": "^18.6.4",
-    "@vitejs/plugin-vue": "^4.2.1",
-    "@vitest/coverage-c8": "^0.30.1",
-    "@vue/test-utils": "^2.2.1",
-    "happy-dom": "^14.6.2",
-    "ts-standard": "^12.0.0",
-    "typescript": "^4.6.4",
-    "vite": "^4.3.3",
-    "vite-plugin-banner": "^0.7.0",
-    "vite-plugin-dts": "^2.3.0",
-    "vitest": "^0.30.1",
-    "vue": "^3.2.41",
-    "vue-live": "^2.1.0"
+    "@testing-library/dom": "^10.0.0",
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/node": "^20.12.7",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "@vitest/coverage-v8": "^1.5.0",
+    "@vue/test-utils": "^2.4.5",
+    "happy-dom": "^14.7.1",
+    "ts-standard": "^12.0.2",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.8",
+    "vite-plugin-banner": "^0.7.1",
+    "vite-plugin-dts": "^3.8.2",
+    "vitest": "^1.5.0",
+    "vue": "^3.2.45",
+    "vue-live": "^2.5.4",
+    "vue-tsc": "^2.0.13"
   }
 }
