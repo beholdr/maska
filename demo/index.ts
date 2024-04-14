@@ -1,8 +1,8 @@
 import { createApp } from 'vue'
 
 import { vMaska } from '..'
-import Demo from './Demo.vue'
+import App from './App.vue'
 
-createApp(Demo)
+createApp(App)
   .directive('maska', vMaska)
   .mount('#demo-app')
