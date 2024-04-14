@@ -14,24 +14,23 @@
     "type": "git"
   },
   "license": "MIT",
-  "type": "module",
   "files": [
     "dist"
   ],
-  "main": "./dist/maska.umd.cjs",
-  "module": "./dist/maska.js",
+  "main": "./dist/maska.umd.js",
+  "module": "./dist/maska.mjs",
   "types": "./dist/maska.d.ts",
   "exports": {
     ".": {
       "types": "./dist/maska.d.ts",
-      "import": "./dist/maska.js",
-      "require": "./dist/maska.umd.cjs"
+      "import": "./dist/maska.mjs",
+      "require": "./dist/maska.umd.js"
     }
   },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
-    "build:demo": "vite build --config vite.config.demo.ts",
+    "build:demo": "vite build --config vite.config.demo.mts",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "lint": "ts-standard src",
