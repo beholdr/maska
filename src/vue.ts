@@ -20,7 +20,7 @@ const setArg = (binding: DirectiveBinding, value: string | boolean): void => {
 
 export const vMaska: MaskaDirective = (el, binding) => {
   const input = el instanceof HTMLInputElement ? el : el.querySelector('input')
-  const opts = { ...binding.value } ?? {}
+  const opts = binding.value != null ? { ...binding.value } : {}
 
   if (input == null || input?.type === 'file') return
 
