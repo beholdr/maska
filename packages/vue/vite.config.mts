@@ -12,14 +12,15 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      name: 'Maska'
+      name: 'Maska',
+      fileName: 'maska'
     }
   },
   plugins: [
     vue(),
-    dts({ rollupTypes: true }),
+    dts({ rollupTypes: true, bundledPackages: ["maska"] }),
     banner(
-      `/*! ${pkg.name} v${pkg.version} | (c) ${pkg.author} | Released under the ${pkg.license} license */`
+      `/*! ${pkg.name} v${pkg.version} */`
     )
   ],
   test: {

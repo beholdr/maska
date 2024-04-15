@@ -1,5 +1,5 @@
 import { Directive, DirectiveBinding } from 'vue'
-import { MaskaDetail, MaskInput, MaskInputOptions } from './input'
+import { MaskaDetail, MaskInput, MaskInputOptions } from '.'
 
 type MaskaDirective = Directive<HTMLElement, MaskInputOptions | undefined>
 

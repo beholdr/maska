@@ -5,9 +5,11 @@ export default defineConfig({
   base: '',
   build: {
     outDir: 'docs/dist',
+    cssCodeSplit: false,
     rollupOptions: {
       input: {
-        demo: 'demo/index.ts'
+        demo: 'src/index.ts',
+        demo_v2: 'src/v2/index.ts'
       },
       output: {
         entryFileNames: '[name].js',

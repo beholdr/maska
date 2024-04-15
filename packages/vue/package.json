@@ -1,0 +1,58 @@
+{
+  "name": "@maskajs/vue",
+  "version": "3.0.0-beta",
+  "description": "Simple zero-dependency input mask for Vue 2/3",
+  "keywords": [
+    "mask",
+    "inputmask",
+    "vue"
+  ],
+  "author": "Alexander Shabunevich",
+  "homepage": "https://beholdr.github.io/maska/",
+  "repository": {
+    "url": "https://github.com/beholdr/maska",
+    "type": "git",
+    "directory": "packages/vue"
+  },
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/maska.umd.js",
+  "module": "./dist/maska.mjs",
+  "types": "./dist/maska.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/maska.d.ts",
+      "import": "./dist/maska.mjs",
+      "require": "./dist/maska.umd.js"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "lint": "ts-standard src",
+    "lint:fix": "ts-standard --fix src",
+    "version": "npm run build && npm test"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^10.0.0",
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/node": "^20.12.7",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "@vitest/coverage-v8": "^1.5.0",
+    "@vue/test-utils": "^2.4.5",
+    "happy-dom": "^14.7.1",
+    "ts-standard": "^12.0.2",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.8",
+    "vite-plugin-banner": "^0.7.1",
+    "vite-plugin-dts": "^3.8.2",
+    "vitest": "^1.5.0",
+    "vue": "^3.2.45",
+    "vue-tsc": "^2.0.13"
+  }
+}

@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, ref, shallowRef } from 'vue'
+import { reactive, ref } from 'vue'
 import { vMaska } from '../../src'
 
 const mask = ref('+1 (###) ###-####')

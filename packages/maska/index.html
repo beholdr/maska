@@ -7,13 +7,14 @@
   <title>Maska Demo</title>
 </head>
 <body>
-  <div id="app"></div>
+  <div id="app">
+    <input data-maska="#-#">
+  </div>
 
   <script type="module">
-    import { createApp } from 'vue'
-    import Demo from './test/components/Demo.vue'
+    import { MaskInput } from './src'
 
-    createApp(Demo).mount('#app')
+    new MaskInput('[data-maska]')
   </script>
 </body>
 </html>

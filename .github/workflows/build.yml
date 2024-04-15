@@ -21,24 +21,24 @@ jobs:
           node-version: 18
 
       - name: Install
-        run: npm i
+        run: npm ci
 
       - name: Test and Coverage
-        run: npm run test:coverage
+        run: npm run test:coverage --workspace=maska
 
       - name: Parse coverage
         uses: sergeysova/jq-action@v2
         id: coverage
         with:
-          cmd: 'jq .total.statements.pct coverage/coverage-summary.json'
+          cmd: 'jq .total.statements.pct packages/maska/coverage/coverage-summary.json'
 
       - name: Build demo
-        run: npm run build:demo
+        run: npm run build --workspace=docs
 
       - name: Upload demo artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: ./docs
+          path: ./packages/docs/docs
 
   badge:
     runs-on: ubuntu-latest

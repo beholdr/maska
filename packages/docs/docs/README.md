@@ -1,8 +1,8 @@
-<object data="maska.svg" type="image/svg+xml" style="max-width: 90%"></object>
+<object data="/maska.svg" type="image/svg+xml" style="max-width: 90%"></object>
 
 ---
 
-# Support
+# Maska {{versionLabel}}
 
 Do you like **Maska**? Please support me via [Boosty](https://boosty.to/beholdr).
 
@@ -12,7 +12,7 @@ Here are several examples of basic masks that you could create with **Maska**.
 This demo is interactive: feel free to edit the examples.
 
 <div id="demo-app"></div>
-<script src="dist/demo.js"></script>
+<script type="module" src="dist/demo.js"></script>
 
 # Install
 

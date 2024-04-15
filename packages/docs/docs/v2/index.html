@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no, viewport-fit=cover">
+  <title>maska v2 docs</title>
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%220.9em%22 font-size=%22128%22>*️⃣</text></svg>">
+
+  <!-- Themes (light + dark) -->
+  <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css">
+  <link rel="stylesheet" media="(prefers-color-scheme: light)" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-versioned-plugin@0.0.1/styles.css">
+
+  <link rel="stylesheet" href="../dist/style.css">
+
+  <style>
+    :root {
+      --theme-hue: 281;
+      --heading-h1-font-size: var(--modular-scale-3);
+      --heading-h2-font-size: var(--modular-scale-2);
+      --heading-h3-font-size: var(--modular-scale-1);
+    }
+
+    .sidebar > .app-name {
+      display: none;
+    }
+    .sidebar-nav li.active {
+      background: #990bdb;
+      color: #fff;
+      margin-left: -10px;
+      padding-left: 10px;
+      border-radius: 2px;
+    }
+    .sidebar-nav li.active a {
+      color: #fff;
+    }
+
+    @media screen and (max-width: 500px) {
+      .markdown-section {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script>
+  window.$docsify = {
+    name: 'maska',
+    repo: 'beholdr/maska',
+    maxLevel: 2,
+    versionSelectorLabel: 'Version',
+    versions: [
+      { folder: '#', label: 'v3.x', default: true },
+      { folder: 'v2', label: 'v2.x', default: false }
+    ]
+  }
+  </script>
+
+  <!-- Required -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/js/docsify-themeable.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify-versioned-plugin@0.0.1/index.js"></script>
+
+  <!-- Recommended -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify-tabs@1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify-copy-code@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/external-script.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/maska@2/dist/maska.umd.js"></script>
+</body>
+</html>
