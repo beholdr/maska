@@ -5,6 +5,7 @@ version: '3'
 silent: true
 
 tasks:
+  dev:alpine: npm run dev --workspace=packages/alpine
   dev:maska: npm run dev --workspace=packages/maska
   dev:maska-build-watch: npm run build:watch --workspace=packages/maska
   dev:vue: npm run dev --workspace=packages/vue
