@@ -24,10 +24,8 @@ export class MaskInput {
   }
 
   update (options: MaskInputOptions = {}): void {
-    const needUpdate = JSON.stringify(options) !== JSON.stringify(this.options)
-    this.options = options
-
-    this.init(Array.from(this.items.keys()), needUpdate)
+    this.options = { ...options }
+    this.init(Array.from(this.items.keys()))
   }
 
   updateValue (input: HTMLInputElement): void {
@@ -43,7 +41,7 @@ export class MaskInput {
     this.items.clear()
   }
 
-  private init (inputs: HTMLInputElement[], update = true): void {
+  private init (inputs: HTMLInputElement[]): void {
     const defaults = this.getOptions(this.options)
 
     for (const input of inputs) {
@@ -54,12 +52,10 @@ export class MaskInput {
       const mask = new Mask(parseInput(input, defaults))
       this.items.set(input, mask)
 
-      if (update) {
-        this.updateValue(input)
+      queueMicrotask(() => this.updateValue(input))
 
-        if (input.selectionStart === null && mask.isEager()) {
-          console.warn('Maska: input of `%s` type is not supported', input.type)
-        }
+      if (input.selectionStart === null && mask.isEager()) {
+        console.warn('Maska: input of `%s` type is not supported', input.type)
       }
     }
   }

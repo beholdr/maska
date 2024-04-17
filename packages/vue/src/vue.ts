@@ -43,14 +43,9 @@ export const vMaska: MaskaDirective = (el, binding) => {
           : [opts.onMaska, updateArg]
   }
 
-  let mask = masks.get(input)
-  if (mask != null) {
-    mask.update(opts)
+  if (masks.has(input)) {
+    masks.get(input)?.update(opts)
   } else {
-    mask = new MaskInput(input, opts)
-    masks.set(input, mask)
+    masks.set(input, new MaskInput(input, opts))
   }
-
-  // delay for possible v-model change
-  queueMicrotask(() => mask?.updateValue(input))
 }
