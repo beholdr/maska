@@ -4,8 +4,7 @@
   "description": "Simple zero-dependency input mask for Vanilla JS",
   "keywords": [
     "mask",
-    "inputmask",
-    "vue"
+    "inputmask"
   ],
   "author": "Alexander Shabunevich",
   "homepage": "https://beholdr.github.io/maska/",
