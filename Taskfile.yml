@@ -10,7 +10,9 @@ tasks:
   dev:maska-build-watch: npm run build:watch --workspace=packages/maska
   dev:vue: npm run dev --workspace=packages/vue
 
-  build: npm run build --workspaces
+  code:test: npm run test --workspaces
+  code:coverage: npm run test:coverage --workspaces
+  code:lint: npm run lint --workspaces
+  code:format: npm run lint:fix --workspaces
 
-  test: npm run test --workspaces
-  coverage: npm run test:coverage --workspaces
+  build: npm run build --workspaces
