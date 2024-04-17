@@ -4,7 +4,7 @@ import {
   beforeEach,
   describe,
   expect,
-  SpyInstance,
+  MockInstance,
   test,
   vi
 } from 'vitest'
@@ -134,9 +134,9 @@ describe('test init', () => {
 })
 
 interface HooksTestContext {
-  onMaska: SpyInstance
-  preProcess: SpyInstance
-  postProcess: SpyInstance
+  onMaska: MockInstance
+  preProcess: MockInstance
+  postProcess: MockInstance
 }
 
 describe('test hooks', () => {
