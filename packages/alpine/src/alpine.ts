@@ -11,7 +11,7 @@ export const xMaska = (Alpine: Alpine): void => {
 
     utilities.effect(() => {
       const opts: MaskInputOptions =
-        directive.expression != null
+        directive.expression !== ''
           ? utilities.evaluate(directive.expression)
           : {}
 
@@ -45,5 +45,5 @@ export const xMaska = (Alpine: Alpine): void => {
     })
 
     utilities.cleanup(() => masks.get(input)?.destroy())
-  })
+  }).before('model')
 }
