@@ -11,6 +11,7 @@ tasks:
   dev:vue: npm run dev --workspace=packages/vue
 
   code:test: npm run test --workspaces
+  code:test-alpine: npm run test --workspace=packages/alpine
   code:coverage: npm run test:coverage --workspaces
   code:lint: npm run lint --workspaces
   code:format: npm run lint:fix --workspaces
