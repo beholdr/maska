@@ -129,7 +129,7 @@ export class MaskInput {
     // set caret position
     if ('inputType' in e) {
       if (
-        e.inputType.startsWith('delete') ||
+        (e.inputType.startsWith('delete') && mask.isEager()) ||
         (ss != null && ss < valueOld.length)
       ) {
         try {
