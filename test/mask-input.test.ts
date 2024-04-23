@@ -1920,6 +1920,62 @@ describe('Repeated reversed mask', () => {
   })
 })
 
+describe('Repeated reversed mask with required decimal', () => {
+  beforeAll(() => {
+    input = prepareInput({
+      preProcess: value => value.replace(/[^0-9]/g,"").replace(/^0+/, '').padStart(3, '0'),
+      mask: '9#,##',
+      reversed: true,
+      tokens: {
+        9: { pattern: /[\d]/, repeated: true }
+      }
+    })
+  })
+
+  afterEach(async () => {
+    await user.clear(input)
+  })
+
+  test('input 1', async () => {
+    await user.type(input, '1')
+    expect(input).toHaveValue('0,01')
+  })
+
+  test('input 12', async () => {
+    await user.type(input, '12')
+    expect(input).toHaveValue('0,12')
+  })
+
+  test('input 123', async () => {
+    await user.type(input, '123')
+    expect(input).toHaveValue('1,23')
+  })
+
+  test('input 1234', async () => {
+    await user.type(input, '1234')
+    expect(input).toHaveValue('12,34')
+  })
+
+  test('input 1234{backspace}', async () => {
+    await user.type(input, '1234{backspace}')
+    expect(input).toHaveValue('1,23')
+  })
+
+  test('input 1234{backspace}{backspace}', async () => {
+    await user.type(input, '1234{backspace}{backspace}')
+    expect(input).toHaveValue('0,12')
+  })
+
+  test('input 1234{backspace}{backspace}{backspace}', async () => {
+    await user.type(input, '1234{backspace}{backspace}{backspace}')
+    expect(input).toHaveValue('0,01')
+  })
+  test('input 1234{backspace}{backspace}{backspace}{backspace}', async () => {
+    await user.type(input, '1234{backspace}{backspace}{backspace}{backspace}')
+    expect(input).toHaveValue('0,00')
+  })
+})
+
 describe('Repeated reversed eager mask', () => {
   beforeAll(() => {
     input = prepareInput({
