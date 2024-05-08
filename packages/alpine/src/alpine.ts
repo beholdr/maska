@@ -10,9 +10,9 @@ export const xMaska = (Alpine: Alpine): void => {
     if (input == null || input?.type === 'file') return
 
     utilities.effect(() => {
-      const opts: MaskInputOptions =
+      const opts =
         directive.expression !== ''
-          ? utilities.evaluate(directive.expression)
+          ? { ...utilities.evaluate<MaskInputOptions>(directive.expression) }
           : {}
 
       if (directive.value != null) {
