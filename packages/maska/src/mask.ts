@@ -1,6 +1,13 @@
 import { MaskTokens, tokens } from './tokens'
+import { processNumber } from './number'
 
 export type MaskType = string | string[] | ((input: string) => string) | null
+
+interface MaskNumber {
+  locale?: string
+  fraction?: number
+  unsigned?: boolean
+}
 
 export interface MaskOptions {
   mask?: MaskType
@@ -8,6 +15,7 @@ export interface MaskOptions {
   tokensReplace?: boolean
   eager?: boolean
   reversed?: boolean
+  number?: MaskNumber
 }
 
 export class Mask {
@@ -109,6 +117,8 @@ export class Mask {
   }
 
   private process (value: string, maskRaw: string | null, masked = true): string {
+    if (this.opts.number != null) return processNumber(value, masked, this.opts)
+
     if (maskRaw == null) return value
 
     const memoKey = `v=${value},mr=${maskRaw},m=${masked ? 1 : 0}`

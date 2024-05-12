@@ -25,6 +25,20 @@ export const parseInput = (
     opts.tokens = parseTokens(input.dataset.maskaTokens)
   }
 
+  const number: MaskOptions['number'] = {}
+  if (input.dataset.maskaNumberLocale != null) {
+    number.locale = input.dataset.maskaNumberLocale
+  }
+  if (input.dataset.maskaNumberFraction != null) {
+    number.fraction = parseInt(input.dataset.maskaNumberFraction)
+  }
+  if (input.dataset.maskaNumberUnsigned != null) {
+    number.unsigned = parseBool(input.dataset.maskaNumberUnsigned)
+  }
+  if (Object.values(number).length > 0) {
+    opts.number = number
+  }
+
   return opts
 }
 
