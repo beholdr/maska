@@ -186,7 +186,8 @@ export class Mask {
         }
 
         v += offset
-      } else { // mask symbol is placeholder
+      } else {
+        // mask symbol is placeholder
         if (masked && !this.isEager()) {
           result[method](maskChar)
         }
