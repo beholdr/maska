@@ -13,13 +13,13 @@ export const parseInput = (
     opts.mask = parseMask(input.dataset.maska)
   }
   if (input.dataset.maskaEager != null) {
-    opts.eager = parseOpts(input.dataset.maskaEager)
+    opts.eager = parseBool(input.dataset.maskaEager)
   }
   if (input.dataset.maskaReversed != null) {
-    opts.reversed = parseOpts(input.dataset.maskaReversed)
+    opts.reversed = parseBool(input.dataset.maskaReversed)
   }
   if (input.dataset.maskaTokensReplace != null) {
-    opts.tokensReplace = parseOpts(input.dataset.maskaTokensReplace)
+    opts.tokensReplace = parseBool(input.dataset.maskaTokensReplace)
   }
   if (input.dataset.maskaTokens != null) {
     opts.tokens = parseTokens(input.dataset.maskaTokens)
@@ -28,7 +28,7 @@ export const parseInput = (
   return opts
 }
 
-const parseOpts = (value: string): boolean =>
+const parseBool = (value: string): boolean =>
   value !== '' ? Boolean(JSON.parse(value)) : true
 
 const parseMask = (value: string): MaskType =>
