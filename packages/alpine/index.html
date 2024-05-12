@@ -16,11 +16,29 @@
       x-model="maskedvalue"
       x-maska:unmaskedvalue.unmasked="options"
       x-on:maska="console.log($event.detail)"
-      data-maska="#-#"
+      data-maska="##-##"
     >
     <div><label><input type="checkbox" x-model="options.eager"> eager?</label></div>
     <div>masked value: <span x-text="maskedvalue"></span></div>
     <div>unmasked value: <span x-text="unmaskedvalue"></span></div>
+  </div>
+
+  <div x-data="{
+    maskedvalue: '-1234.90',
+    unmaskedvalue: '',
+    options: { number: { locale: 'ru', fraction: 2 }}
+  }" style="margin-top: 1em">
+    <input
+      x-model="maskedvalue"
+      x-maska:unmaskedvalue.unmasked="options"
+      x-on:maska="console.log($event.detail)"
+    >
+    <div>masked value: <span x-text="maskedvalue"></span></div>
+    <div>unmasked value: <span x-text="unmaskedvalue"></span></div>
+  </div>
+
+  <div x-data style="margin-top: 1em">
+    <input x-maska data-maska="+1 (###) ###-####" data-maska-eager value="1234567">
   </div>
 
   <script type="module">
