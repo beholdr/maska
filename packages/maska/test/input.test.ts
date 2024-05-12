@@ -2115,3 +2115,37 @@ describe('Cursor position eager mask', () => {
     expect(input.selectionStart).toBe(3)
   })
 })
+
+describe('Number mask', () => {
+  test('fraction number', async () => {
+    document.body.innerHTML = `<input id="input" data-maska-number-fraction="2">`
+    const input = <HTMLInputElement>document.getElementById('input')
+    new MaskInput(input)
+
+    await user.type(input, '1234.56')
+    expect(input).toHaveValue('1,234.56')
+
+    await user.clear(input)
+  })
+
+  test('russian number', async () => {
+    document.body.innerHTML = `<input id="input" data-maska-number-fraction="2" data-maska-number-locale="ru">`
+    const input = <HTMLInputElement>document.getElementById('input')
+    new MaskInput(input)
+
+    await user.type(input, '1234.56')
+    expect(input).toHaveValue('1 234,56')
+  })
+
+  test('unsigned number', async () => {
+    document.body.innerHTML = `<input id="input" data-maska-number-unsigned>`
+    const input = <HTMLInputElement>document.getElementById('input')
+    new MaskInput(input)
+
+    await user.type(input, '-')
+    expect(input).toHaveValue('')
+
+    await user.type(input, '-1234')
+    expect(input).toHaveValue('1,234')
+  })
+})
