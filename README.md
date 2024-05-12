@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  Simple zero-dependency input mask for Vue 2/3 or vanilla JS.
+  Simple zero-dependency input mask.
 </p>
 
 <p align="center">
@@ -25,22 +25,18 @@ Do you like **Maska**? Please support me via [Boosty](https://boosty.to/beholdr)
 
 ## Features ✨
 
-- No dependencies and small size: ~2.5 Kb gziped
-- Works with any native input
-- Ability to define custom tokens
+- No dependencies and small size: ~3 Kb gziped
+- Vanilla JS version + Vue 2/3, Alpine.js, Svelte integrations
+- Works with native and custom inputs
+- Custom tokens with modifiers, transform functions and hooks
+- Number mask mode
 - Dynamic, reversed and eager masks
-- Token modifiers, transform functions and hooks
 
-## What’s new in v2 🎉
+## What’s new in v3 🎉
 
-- Fully rewritten in TypeScript
-- Autobind to vue variable
-- Eager and reversed masking modes
-- Optonal and repeated tokens
-- Simplified syntax for custom tokens
-- Dynamic masks with custom function logic
-- Hooks for pre/post- processing
-- Ability to replace or merge custom tokens
+- Integrations with Alpine.js and Svelte
+- Number mask mode
+- Other small improvements and fixes
 
 ## Source of Inspiration 💡
 
