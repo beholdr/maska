@@ -98,7 +98,7 @@ export class MaskInput {
     closure()
 
     // if pos is null, it means element does not support setSelectionRange
-    // and when cursor at the end, process only on delete event
+    // and when cursor at the end, skip non-delete event
     if (pos === null || (pos === value.length && !isDelete)) return
 
     const valueNew = input.value
@@ -106,9 +106,15 @@ export class MaskInput {
     const leftPartNew = valueNew.slice(0, pos)
     const unmasked = this.processInput(input, leftPart).unmasked
     const unmaskedNew = this.processInput(input, leftPartNew).unmasked
-    const newPos = pos + (unmasked.length - unmaskedNew.length)
+    let posFixed = pos
 
-    input.setSelectionRange(newPos, newPos)
+    if (leftPart !== leftPartNew) {
+      posFixed += isDelete
+        ? valueNew.length - value.length
+        : unmasked.length - unmaskedNew.length
+    }
+
+    input.setSelectionRange(posFixed, posFixed)
   }
 
   private setValue (input: HTMLInputElement, value: string): void {
