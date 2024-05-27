@@ -35,7 +35,7 @@ export const parseInput = (
   if (input.dataset.maskaNumberUnsigned != null) {
     number.unsigned = parseBool(input.dataset.maskaNumberUnsigned)
   }
-  if (Object.values(number).length > 0) {
+  if (input.dataset.maskaNumber != null || Object.values(number).length > 0) {
     opts.number = number
   }
 

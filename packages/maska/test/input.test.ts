@@ -2117,6 +2117,19 @@ describe('Cursor position eager mask', () => {
 })
 
 describe('Number mask', () => {
+  test('default number', async () => {
+    document.body.innerHTML = `<input id="input" data-maska-number>`
+    const input = <HTMLInputElement>document.getElementById('input')
+    const mask = new MaskInput(input)
+
+    expect(mask.items.get(input)?.opts.number).toStrictEqual({})
+
+    await user.type(input, '1234.56')
+    expect(input).toHaveValue('123,456')
+
+    await user.clear(input)
+  })
+
   test('fraction number', async () => {
     document.body.innerHTML = `<input id="input" data-maska-number-fraction="2">`
     const input = <HTMLInputElement>document.getElementById('input')
