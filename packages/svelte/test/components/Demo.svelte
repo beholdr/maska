@@ -1,6 +1,8 @@
 <script lang="ts">
   import BindValue from './BindValue.svelte'
+  import Event from './Event.svelte'
   import InitialValue from './InitialValue.svelte'
+  import Number from './Number.svelte'
   import Options from './Options.svelte'
   import Simple from './Simple.svelte'
 
@@ -10,7 +12,9 @@
 <main>
   <select bind:value={component}>
     <option value={BindValue}>BindValue</option>
+    <option value={Event}>Event</option>
     <option value={InitialValue}>InitialValue</option>
+    <option value={Number}>Number</option>
     <option value={Options}>Options</option>
     <option value={Simple}>Simple</option>
   </select>
