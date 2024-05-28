@@ -21,7 +21,7 @@
 
 ## Support ☕️
 
-Do you like **Maska**? Please support me via [Boosty](https://boosty.to/beholdr).
+> ❤️ [Please support](https://boosty.to/beholdr) Maska future development!
 
 ## Features ✨
 

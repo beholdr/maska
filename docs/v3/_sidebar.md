@@ -1,0 +1,12 @@
+- [Introduction](/)
+- [Upgrade from v2](/upgrade)
+- Usage
+  - [Vanilla](/vanilla)
+  - [Vue](/vue)
+  - [Alpine](/alpine)
+  - [Svelte](/svelte)
+- Details
+  - [Options](/options)
+  - [Tokens](/tokens)
+  - [Hooks & Events](/hooks)
+  - [Known Issues](/issues)

@@ -6,14 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no, viewport-fit=cover">
   <title>maska v3 docs</title>
 
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%220.9em%22 font-size=%22128%22>*️⃣</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%220.9em%22 font-size=%22120%22>*️⃣</text></svg>">
 
   <!-- Themes (light + dark) -->
   <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css">
   <link rel="stylesheet" media="(prefers-color-scheme: light)" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-versioned-plugin@0.0.1/styles.css">
-
-  <link rel="stylesheet" href="dist/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mingchyuanko/docsify-plugin-page-toc/dist/toc.css">
 
   <style>
     :root {
@@ -26,15 +25,20 @@
     .sidebar > .app-name {
       display: none;
     }
-    .sidebar-nav li.active {
-      background: #990bdb;
-      color: #fff;
-      margin-left: -10px;
-      padding-left: 10px;
-      border-radius: 2px;
+    .sidebar-nav > ul > li:has(ul) {
+      margin-top: 18px;
+      font-size: 0.8em;
+      text-transform: uppercase;
+      letter-spacing: 0.1ex;
+      font-weight: bold;
     }
-    .sidebar-nav li.active a {
-      color: #fff;
+    .sidebar-nav > ul > li > ul {
+      margin-left: 0;
+      margin-top: 6px;
+      font-size: 1rem;
+      text-transform: none;
+      letter-spacing: normal;
+      font-weight: normal;
     }
 
     @media screen and (max-width: 500px) {
@@ -53,10 +57,12 @@
     name: 'maska',
     repo: 'beholdr/maska',
     maxLevel: 2,
+    auto2top: true,
+    loadSidebar: true,
     versionSelectorLabel: 'Version',
     versions: [
-      { folder: '#', label: 'v3.x', default: true },
-      { folder: 'v2', label: 'v2.x', default: false }
+      { folder: 'v3', label: 'v3', default: true },
+      { folder: 'v2', label: 'v2', default: false }
     ]
   }
   </script>
@@ -70,6 +76,6 @@
   <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/docsify-tabs@1"></script>
   <script src="https://cdn.jsdelivr.net/npm/docsify-copy-code@2"></script>
-  <script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/external-script.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mingchyuanko/docsify-plugin-page-toc/dist/toc.min.js"></script>
 </body>
 </html>

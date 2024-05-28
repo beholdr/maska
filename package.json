@@ -1,7 +1,6 @@
 {
   "private": true,
   "workspaces": [
-    "packages/*",
-    "packages/docs"
+    "packages/*"
   ]
 }
