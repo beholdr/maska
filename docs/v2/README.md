@@ -8,8 +8,11 @@ Do you like **Maska**? Please support me via [Boosty](https://boosty.to/beholdr)
 
 # Live Demo
 
-Here are several examples of basic masks that you could create with **Maska**.
-This demo is interactive: feel free to edit the examples.
+<iframe height="570" style="width: 100%;" scrolling="no" title="Maska v2 demo" src="https://codepen.io/beholdr/embed/QWREEMY?default-tab=result&editable=true" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/beholdr/pen/QWREEMY">
+  Maska v2 demo</a> by Alexander (<a href="https://codepen.io/beholdr">@beholdr</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
 
 # Install
 
