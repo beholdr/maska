@@ -1,41 +1,5 @@
 # Usage with Alpine.js
 
-## Installation
-
-<!-- tabs:start -->
-### **With NPM**
-
-```sh
-npm install @maskajs/alpine@3
-```
-
-And then register it:
-
-```js
-import Alpine from 'alpinejs'
-import { xMaska } from '@maskajs/alpine'
-
-Alpine.plugin(xMaska)
-...
-```
-
-### **From CDN**
-
-You can use Maska directly from CDN using simple script tag with `data-init` attribute, just make sure to include it BEFORE Alpine's core JS file:
-
-```html
-<!-- Maska Plugin -->
-<script data-init src="https://cdn.jsdelivr.net/npm/@maskajs/alpine@3/dist/maska.umd.js"></script>
-<!-- Alpine Core -->
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-```
-
-This will automatically register Maska plugin inside Alpine.
-<!-- tabs:end -->
-
-
-## Directive signature
-
 Maska provides custom Alpine.js directive for use with input:
 
 ```html

@@ -1,15 +1,21 @@
 # Upgrade from v2
 
-## New package for Vue
+## New package structure
 
-Maska v2 was a universal package for both vanilla JS and Vue version. Maska v3 is separated to several different packages:
+Maska v3 has different entries for framework-specific exports.
+Import of vue directive in v2:
 
-- package `maska` is for vanilla version
-- package `@maskajs/vue` is for Vue version
+```js
+import { vMaska } from 'maska'
+```
 
-If you used Maska with Vue you need to delete `maska` package and install `@maskajs/vue` package.
+Now you should import vue directive from `maska/vue`:
 
-?> If you used Maska without a framework, just upgrade package to `maska@3` version.
+```js
+import { vMaska } from 'maska/vue'
+```
+
+!> Filenames have also been changed. Please see the [Installation](install) for more information.
 
 ## New directive format
 
@@ -73,4 +79,24 @@ const options = reactive({
 <template>
   <input v-maska="options">
 </template>
+```
+
+## Changed eager mode
+
+With v2, when using eager mode, entered characters appeared after the static mask characters:
+
+```js
+const mask = new Mask({ mask: '1##', eager: true })
+mask.masked('1') // -> 11
+mask.masked('12') // -> 112
+mask.masked('2') // -> 12
+```
+
+Now they are taken into account as these static symbols:
+
+```js
+const mask = new Mask({ mask: '1##', eager: true })
+mask.masked('1') // -> 1
+mask.masked('12') // -> 12
+mask.masked('2') // -> 12
 ```

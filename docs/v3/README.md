@@ -6,7 +6,7 @@
 
 You can use it with vanilla javascript or with your favorite framework. Out of the box there is integration with Vue 2/3, Svelte and Alpine.js, but you can integrate it into any framework.
 
-> ❤️ [Please support](https://boosty.to/beholdr) Maska future development!
+> ❤️ [Please support](https://boosty.to/beholdr) Maska development!
 
 ## Main components
 

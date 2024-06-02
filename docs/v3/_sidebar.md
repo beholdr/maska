@@ -1,5 +1,7 @@
-- [Introduction](/)
-- [Upgrade from v2](/upgrade)
+- Quickstart
+  - [Introduction](/)
+  - [Installation](/install)
+  - [Upgrade from v2](/upgrade)
 - Usage
   - [Vanilla](/vanilla)
   - [Vue](/vue)

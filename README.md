@@ -21,12 +21,12 @@
 
 ## Support ☕️
 
-> ❤️ [Please support](https://boosty.to/beholdr) Maska future development!
+> ❤️ [Please support](https://boosty.to/beholdr) Maska development!
 
 ## Features ✨
 
 - No dependencies and small size: ~3 Kb gziped
-- Vanilla JS version + Vue 2/3, Alpine.js, Svelte integrations
+- Vanilla JS version + Vue 2/3, Alpine.js and Svelte integrations
 - Works with native and custom inputs
 - Custom tokens with modifiers, transform functions and hooks
 - Number mask mode

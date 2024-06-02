@@ -1,24 +1,5 @@
 # Usage with Svelte
 
-## Installation
-
-You can install Maska with following command:
-
-```sh
-npm install @maskajs/svelte@3
-```
-
-And then use it in your `.svelte` component:
-
-```svelte
-import { maska } from '@maskajs/svelte'
-
-<input use:maska data-maska="#-#" />
-```
-
-
-## Action signature
-
 Maska provides simple Svelte action for use with input:
 
 ```html
@@ -34,7 +15,7 @@ Apply `maska` action to the input along with `data-maska` attribite:
 
 ```svelte
 <script>
-import { maska } from '@maskajs/svelte'
+  import { maska } from '@maskajs/svelte'
 </script>
 
 <input use:maska data-maska="#-#">
@@ -47,12 +28,12 @@ To set default [options](/options) for the mask, pass options via **directive va
 
 ```svelte
 <script>
-import { maska } from '@maskajs/svelte'
+  import { maska } from '@maskajs/svelte'
 
-const options = {
-  mask: "#-#",
-  eager: true
-}
+  const options = {
+    mask: "#-#",
+    eager: true
+  }
 </script>
 
 <input use:maska={options} data-maska-reversed>

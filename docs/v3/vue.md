@@ -1,58 +1,5 @@
 # Usage with Vue
 
-## Installation
-
-<!-- tabs:start -->
-### **With NPM**
-
-```sh
-npm install @maskajs/vue@3
-```
-
-And then import it in your `.vue` component:
-
-```js
-import { vMaska } from '@maskajs/vue'
-```
-
-### **From CDN / UMD**
-
-You can use Maska directly from CDN with simple script tag. Library API will be exposed on the global `Maska` object:
-
-```html
-<script src="https://cdn.jsdelivr.net/npm/@maskajs/vue@3/dist/maska.umd.js"></script>
-<script>
-  const { vMaska } = Maska
-
-  Vue.createApp({ directives: { maska: vMaska }}).mount('#app')
-</script>
-```
-
-### **From CDN / ES**
-
-For modern browsers you can use ES modules build with (optional) [import maps](https://caniuse.com/import-maps):
-
-```html
-<script type="importmap">
-  {
-    "imports": {
-      "maska": "https://cdn.jsdelivr.net/npm/@maskajs/vue@3/dist/maska.mjs"
-    }
-  }
-</script>
-<script type="module">
-  import { vMaska } from 'maska'
-
-  Vue.createApp({ directives: { maska: vMaska }}).mount('#app')
-</script>
-```
-
-?> Notice that we are using `<script type="module">` in this case.
-<!-- tabs:end -->
-
-
-## Directive signature
-
 Maska provides custom Vue directive for use with input:
 
 ```html
@@ -75,7 +22,7 @@ Import `vMaska` directive and apply it to the input along with `data-maska` attr
 
 ```vue
 <script setup>
-import { vMaska } from "maska"
+  import { vMaska } from "maska"
 </script>
 
 <template>
@@ -87,11 +34,11 @@ import { vMaska } from "maska"
 
 ```vue
 <script>
-import { vMaska } from "maska"
+  import { vMaska } from "maska"
 
-export default {
-  directives: { maska: vMaska }
-}
+  export default {
+    directives: { maska: vMaska }
+  }
 </script>
 
 <template>
@@ -110,14 +57,14 @@ To set default [options](/options) for the mask, pass options via **directive va
 
 ```vue
 <script setup>
-import { reactive } from "vue"
-import { vMaska } from "maska"
+  import { reactive } from "vue"
+  import { vMaska } from "maska"
 
-// could be plain object too
-const options = reactive({
-  mask: "#-#",
-  eager: true
-})
+  // could be plain object too
+  const options = reactive({
+    mask: "#-#",
+    eager: true
+  })
 </script>
 
 <template>
@@ -129,17 +76,17 @@ const options = reactive({
 
 ```vue
 <script>
-import { vMaska } from "maska"
+  import { vMaska } from "maska"
 
-export default {
-  directives: { maska: vMaska },
-  data: () => ({
-    options: {
-      mask: "#-#",
-      eager: true
-    }
-  })
-}
+  export default {
+    directives: { maska: vMaska },
+    data: () => ({
+      options: {
+        mask: "#-#",
+        eager: true
+      }
+    })
+  }
 </script>
 
 <template>
@@ -162,11 +109,11 @@ To get masked value you can use standard `v-model` directive on the input. But i
 
 ```vue
 <script setup>
-import { ref } from "vue"
-import { vMaska } from "maska"
+  import { ref } from "vue"
+  import { vMaska } from "maska"
 
-const maskedvalue = ref('')
-const unmaskedvalue = ref('')
+  const maskedvalue = ref('')
+  const unmaskedvalue = ref('')
 </script>
 
 <template>
@@ -181,15 +128,15 @@ const unmaskedvalue = ref('')
 
 ```vue
 <script>
-import { vMaska } from "maska"
+  import { vMaska } from "maska"
 
-export default {
-  directives: { maska: vMaska },
-  data: () => ({
-    maskedvalue: "",
-    unmaskedvalue: ""
-  })
-}
+  export default {
+    directives: { maska: vMaska },
+    data: () => ({
+      maskedvalue: "",
+      unmaskedvalue: ""
+    })
+  }
 </script>
 
 <template>

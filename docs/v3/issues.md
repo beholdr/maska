@@ -15,7 +15,7 @@ Some frameworks with custom components may not pass `data-` attributes to native
 
 ```vue
 <script setup>
-const options = { mask: '#-#' }
+  const options = { mask: '#-#' }
 </script>
 
 <input v-maska="options">
