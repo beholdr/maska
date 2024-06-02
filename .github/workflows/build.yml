@@ -24,13 +24,13 @@ jobs:
         run: npm ci
 
       - name: Test and Coverage
-        run: npm run test:coverage --workspace=maska
+        run: npm run test:coverage
 
       - name: Parse coverage
         uses: sergeysova/jq-action@v2
         id: coverage
         with:
-          cmd: 'jq .total.statements.pct packages/maska/coverage/coverage-summary.json'
+          cmd: 'jq .total.statements.pct coverage/coverage-summary.json'
 
   badge:
     runs-on: ubuntu-latest
