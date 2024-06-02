@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maska Vanilla JS Demo</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css" />
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><h1>Maska demos</h1></li>
+      </ul>
+      <ul>
+        <li><strong>Vanilla JS</strong></li>
+        <li><a href="alpine.html">Alpine.js</a></li>
+        <li><a href="svelte.html">Svelte</a></li>
+        <li><a href="vue.html">Vue</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <article>
+      <div id="app">
+        <input data-maska="#-#" value="123">
+      </div>
+
+      <script type="module">
+        import { MaskInput } from '../src'
+
+        new MaskInput('[data-maska]')
+      </script>
+    </article>
+  </main>
+</body>
+</html>

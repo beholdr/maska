@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maska Alpine Demo</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css" />
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><h1>Maska demos</h1></li>
+      </ul>
+      <ul>
+        <li><a href="index.html">Vanilla JS</a></li>
+        <li><strong>Alpine.js</strong></li>
+        <li><a href="svelte.html">Svelte</a></li>
+        <li><a href="vue.html">Vue</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <article>
+      <div x-data="{
+        maskedvalue: '123',
+        unmaskedvalue: '',
+        options: { eager: true }
+      }">
+        <input
+          x-model="maskedvalue"
+          x-maska:unmaskedvalue.unmasked="options"
+          x-on:maska="console.log($event.detail)"
+          data-maska="##-##"
+        >
+        <div><label><input type="checkbox" x-model="options.eager"> eager?</label></div>
+        <div>masked value: <span x-text="maskedvalue"></span></div>
+        <div>unmasked value: <span x-text="unmaskedvalue"></span></div>
+      </div>
+
+      <div x-data="{
+        maskedvalue: '-1234.90',
+        unmaskedvalue: '',
+        options: { number: { locale: 'ru', fraction: 2 }}
+      }" style="margin-top: 1em">
+        <input
+          x-model="maskedvalue"
+          x-maska:unmaskedvalue.unmasked="options"
+          x-on:maska="console.log($event.detail)"
+        >
+        <div>masked value: <span x-text="maskedvalue"></span></div>
+        <div>unmasked value: <span x-text="unmaskedvalue"></span></div>
+      </div>
+
+      <div x-data style="margin-top: 1em">
+        <input x-maska data-maska="+1 (###) ###-####" data-maska-eager value="1234567">
+      </div>
+
+      <script type="module">
+        import Alpine from 'alpinejs'
+        import { xMaska } from '../src/alpine'
+
+        Alpine.plugin(xMaska)
+
+        window.Alpine = Alpine
+        Alpine.start()
+      </script>
+    </article>
+  </main>
+</body>
+</html>
