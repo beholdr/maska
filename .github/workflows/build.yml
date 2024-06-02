@@ -32,6 +32,11 @@ jobs:
         with:
           cmd: 'jq .total.statements.pct coverage/coverage-summary.json'
 
+      - name: Upload demo artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./docs
+
   badge:
     runs-on: ubuntu-latest
     needs: build
@@ -62,11 +67,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./docs
-
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
