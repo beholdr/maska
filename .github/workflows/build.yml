@@ -32,41 +32,41 @@ jobs:
         with:
           cmd: 'jq .total.statements.pct coverage/coverage-summary.json'
 
-  badge:
-    runs-on: ubuntu-latest
-    needs: build
+  # badge:
+  #   runs-on: ubuntu-latest
+  #   needs: build
 
-    steps:
-      - name: Create badge
-        uses: schneegans/dynamic-badges-action@v1.6.0
-        with:
-          auth: ${{ secrets.GIST_SECRET }}
-          gistID: 7f2a04de5e494f9a3820832520ee2562
-          filename: badge.json
-          label: Code Coverage
-          message: ${{ needs.build.outputs.coverage }}%
-          valColorRange: ${{ needs.build.outputs.coverage }}
-          maxColorRange: 100
-          minColorRange: 0
+  #   steps:
+  #     - name: Create badge
+  #       uses: schneegans/dynamic-badges-action@v1.6.0
+  #       with:
+  #         auth: ${{ secrets.GIST_SECRET }}
+  #         gistID: 7f2a04de5e494f9a3820832520ee2562
+  #         filename: badge.json
+  #         label: Code Coverage
+  #         message: ${{ needs.build.outputs.coverage }}%
+  #         valColorRange: ${{ needs.build.outputs.coverage }}
+  #         maxColorRange: 100
+  #         minColorRange: 0
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   needs: build
 
-    permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
+  #   permissions:
+  #     pages: write      # to deploy to Pages
+  #     id-token: write   # to verify the deployment originates from an appropriate source
 
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  #   environment:
+  #     name: github-pages
+  #     url: ${{ steps.deployment.outputs.page_url }}
 
-    steps:
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./docs
+  #   steps:
+  #     - name: Upload artifact
+  #       uses: actions/upload-pages-artifact@v3
+  #       with:
+  #         path: ./docs
 
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+  #     - name: Deploy to GitHub Pages
+  #       id: deployment
+  #       uses: actions/deploy-pages@v4
