@@ -13,11 +13,13 @@
   "author": "Alexander Shabunevich",
   "homepage": "https://beholdr.github.io/maska/",
   "repository": {
-    "url": "https://github.com/beholdr/maska",
+    "url": "git+https://github.com/beholdr/maska.git",
     "type": "git"
   },
   "license": "MIT",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": "./src/index.ts",
     "./alpine": "./src/alpine/index.ts",
