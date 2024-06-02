@@ -17,5 +17,5 @@ Which steps do we need to take to reproduce the problem?
 
 ### Reproduction link
 
-Link to online sandbox with reproduction code.
-You could use these as starters: [vue](https://stackblitz.com/edit/vue-maska) / [vanilla](https://stackblitz.com/edit/js-maska)
+Link to online sandbox (like https://codepen.io) with mimimal reproduction code.
+You could use this as starter: [vue](https://codepen.io/beholdr/pen/qBGrLjd)
