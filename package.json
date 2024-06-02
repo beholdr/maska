@@ -2,7 +2,6 @@
   "name": "maska",
   "description": "Simple zero-dependency input mask for Vanilla JS, Vue, Alpine.js and Svelte",
   "version": "3.0.0-beta",
-  "private": true,
   "keywords": [
     "mask",
     "inputmask",
