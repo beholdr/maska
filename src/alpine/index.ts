@@ -1,5 +1,5 @@
 import { Alpine } from 'alpinejs'
-import { MaskaDetail, MaskInput, MaskInputOptions } from '../input'
+import { MaskaDetail, MaskInput, MaskInputOptions } from '..'
 
 const masks = new WeakMap<HTMLInputElement, MaskInput>()
 
