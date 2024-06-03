@@ -66,7 +66,7 @@ You can use Maska directly from CDN with a simple script tag as UMD-build.
 Library API will be exposed on the global `Maska` object:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/maska@3.0.0-beta/dist/cdn/maska.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/maska@3.0.0-beta1/dist/cdn/maska.js"></script>
 <script>
   const { Mask, MaskInput } = Maska
 
@@ -81,7 +81,7 @@ Include Maska from CDN, just make sure to include it **before** Alpine's core JS
 
 ```html
 <!-- Maska Plugin -->
-<script src="https://cdn.jsdelivr.net/npm/maska@3.0.0-beta/dist/cdn/alpine.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/maska@3.0.0-beta1/dist/cdn/alpine.js"></script>
 <!-- Alpine Core -->
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 ```
@@ -92,7 +92,7 @@ This will automatically register Maska plugin inside Alpine.
 You can use Maska directly from CDN and register directive:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/maska@3.0.0-beta/dist/cdn/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/maska@3.0.0-beta1/dist/cdn/vue.js"></script>
 <script>
   const { vMaska } = Maska
 
@@ -113,7 +113,7 @@ For modern browsers you can use ES modules build with (optional) [import maps](h
 <script type="importmap">
   {
     "imports": {
-      "maska": "https://cdn.jsdelivr.net/npm/maska@3.0.0-beta/dist/maska.mjs"
+      "maska": "https://cdn.jsdelivr.net/npm/maska@3.0.0-beta1/dist/maska.mjs"
     }
   }
 </script>
@@ -131,7 +131,7 @@ For modern browsers you can use ES modules build with (optional) [import maps](h
 <script type="importmap">
   {
     "imports": {
-      "maska/alpine": "https://cdn.jsdelivr.net/npm/maska@3.0.0-beta/dist/alpine.mjs"
+      "maska/alpine": "https://cdn.jsdelivr.net/npm/maska@3.0.0-beta1/dist/alpine.mjs"
     }
   }
 </script>
@@ -149,7 +149,7 @@ For modern browsers you can use ES modules build with (optional) [import maps](h
 <script type="importmap">
   {
     "imports": {
-      "maska/vue": "https://cdn.jsdelivr.net/npm/maska@3.0.0-beta/dist/vue.mjs"
+      "maska/vue": "https://cdn.jsdelivr.net/npm/maska@3.0.0-beta1/dist/vue.mjs"
     }
   }
 </script>
