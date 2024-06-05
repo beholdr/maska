@@ -22,7 +22,7 @@ Import `vMaska` directive and apply it to the input along with `data-maska` attr
 
 ```vue
 <script setup>
-  import { vMaska } from "maska"
+  import { vMaska } from "maska/vue"
 </script>
 
 <template>
@@ -34,7 +34,7 @@ Import `vMaska` directive and apply it to the input along with `data-maska` attr
 
 ```vue
 <script>
-  import { vMaska } from "maska"
+  import { vMaska } from "maska/vue"
 
   export default {
     directives: { maska: vMaska }
@@ -58,7 +58,7 @@ To set default [options](/options) for the mask, pass options via **directive va
 ```vue
 <script setup>
   import { reactive } from "vue"
-  import { vMaska } from "maska"
+  import { vMaska } from "maska/vue"
 
   // could be plain object too
   const options = reactive({
@@ -76,7 +76,7 @@ To set default [options](/options) for the mask, pass options via **directive va
 
 ```vue
 <script>
-  import { vMaska } from "maska"
+  import { vMaska } from "maska/vue"
 
   export default {
     directives: { maska: vMaska },
@@ -110,7 +110,7 @@ To get masked value you can use standard `v-model` directive on the input. But i
 ```vue
 <script setup>
   import { ref } from "vue"
-  import { vMaska } from "maska"
+  import { vMaska } from "maska/vue"
 
   const maskedvalue = ref('')
   const unmaskedvalue = ref('')
@@ -128,7 +128,7 @@ To get masked value you can use standard `v-model` directive on the input. But i
 
 ```vue
 <script>
-  import { vMaska } from "maska"
+  import { vMaska } from "maska/vue"
 
   export default {
     directives: { maska: vMaska },
@@ -156,7 +156,7 @@ To get masked value you can use standard `v-model` directive on the input. But i
 To use Maska in Nuxt 3 you can make a simple plugin. Create file `maska.ts` in `plugins` folder:
 
 ```js
-import { vMaska } from "maska"
+import { vMaska } from "maska/vue"
 
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.directive("maska", vMaska)
@@ -177,7 +177,7 @@ Now you can use v-maska directive in your app:
 
 ```js
 import { createApp } from "vue"
-import { vMaska } from "maska"
+import { vMaska } from "maska/vue"
 
 createApp({}).directive("maska", vMaska)
 
@@ -189,7 +189,7 @@ Vue.createApp({}).directive("maska", Maska.vMaska)
 
 ```js
 import Vue from "vue"
-import { vMaska } from "maska"
+import { vMaska } from "maska/vue"
 
 Vue.directive("maska", vMaska)
 
