@@ -1,10 +1,6 @@
-<object data="../maska.svg" type="image/svg+xml" style="max-width: 90%"></object>
-
----
-
 # Maska
 
-Do you like **Maska**? Please support me via [Boosty](https://boosty.to/beholdr).
+> ❤️ [Please support](https://boosty.to/beholdr) Maska development!
 
 # Live Demo
 

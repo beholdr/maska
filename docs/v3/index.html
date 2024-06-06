@@ -11,7 +11,6 @@
   <!-- Themes (light + dark) -->
   <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css">
   <link rel="stylesheet" media="(prefers-color-scheme: light)" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-versioned-plugin@0.0.1/styles.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mingchyuanko/docsify-plugin-page-toc/dist/toc.css">
 
   <style>
@@ -22,8 +21,8 @@
       --heading-h3-font-size: var(--modular-scale-1);
     }
 
-    .sidebar > .app-name {
-      display: none;
+    .sidebar select {
+      font-size: 1rem;
     }
     .sidebar-nav > ul > li:has(ul) {
       margin-top: 18px;
@@ -54,23 +53,19 @@
 
   <script>
   window.$docsify = {
-    name: 'maska',
+    name: '<img src="../maska.svg" style="width: 90%"><select id="version-selector"><option value="v3">v3</option><option value="v2">v2</option></select>',
+    nameLink: false,
     repo: 'beholdr/maska',
     maxLevel: 2,
     auto2top: true,
-    loadSidebar: true,
-    versionSelectorLabel: 'Version',
-    versions: [
-      { folder: 'v3', label: 'v3', default: true },
-      { folder: 'v2', label: 'v2', default: false }
-    ]
+    loadSidebar: true
   }
   </script>
 
   <!-- Required -->
   <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/js/docsify-themeable.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/docsify-versioned-plugin@0.0.1/index.js"></script>
+  <script src="../docsify-version-plugin.js"></script>
 
   <!-- Recommended -->
   <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.js"></script>

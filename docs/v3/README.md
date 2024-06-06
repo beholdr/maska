@@ -1,10 +1,4 @@
-<object data="../maska.svg" type="image/svg+xml" style="max-width: 90%"></object>
-
----
-
 !> Maska v3 is currently in beta. If you encounter any issues, please [report them](https://github.com/beholdr/maska/issues).
-
-?> Docs for Maska v2 [are here](https://beholdr.github.io/maska/v2/).
 
 **Maska** is a simple zero-dependency input mask library.
 
