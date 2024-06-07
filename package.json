@@ -23,6 +23,13 @@
   "module": "./dist/maska.mjs",
   "unpkg": "./dist/cdn/maska.js",
   "types": "./dist/maska.d.ts",
+  "typesVersions": {
+    "*": {
+      "alpine": ["./dist/alpine.d.ts"],
+      "svelte": ["./dist/svelte.d.ts"],
+      "vue": ["./dist/vue.d.ts"]
+    }
+  },
   "exports": {
     ".": {
       "types": "./dist/maska.d.ts",
@@ -43,13 +50,6 @@
       "types": "./dist/vue.d.ts",
       "import": "./dist/vue.mjs",
       "require": "./dist/vue.js"
-    }
-  },
-  "typesVersions": {
-    "*": {
-      "vue": ["dist/vue.d.ts"],
-      "alpine": ["dist/alpine.d.ts"],
-      "svelte": ["dist/svelte.d.ts"]
     }
   },
   "scripts": {
