@@ -45,6 +45,13 @@
       "require": "./dist/vue.js"
     }
   },
+  "typesVersions": {
+    "*": {
+      "vue": ["dist/vue.d.ts"],
+      "alpine": ["dist/alpine.d.ts"],
+      "svelte": ["dist/svelte.d.ts"]
+    }
+  },
   "scripts": {
     "dev": "vite",
     "docs": "cd docs && http-server",
