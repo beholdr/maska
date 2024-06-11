@@ -112,17 +112,21 @@ To get masked value you can use standard `v-model` directive on the input. But i
   import { ref } from "vue"
   import { vMaska } from "maska/vue"
 
-  const maskedvalue = ref('')
-  const unmaskedvalue = ref('')
+  const maskedValue = ref('')
+  const unmaskedValue = ref('')
+
+  defineExpose({ unmaskedValue }) // make sure you expose the bound variable
 </script>
 
 <template>
-  <input v-maska:unmaskedvalue.unmasked data-maska="#-#" v-model="maskedvalue">
+  <input v-maska:unmaskedValue.unmasked data-maska="#-#" v-model="maskedValue">
 
-  Masked value: {{ maskedvalue }}
-  Unmasked value: {{ unmaskedvalue }}
+  Masked value: {{ maskedValue }}
+  Unmasked value: {{ unmaskedValue }}
 </template>
 ```
+
+!> Make sure you expose the bound variable using `defineExpose` macro.
 
 ### **Options API**
 
@@ -133,22 +137,20 @@ To get masked value you can use standard `v-model` directive on the input. But i
   export default {
     directives: { maska: vMaska },
     data: () => ({
-      maskedvalue: "",
-      unmaskedvalue: ""
+      maskedValue: "",
+      unmaskedValue: ""
     })
   }
 </script>
 
 <template>
-  <input v-maska:unmaskedvalue.unmasked data-maska="#-#" v-model="maskedvalue">
+  <input v-maska:unmaskedValue.unmasked data-maska="#-#" v-model="maskedValue">
 
-  Masked value: {{ maskedvalue }}
-  Unmasked value: {{ unmaskedvalue }}
+  Masked value: {{ maskedValue }}
+  Unmasked value: {{ unmaskedValue }}
 </template>
 ```
 <!-- tabs:end -->
-
-!> For correct work as directive argument, name of the bounded variable should be in **lower case**. So instead of `unmaskedValue` use `unmaskedvalue` or `unmasked_value`.
 
 
 ## Usage with Nuxt

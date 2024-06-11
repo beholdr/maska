@@ -17,6 +17,8 @@ const options2 = <MaskInputOptions>{
     (detail) => emit('mask3', detail),
   ]
 }
+
+defineExpose({ bound1, bound2 })
 </script>
 
 <template>

@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { MaskInputOptions } from '../../src'
 import { vMaska } from '../../src/vue'
 
-const bound = ref('')
+const boundMasked = ref('')
 const config = <MaskInputOptions>{
   mask: 'A A',
   tokens: {
@@ -14,9 +14,11 @@ const config = <MaskInputOptions>{
     }
   }
 }
+
+defineExpose({ boundMasked })
 </script>
 
 <template>
-  <input v-maska:bound="config" />
-  <div>{{ bound }}</div>
+  <input v-maska:boundMasked="config" />
+  <div>{{ boundMasked }}</div>
 </template>

@@ -2,11 +2,13 @@
 import { ref } from 'vue'
 import { vMaska } from '../../src/vue'
 
-const bound = ref(false)
+const boundCompleted = ref(false)
+
+defineExpose({ boundCompleted })
 </script>
 
 <template>
-  <input v-maska:bound.completed data-maska="#-#-#" />
-  <div v-if="bound === true">Completed</div>
+  <input v-maska:boundCompleted.completed data-maska="#-#-#" />
+  <div v-if="boundCompleted === true">Completed</div>
   <div v-else>Uncompleted</div>
 </template>

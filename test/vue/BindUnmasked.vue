@@ -2,10 +2,12 @@
 import { ref } from 'vue'
 import { vMaska } from '../../src/vue'
 
-const bound = ref('')
+const boundUnmasked = ref('')
+
+defineExpose({ boundUnmasked })
 </script>
 
 <template>
-  <input v-maska:bound.unmasked data-maska="#-#" />
-  <div>{{ bound }}</div>
+  <input v-maska:boundUnmasked.unmasked data-maska="#-#" />
+  <div>{{ boundUnmasked }}</div>
 </template>

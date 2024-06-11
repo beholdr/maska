@@ -5,16 +5,16 @@ type MaskaDirective = Directive<HTMLElement, MaskInputOptions | undefined>
 
 const masks = new WeakMap<HTMLInputElement, MaskInput>()
 
-// hacky way to update binding.arg without using defineExposed
 const setArg = (binding: DirectiveBinding, value: string | boolean): void => {
   if (binding.arg == null || (binding.instance == null)) return
 
-  const inst = binding.instance as any
+  const isComposition = 'setup' in binding.instance.$.type
 
-  if (binding.arg in inst) {
-    inst[binding.arg] = value // options api
-  } else if (inst.$?.setupState != null && binding.arg in inst.$.setupState) {
-    inst.$.setupState[binding.arg] = value // composition api
+  if (binding.arg in binding.instance) {
+    // @ts-expect-error
+    binding.instance[binding.arg] = value
+  } else if (isComposition) {
+    console.warn('Maska: please expose `%s` using defineExpose', binding.arg)
   }
 }
 

@@ -6,7 +6,7 @@ const mask = ref('+1 (###) ###-####')
 const show = ref(true)
 const eager = ref(true)
 const valueMasked = ref('1234567')
-const valueunmasked = ref('1')
+const valueUnmasked = ref('1')
 
 const onMaska = (e) => console.log(e.detail)
 
@@ -29,6 +29,8 @@ const options2 = {
       .slice(0, sub ? -sub : undefined)
   }
 }
+
+defineExpose({ valueUnmasked })
 </script>
 
 <template>
@@ -40,9 +42,9 @@ const options2 = {
     <div><input v-model="mask"></div>
 
     <div v-if="show">
-      <input v-maska:valueunmasked.unmasked="options" v-model="valueMasked" @maska="onMaska">
+      <input v-maska:valueUnmasked.unmasked="options" v-model="valueMasked" @maska="onMaska">
       <div>Masked: {{ valueMasked }}</div>
-      <div>Unmasked: {{ valueunmasked }}</div>
+      <div>Unmasked: {{ valueUnmasked }}</div>
     </div>
   </div>
 
