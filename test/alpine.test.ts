@@ -20,6 +20,12 @@ const prepareInput = async (markup: string) => {
 }
 
 describe('init', () => {
+  test('with string', async () => {
+    input = await prepareInput(`<input x-maska="'#-#'" value="123">`)
+
+    expect(input).toHaveValue('1-2')
+  })
+
   test('with data attr', async () => {
     input = await prepareInput(`<input x-maska data-maska="#-#" value="123">`)
 

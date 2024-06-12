@@ -24,38 +24,42 @@
 
   <main>
     <article>
-      <div x-data="{
-        maskedvalue: '123',
-        unmaskedvalue: '',
-        options: { eager: true }
-      }">
-        <input
-          x-model="maskedvalue"
-          x-maska:unmaskedvalue.unmasked="options"
-          x-on:maska="console.log($event.detail)"
-          data-maska="##-##"
-        >
-        <div><label><input type="checkbox" x-model="options.eager"> eager?</label></div>
-        <div>masked value: <span x-text="maskedvalue"></span></div>
-        <div>unmasked value: <span x-text="unmaskedvalue"></span></div>
+      <div x-data="{ enabled: true }">
+        <div><label><input type="checkbox" x-model="enabled"> enabled?</label></div>
+        <template x-if="enabled">
+          <div x-data="{
+            maskedvalue: '123',
+            unmaskedvalue: '',
+            options: { mask: '#-#', eager: true }
+          }">
+            <input
+              x-model="maskedvalue"
+              x-maska:unmaskedvalue.unmasked="options"
+            >
+            <div><label><input type="checkbox" x-model="options.eager"> eager?</label></div>
+            <div>masked value: <span x-text="maskedvalue"></span></div>
+            <div>unmasked value: <span x-text="unmaskedvalue"></span></div>
+          </div>
+        </template>
       </div>
 
       <div x-data="{
         maskedvalue: '-1234.90',
         unmaskedvalue: '',
-        options: { number: { locale: 'ru', fraction: 2 }}
       }" style="margin-top: 1em">
         <input
           x-model="maskedvalue"
-          x-maska:unmaskedvalue.unmasked="options"
+          x-maska:unmaskedvalue.unmasked
           x-on:maska="console.log($event.detail)"
+          data-maska-number-locale="ru"
+          data-maska-number-fraction="2"
         >
         <div>masked value: <span x-text="maskedvalue"></span></div>
         <div>unmasked value: <span x-text="unmaskedvalue"></span></div>
       </div>
 
       <div x-data style="margin-top: 1em">
-        <input x-maska data-maska="+1 (###) ###-####" data-maska-eager value="1234567">
+        <input x-maska="'+1 (###) ###-####'" data-maska-eager value="1234567">
       </div>
 
       <script type="module">

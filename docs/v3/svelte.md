@@ -3,34 +3,38 @@
 Maska provides simple Svelte action for use with input:
 
 ```html
-<input use:maska={options}>
+<input use:maska={value}>
 ```
 
-- `options` is object with default options
+- `value` could be one of:
+  - `string` for the mask value (should be enclosed in additional quotation marks: `{'#-#'}`)
+  - `object` with a default options
 
 
 ## Minimal example
 
-Apply `maska` action to the input along with `data-maska` attribite:
+Apply `maska` action to the input:
 
 ```svelte
 <script>
-  import { maska } from '@maskajs/svelte'
+  import { maska } from "maska/svelte"
 </script>
 
-<input use:maska data-maska="#-#">
+<input use:maska={'#-#'}>
 ```
 
+?> Please note that the mask value is enclosed in additional quotation marks: `"'#-#'"`.
 
 ## Set mask options
 
 To set default [options](/options) for the mask, pass options via **directive value**:
 
 ```svelte
-<script>
-  import { maska } from '@maskajs/svelte'
+<script lang="ts">
+  import { maska } from "maska/svelte"
+  import type { MaskInputOptions } from "maska"
 
-  const options = {
+  const options: MaskInputOptions = {
     mask: "#-#",
     eager: true
   }

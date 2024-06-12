@@ -1,62 +1,52 @@
-<script setup>
+<script setup lang="ts">
 import { reactive, ref } from 'vue'
 import { vMaska } from '../../src/vue'
+import type { MaskInputOptions, MaskaDetail } from '../../src'
 
-const mask = ref('+1 (###) ###-####')
 const show = ref(true)
-const eager = ref(true)
 const valueMasked = ref('1234567')
 const valueUnmasked = ref('1')
 
-const onMaska = (e) => console.log(e.detail)
+const onMaska = (e: CustomEvent<MaskaDetail>) => console.log(e.detail)
 
-const options = reactive({
-  mask,
-  eager
+const options = reactive<MaskInputOptions>({
+  mask: '+1 (###) ###-####',
+  eager: true
 })
-
-const options2 = {
-  preProcess: val => val.replace(/[$,]/g, ''),
-  postProcess: val => {
-    if (!val) return ''
-
-    const sub = 3 - (val.includes('.') ? val.length - val.indexOf('.') : 0)
-
-    return Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(val)
-      .slice(0, sub ? -sub : undefined)
-  }
-}
 
 defineExpose({ valueUnmasked })
 </script>
 
 <template>
-  <div class="row">
+  <p>
     <div>
       show: <input type="checkbox" v-model="show">
-      eager: <input type="checkbox" v-model="eager">
+      eager: <input type="checkbox" v-model="options.eager">
     </div>
-    <div><input v-model="mask"></div>
+
+    <input v-model="options.mask">
 
     <div v-if="show">
       <input v-maska:valueUnmasked.unmasked="options" v-model="valueMasked" @maska="onMaska">
       <div>Masked: {{ valueMasked }}</div>
       <div>Unmasked: {{ valueUnmasked }}</div>
     </div>
-  </div>
+  </p>
 
-  <div class="row"><input type="email" v-maska data-maska="##-##" data-maska-eager value="12"></div>
+  <p>
+    <input v-maska data-maska="##-##" data-maska-eager value="123">
+  </p>
 
-  <div class="row"><input v-maska data-maska="####" value="1234"></div>
+  <p>
+    <input v-maska="'####'" value="12345">
+  </p>
 
-  <div><input v-maska="options2" value="1234567" data-maska="0.99" data-maska-tokens="0:\d:multiple|9:\d:optional"></div>
+  <p>
+    <input
+      v-maska
+      value="1234567.89"
+      data-maska-number-locale="en"
+      data-maska-number-fraction="2"
+    >
+  </p>
 </template>
-
-<style scoped>
-.row {
-  margin-bottom: 1em;
-}
-</style>

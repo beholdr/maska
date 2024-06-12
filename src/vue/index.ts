@@ -1,7 +1,7 @@
 import { Directive, DirectiveBinding } from 'vue'
 import { MaskaDetail, MaskInput, MaskInputOptions } from '..'
 
-type MaskaDirective = Directive<HTMLElement, MaskInputOptions | undefined>
+type MaskaDirective = Directive<HTMLElement, MaskInputOptions | string | undefined>
 
 const masks = new WeakMap<HTMLInputElement, MaskInput>()
 
@@ -20,9 +20,14 @@ const setArg = (binding: DirectiveBinding, value: string | boolean): void => {
 
 export const vMaska: MaskaDirective = (el, binding) => {
   const input = el instanceof HTMLInputElement ? el : el.querySelector('input')
-  const opts = binding.value != null ? { ...binding.value } : {}
 
   if (input == null || input?.type === 'file') return
+
+  let opts: MaskInputOptions = {}
+
+  if (binding.value != null) {
+    opts = typeof binding.value === 'string' ? { mask: binding.value } : { ...binding.value }
+  }
 
   if (binding.arg != null) {
     const updateArg = (detail: MaskaDetail): void => {

@@ -12,7 +12,7 @@ npm install maska
 And then import it in your code:
 
 ```js
-import { Mask, MaskInput } from 'maska'
+import { Mask, MaskInput } from "maska"
 
 new MaskInput("[data-maska]") // for masked input
 const mask = new Mask({ mask: "#-#" }) // for programmatic use
@@ -23,10 +23,14 @@ const mask = new Mask({ mask: "#-#" }) // for programmatic use
 And then register it as custom plugin:
 
 ```js
-import Alpine from 'alpinejs'
-import { xMaska } from 'maska/alpine'
+import Alpine from "alpinejs"
+import { xMaska } from "maska/alpine"
 
 Alpine.plugin(xMaska)
+```
+
+```html
+<input x-maska="'#-#'">
 ```
 
 ### **Svelte**
@@ -35,10 +39,10 @@ And then use it in your `.svelte` component:
 
 ```svelte
 <script>
-  import { maska } from 'maska/svelte'
+  import { maska } from "maska/svelte"
 </script>
 
-<input use:maska data-maska="#-#" />
+<input use:maska={'#-#'}>
 ```
 
 ### **Vue**
@@ -47,11 +51,11 @@ And then use it in your `.vue` component:
 
 ```js
 <script setup>
-  import { vMaska } from 'maska/vue'
+  import { vMaska } from "maska/vue"
 </script>
 
 <template>
-  <input v-maska data-maska="#-#" />
+  <input v-maska="'#-#'">
 </template>
 ```
 <!-- tabs:end -->
@@ -118,7 +122,7 @@ For modern browsers you can use ES modules build with (optional) [import maps](h
   }
 </script>
 <script type="module">
-  import { Mask, MaskInput } from 'maska'
+  import { Mask, MaskInput } from "maska"
 
   new MaskInput("[data-maska]") // for masked input
   const mask = new Mask({ mask: "#-#" }) // for programmatic use
@@ -136,8 +140,8 @@ For modern browsers you can use ES modules build with (optional) [import maps](h
   }
 </script>
 <script type="module">
-  import Alpine from 'alpinejs'
-  import { xMaska } from 'maska/alpine'
+  import Alpine from "alpinejs"
+  import { xMaska } from "maska/alpine"
 
   Alpine.plugin(xMaska)
 </script>
@@ -154,7 +158,7 @@ For modern browsers you can use ES modules build with (optional) [import maps](h
   }
 </script>
 <script type="module">
-  import { vMaska } from 'maska/vue'
+  import { vMaska } from "maska/vue"
 
   Vue.createApp({ directives: { maska: vMaska }}).mount('#app')
 </script>

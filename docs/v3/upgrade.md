@@ -6,13 +6,13 @@ Maska v3 has different entries for framework-specific exports.
 Import of vue directive in v2:
 
 ```js
-import { vMaska } from 'maska'
+import { vMaska } from "maska"
 ```
 
 Now you should import vue directive from `maska/vue`:
 
 ```js
-import { vMaska } from 'maska/vue'
+import { vMaska } from "maska/vue"
 ```
 
 !> Filenames have also been changed. Please see the [Installation](install) for more information.

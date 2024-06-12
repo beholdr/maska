@@ -3,7 +3,7 @@
 Maska provides custom Vue directive for use with input:
 
 ```html
-<input v-maska:argument.modifier="options">
+<input v-maska:argument.modifier="value">
 ```
 
 - `argument` is a name of the bound variable (see example below)
@@ -11,11 +11,13 @@ Maska provides custom Vue directive for use with input:
   - `masked` (default): variable will get a masked value (as in v-model)
   - `unmasked`: variable will get an unmasked (raw) value
   - `completed`: variable will be boolean, showing that mask is completed
-- `options` is object with default options
+- `value` could be one of:
+  - `string` for the mask value (should be enclosed in additional quotation marks: `"'#-#'"`)
+  - `object` with a default options
 
 ## Minimal example
 
-Import `vMaska` directive and apply it to the input along with `data-maska` attribite:
+Import `vMaska` directive and apply it to the input:
 
 <!-- tabs:start -->
 ### **Composition API**
@@ -26,7 +28,7 @@ Import `vMaska` directive and apply it to the input along with `data-maska` attr
 </script>
 
 <template>
-  <input v-maska data-maska="#-#">
+  <input v-maska="'#-#'">
 </template>
 ```
 
@@ -42,11 +44,12 @@ Import `vMaska` directive and apply it to the input along with `data-maska` attr
 </script>
 
 <template>
-  <input v-maska data-maska="#-#">
+  <input v-maska="'#-#'">
 </template>
 ```
 <!-- tabs:end -->
 
+?> Please note that the mask value is enclosed in additional quotation marks: `"'#-#'"`.
 
 ## Set mask options
 
@@ -56,12 +59,13 @@ To set default [options](/options) for the mask, pass options via **directive va
 ### **Composition API**
 
 ```vue
-<script setup>
+<script setup lang="ts">
   import { reactive } from "vue"
   import { vMaska } from "maska/vue"
+  import type { MaskInputOptions } from "maska"
 
   // could be plain object too
-  const options = reactive({
+  const options = reactive<MaskInputOptions>({
     mask: "#-#",
     eager: true
   })
@@ -119,7 +123,7 @@ To get masked value you can use standard `v-model` directive on the input. But i
 </script>
 
 <template>
-  <input v-maska:unmaskedValue.unmasked data-maska="#-#" v-model="maskedValue">
+  <input v-maska:unmaskedValue.unmasked="'#-#'" v-model="maskedValue">
 
   Masked value: {{ maskedValue }}
   Unmasked value: {{ unmaskedValue }}
@@ -144,7 +148,7 @@ To get masked value you can use standard `v-model` directive on the input. But i
 </script>
 
 <template>
-  <input v-maska:unmaskedValue.unmasked data-maska="#-#" v-model="maskedValue">
+  <input v-maska:unmaskedValue.unmasked="'#-#'" v-model="maskedValue">
 
   Masked value: {{ maskedValue }}
   Unmasked value: {{ unmaskedValue }}
@@ -168,7 +172,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 Now you can use v-maska directive in your app:
 
 ```html
-<input v-model="value" v-maska data-maska="#-#" />
+<input v-maska="'#-#'" />
 ```
 
 

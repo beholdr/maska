@@ -9,11 +9,16 @@ export const xMaska = (Alpine: Alpine): void => {
 
     if (input == null || input?.type === 'file') return
 
+    let opts: MaskInputOptions = {}
+
+    const evaluator = directive.expression !== ''
+      ? utilities.evaluateLater<MaskInputOptions | string>(directive.expression)
+      : () => {}
+
     utilities.effect(() => {
-      const opts =
-        directive.expression !== ''
-          ? { ...utilities.evaluate<MaskInputOptions>(directive.expression) }
-          : {}
+      evaluator((expr) => {
+        opts = typeof expr === 'string' ? { mask: expr } : { ...expr }
+      })
 
       if (directive.value != null) {
         const updateArg = (detail: MaskaDetail): void => {
@@ -43,7 +48,5 @@ export const xMaska = (Alpine: Alpine): void => {
         masks.set(input, new MaskInput(input, opts))
       }
     })
-
-    utilities.cleanup(() => masks.get(input)?.destroy())
   }).before('model')
 }

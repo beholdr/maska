@@ -3,5 +3,5 @@
 </script>
 
 <main>
-  <input use:maska={'#-#'} />
+  <input use:maska data-maska="#-#" data-maska-eager />
 </main>

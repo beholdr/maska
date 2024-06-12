@@ -8,6 +8,6 @@
 </script>
 
 <main>
-  <input type="checkbox" bind:checked={options.eager} />
+  <input type="checkbox" bind:checked={options.eager} /> Eager<br>
   <input type="text" use:maska={options} />
 </main>

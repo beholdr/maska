@@ -3,7 +3,7 @@
 Maska provides custom Alpine.js directive for use with input:
 
 ```html
-<input x-maska:argument.modifier="options">
+<input x-maska:argument.modifier="value">
 ```
 
 - `argument` is a name of the bound variable (see example below)
@@ -11,26 +11,35 @@ Maska provides custom Alpine.js directive for use with input:
   - `masked` (default): variable will get a masked value (as in v-model)
   - `unmasked`: variable will get an unmasked (raw) value
   - `completed`: variable will be boolean, showing that mask is completed
-- `options` is object with default options
+- `value` could be one of:
+  - `string` for the mask value (should be enclosed in additional quotation marks: `"'#-#'"`)
+  - `object` with a default options
 
 
 ## Minimal example
 
-Apply `xMaska` directive to the input along with `data-maska` attribite:
+Apply `xMaska` directive to the input:
 
 ```html
-<input x-maska data-maska="#-#">
+<input x-maska="'#-#'">
 ```
 
+?> Please note that the mask value is enclosed in additional quotation marks: `"'#-#'"`.
 
 ## Set mask options
 
-To set default [options](/options) for the mask, pass options via **directive value**:
+To set a default [options](/options) for the mask, pass options via **directive value**:
 
 ```html
 <div x-data="{ options: { mask: '#-#', eager: true }}">
   <input x-maska="options" data-maska-reversed>
 </div>
+```
+
+Or you can pass an options object directly:
+
+```html
+<input x-maska="{ mask: '#-#', eager: true }" data-maska-reversed>
 ```
 
 You can override default options with `data-maska-` attributes on the input. In the example above we set **eager** mode using options and **reversed** mode using `data-maska-reversed` attribute.
@@ -42,7 +51,7 @@ To get masked value you can use standard `x-model` directive on the input. But i
 
 ```html
 <div x-data="{ maskedvalue: '', unmaskedvalue: '' }">
-  <input x-maska:unmaskedvalue.unmasked data-maska="#-#" x-model="maskedvalue">
+  <input x-maska:unmaskedvalue.unmasked="'#-#'" x-model="maskedvalue">
 
   Masked value: <span x-text="maskedvalue"></span>
   Unmasked value: <span x-text="unmaskedvalue"></span>

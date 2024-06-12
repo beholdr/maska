@@ -1,5 +1,6 @@
 <script lang="ts">
   import BindValue from './BindValue.svelte'
+  import DataAttr from './DataAttr.svelte'
   import Event from './Event.svelte'
   import InitialValue from './InitialValue.svelte'
   import Number from './Number.svelte'
@@ -12,6 +13,7 @@
 <main>
   <select bind:value={component}>
     <option value={BindValue}>BindValue</option>
+    <option value={DataAttr}>DataAttr</option>
     <option value={Event}>Event</option>
     <option value={InitialValue}>InitialValue</option>
     <option value={Number}>Number</option>
