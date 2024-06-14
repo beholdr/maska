@@ -31,13 +31,14 @@ Maska v3 is currently in beta. If you encounter any issues, please [report them]
 - Vanilla JS version + Vue 2/3, Alpine.js and Svelte integrations
 - Works with native and custom inputs
 - Custom tokens with modifiers, transform functions and hooks
-- Number mask mode
+- Number mask mode: easy money formatting
 - Dynamic, reversed and eager masks
 
 ## What’s new in v3 🎉
 
 - Integrations with Alpine.js and Svelte
 - Number mask mode
+- Simplified directive format
 - Other small improvements and fixes
 
 ## Source of Inspiration 💡
