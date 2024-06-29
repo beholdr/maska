@@ -157,3 +157,12 @@ test('initial russian number', () => {
   expect(mask.masked('1 234.56')).toBe('1 234,56')
   expect(mask.masked('1 234.56')).toBe('1 234,56')
 })
+
+test('initial brazilian number', () => {
+  const mask = new Mask({ number: { locale: 'pt-BR', fraction: 2 } })
+
+  expect(mask.masked('1234.56')).toBe('123.456')
+  expect(mask.masked('1234,56')).toBe('1.234,56')
+  expect(mask.masked('1.23')).toBe('123')
+  expect(mask.masked('1,23')).toBe('1,23')
+})
