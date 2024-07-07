@@ -7,7 +7,6 @@ const createFormatter = (min: number, max: number, opts: MaskOptions): Intl.Numb
   new Intl.NumberFormat(opts.number?.locale ?? 'en', {
     minimumFractionDigits: min,
     maximumFractionDigits: max,
-    // @ts-expect-error
     roundingMode: 'trunc'
   })
 
