@@ -78,11 +78,9 @@ export class Mask {
 
     if (typeof this.opts.mask === 'string') {
       return length >= this.opts.mask.length
-    } else if (typeof this.opts.mask === 'function') {
-      return length >= mask.length
     }
 
-    return this.opts.mask.filter((m) => length >= m.length).length === this.opts.mask.length
+    return length >= mask.length
   }
 
   private findMask (value: string): string | null {

@@ -770,7 +770,10 @@ test('dynamic mask', () => {
 
   expect(mask.unmasked('a123456789012345')).toBe('12345678901234')
 
-  expect(mask.completed('12345678901')).toBe(false)
+  expect(mask.completed('1234567890')).toBe(false)
+  expect(mask.completed('12345678901')).toBe(true)
+  expect(mask.completed('123456789012')).toBe(false)
+  expect(mask.completed('1234567890123')).toBe(false)
   expect(mask.completed('12345678901234')).toBe(true)
 })
 

@@ -81,7 +81,7 @@ const options = reactive({
 </template>
 ```
 
-## Changed eager mode
+## Eager mode
 
 With v2, when using eager mode, entered characters appeared after the static mask characters:
 
@@ -100,3 +100,15 @@ mask.masked('1') // -> 1
 mask.masked('12') // -> 12
 mask.masked('2') // -> 12
 ```
+
+## Completed behavior for dynamic masks
+
+In v2 a dynamic mask is considered completed when it matches the longest mask in the array.
+For example, when you have enter `1-234`, but not `1-2`:
+
+```html
+<input v-maska data-maska="['#-#', '#-###']">
+```
+
+In v3 a dynamic mask is considered complete if it matches the first matched mask.
+So `1-2` and `1-234` are considered complete, but `1-23` is not.
