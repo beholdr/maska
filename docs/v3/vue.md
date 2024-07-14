@@ -156,6 +156,8 @@ To get masked value you can use standard `v-model` directive on the input. But i
 ```
 <!-- tabs:end -->
 
+?> If you want to access both unmasked and completed values, you can use [`@maska` event](hooks?id=events).
+
 
 ## Usage with Nuxt
 
