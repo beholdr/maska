@@ -1,7 +1,7 @@
 {
   "name": "maska",
   "description": "Simple zero-dependency input mask for Vanilla JS, Vue, Alpine.js and Svelte",
-  "version": "3.0.0-beta5",
+  "version": "3.0.0",
   "keywords": [
     "mask",
     "inputmask",
@@ -25,9 +25,15 @@
   "types": "./dist/maska.d.ts",
   "typesVersions": {
     "*": {
-      "alpine": ["./dist/alpine.d.ts"],
-      "svelte": ["./dist/svelte.d.ts"],
-      "vue": ["./dist/vue.d.ts"]
+      "alpine": [
+        "./dist/alpine.d.ts"
+      ],
+      "svelte": [
+        "./dist/svelte.d.ts"
+      ],
+      "vue": [
+        "./dist/vue.d.ts"
+      ]
     }
   },
   "exports": {
@@ -75,7 +81,7 @@
     "@types/alpinejs": "^3.13.10",
     "@types/node": "^20.13.0",
     "@vitejs/plugin-vue": "^5.0.5",
-    "@vitest/coverage-v8": "^1.6.0",
+    "@vitest/coverage-v8": "^2.0.2",
     "@vue/test-utils": "^2.4.6",
     "alpinejs": "^3.14.0",
     "happy-dom": "^14.12.0",
@@ -85,7 +91,7 @@
     "vite": "^5.2.12",
     "vite-plugin-banner": "^0.7.1",
     "vite-plugin-dts": "^3.9.1",
-    "vitest": "^1.6.0",
+    "vitest": "^2.0.2",
     "vue": "^3.4.27"
   }
 }

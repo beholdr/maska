@@ -19,8 +19,6 @@
 
 # Maska
 
-Maska v3 is currently in beta. If you encounter any issues, please [report them](https://github.com/beholdr/maska/issues).
-
 ## Support ☕️
 
 > ❤️ [Please support](https://boosty.to/beholdr) Maska development!
