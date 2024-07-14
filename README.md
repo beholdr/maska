@@ -10,7 +10,6 @@
   <a href="https://www.npmjs.com/package/maska"><img src="https://img.shields.io/npm/v/maska"></a>
   <a href="https://bundlephobia.com/package/maska"><img src="https://img.shields.io/bundlephobia/minzip/maska"></a>
   <a href="https://github.com/beholdr/maska/actions/workflows/build.yml"><img src="https://github.com/beholdr/maska/actions/workflows/build.yml/badge.svg"></a>
-  <a href="https://github.com/beholdr/maska"><img src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/beholdr/7f2a04de5e494f9a3820832520ee2562/raw/badge.json"></a>
 </p>
 
 <h3 align="center">
