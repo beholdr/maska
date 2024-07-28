@@ -191,6 +191,7 @@ new MaskInput("input", {
 
 ?> Under the hood Maska uses [Intl.NumberFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat) for number formatting.
 
+!> For some locales, such as `de` or `br`, which use a dot `.` as a thousand separator, you should manually format the initial value before passing it. For more information, please see [issue #225](https://github.com/beholdr/maska/issues/225).
 
 ## Dynamic masks
 
