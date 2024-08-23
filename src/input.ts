@@ -75,7 +75,8 @@ export class MaskInput {
   }
 
   private readonly onInput = (e: Event | InputEvent): void => {
-    if (e instanceof CustomEvent && e.type === 'input') {
+    // check both CustomEvent and isTrusted https://github.com/beholdr/maska/issues/227
+    if (e instanceof CustomEvent && e.type === 'input' && !e.isTrusted) {
       return
     }
 
