@@ -20,7 +20,7 @@ export const processNumber = (value: string, masked = true, opts: MaskOptions): 
   const decimal = parts.find((part) => part.type === 'decimal')?.value ?? '.'
   const float = prepare(value, group, decimal)
 
-  if (float === '' || Number.isNaN(float)) return sign
+  if (Number.isNaN(parseFloat(float))) return sign
 
   // allow zero at the end
   const floatParts = float.split('.')

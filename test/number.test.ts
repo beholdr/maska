@@ -166,3 +166,11 @@ test('initial brazilian number', () => {
   expect(mask.masked('1.23')).toBe('123')
   expect(mask.masked('1,23')).toBe('1,23')
 })
+
+// https://github.com/beholdr/maska/issues/228
+test('NaN check', () => {
+  const mask = new Mask({ number: { locale: 'uk', fraction: 2 } })
+
+  expect(mask.masked('.')).toBe('')
+  expect(mask.masked(',')).toBe('')
+})
