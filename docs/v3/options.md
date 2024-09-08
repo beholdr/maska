@@ -145,6 +145,8 @@ interface MaskaDetail {
 ```
 <!-- tabs:end -->
 
+!> Please note that `data-` attributes only accept strings, so if you need to set complex values such as functions (e.g. for hooks) you cannot use `data-maska-` attributes for that.
+
 ?> Examples on this page use vanilla version of Maska. The framework specific versions have the same options, but should be passed in a different way: for example, as a directive value.
 
 
@@ -189,7 +191,7 @@ new MaskInput("input", {
 ```
 <!-- tabs:end -->
 
-?> Under the hood Maska uses [Intl.NumberFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat) for number formatting.
+?> Under the hood Maska uses the [Intl.NumberFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat) for number formatting. Therefore, the maximum number that can be formatted should be less than `9007199254740991`.
 
 !> For some locales, such as `de` or `br`, which use a dot `.` as a thousand separator, you should manually format the initial value before passing it. For more information, please see [issue #225](https://github.com/beholdr/maska/issues/225).
 
