@@ -76,7 +76,8 @@ export class MaskInput {
 
   private readonly onInput = (e: Event | InputEvent): void => {
     // check both CustomEvent and isTrusted https://github.com/beholdr/maska/issues/227
-    if (e instanceof CustomEvent && e.type === 'input' && !e.isTrusted) {
+    // also check for bubbles because of Safari autofill bug https://github.com/beholdr/maska/issues/238
+    if (e instanceof CustomEvent && e.type === 'input' && !e.isTrusted && !e.bubbles) {
       return
     }
 
