@@ -53,7 +53,7 @@ export default defineConfig(({ mode }) => ({
   ],
   test: {
     setupFiles: 'test/setup.ts',
-    environment: 'happy-dom',
+    environment: 'jsdom',
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json-summary']
