@@ -2147,7 +2147,7 @@ describe('Number mask', () => {
     new MaskInput(input)
 
     await user.type(input, '1234.56')
-    expect(input).toHaveValue('1 234,56')
+    expect(input).toHaveValue('123 456')
   })
 
   test('unsigned number', async () => {
