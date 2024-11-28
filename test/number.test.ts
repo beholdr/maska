@@ -88,6 +88,14 @@ test('unsigned number', () => {
   expect(mask.masked('--1')).toBe('1')
 })
 
+test('unsigned false number', () => {
+  const mask = new Mask({ number: { unsigned: false } })
+
+  expect(mask.masked('1')).toBe('1')
+  expect(mask.masked('-1')).toBe('-1')
+  expect(mask.masked('--1')).toBe('-1')
+})
+
 test('russian number', () => {
   const mask = new Mask({ number: { locale: 'ru', fraction: 2 } })
 

@@ -11,7 +11,7 @@ const createFormatter = (min: number, max: number, opts: MaskOptions): Intl.Numb
   })
 
 export const processNumber = (value: string, masked = true, opts: MaskOptions): string => {
-  const sign = opts.number?.unsigned == null && value.startsWith('-') ? '-' : ''
+  const sign = opts.number?.unsigned !== true && value.startsWith('-') ? '-' : ''
   const fraction = opts.number?.fraction ?? 0
 
   let formatter = createFormatter(0, fraction, opts)
