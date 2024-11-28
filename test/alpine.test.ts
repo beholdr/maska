@@ -122,7 +122,7 @@ describe('bindings', () => {
     input = await prepareInput(
       `<div x-data="{ iscompleted: false }">
         <input x-maska:iscompleted.completed data-maska="#-#">
-        <span x-show="iscompleted"></span>
+        <span x-text="\`Completed: \${iscompleted ? 'yes' : 'no'}\`"></span>
       </div>`
     )
     const span = <HTMLSpanElement>document.querySelector('span')
@@ -130,12 +130,12 @@ describe('bindings', () => {
     await user.type(input, '1')
 
     expect(input).toHaveValue('1')
-    expect(span).not.toBeVisible()
+    expect(span).toHaveTextContent('Completed: no')
 
     await user.type(input, '2')
 
     expect(input).toHaveValue('1-2')
-    expect(span).toBeVisible()
+    expect(span).toHaveTextContent('Completed: yes')
   })
 
   test('bind masked with onMask', async () => {

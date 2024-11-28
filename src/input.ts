@@ -18,8 +18,10 @@ export interface MaskaDetail {
 
 export class MaskInput {
   readonly items = new Map<HTMLInputElement, Mask>()
+  private readonly eventAbortController: AbortController
 
   constructor (target: MaskaTarget, private options: MaskInputOptions = {}) {
+    this.eventAbortController = new AbortController()
     this.init(this.getInputs(target))
   }
 
@@ -35,9 +37,7 @@ export class MaskInput {
   }
 
   destroy (): void {
-    for (const input of this.items.keys()) {
-      input.removeEventListener('input', this.onInput)
-    }
+    this.eventAbortController.abort()
     this.items.clear()
   }
 
@@ -46,7 +46,8 @@ export class MaskInput {
 
     for (const input of inputs) {
       if (!this.items.has(input)) {
-        input.addEventListener('input', this.onInput, { capture: true })
+        const { signal }: { signal: AbortSignal } = this.eventAbortController
+        input.addEventListener('input', this.onInput, { capture: true, signal })
       }
 
       const mask = new Mask(parseInput(input, defaults))
