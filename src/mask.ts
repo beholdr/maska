@@ -53,12 +53,12 @@ export class Mask {
     this.opts = opts
   }
 
-  masked (value: string): string {
-    return this.process(value, this.findMask(value))
+  masked (value: string | number): string {
+    return this.process(String(value), this.findMask(String(value)))
   }
 
-  unmasked (value: string): string {
-    return this.process(value, this.findMask(value), false)
+  unmasked (value: string | number): string {
+    return this.process(String(value), this.findMask(String(value)), false)
   }
 
   isEager (): boolean {
@@ -69,12 +69,12 @@ export class Mask {
     return this.opts.reversed === true
   }
 
-  completed (value: string): boolean {
-    const mask = this.findMask(value)
+  completed (value: string | number): boolean {
+    const mask = this.findMask(String(value))
 
     if (this.opts.mask == null || mask == null) return false
 
-    const length = this.process(value, mask).length
+    const length = this.process(String(value), mask).length
 
     if (typeof this.opts.mask === 'string') {
       return length >= this.opts.mask.length

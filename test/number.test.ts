@@ -182,3 +182,10 @@ test('NaN check', () => {
   expect(mask.masked('.')).toBe('')
   expect(mask.masked(',')).toBe('')
 })
+
+test('float input', () => {
+  const mask = new Mask({ number: { locale: 'uk', fraction: 2 } })
+
+  expect(mask.masked(1234.56)).toBe('1 234,56')
+  expect(mask.unmasked(1234.56)).toBe('1234.56')
+})
