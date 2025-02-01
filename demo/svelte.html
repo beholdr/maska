@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,11 +8,14 @@
   <title>Maska Svelte Demo</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css" />
 </head>
+
 <body>
   <header>
     <nav>
       <ul>
-        <li><h1>Maska demos</h1></li>
+        <li>
+          <h1>Maska demos</h1>
+        </li>
       </ul>
       <ul>
         <li><a href="index.html">Vanilla JS</a></li>
@@ -27,13 +31,13 @@
       <div id="app"></div>
 
       <script type="module">
+        import { mount } from 'svelte'
         import Demo from '../test/svelte/Demo.svelte'
 
-        new Demo({
-          target: document.getElementById('app')
-        })
+        mount(Demo, { target: document.getElementById('app') })
       </script>
     </article>
   </main>
 </body>
+
 </html>

@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
   import BindValue from './BindValue.svelte'
   import DataAttr from './DataAttr.svelte'
   import Event from './Event.svelte'
@@ -7,11 +7,11 @@
   import Options from './Options.svelte'
   import Simple from './Simple.svelte'
 
-  let component = Simple
+  let Component = $state(Simple)
 </script>
 
 <main>
-  <select bind:value={component}>
+  <select bind:value={Component}>
     <option value={BindValue}>BindValue</option>
     <option value={DataAttr}>DataAttr</option>
     <option value={Event}>Event</option>
@@ -22,7 +22,7 @@
   </select>
 
   <div class="comp">
-    <svelte:component this={component} />
+    <Component />
   </div>
 </main>
 
