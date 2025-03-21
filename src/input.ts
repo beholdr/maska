@@ -53,7 +53,11 @@ export class MaskInput {
       const mask = new Mask(parseInput(input, defaults))
       this.items.set(input, mask)
 
-      queueMicrotask(() => this.updateValue(input))
+      queueMicrotask(() => {
+        if (document.body.contains(input)) {
+          this.updateValue(input)
+        }
+      })
 
       if (input.selectionStart === null && mask.isEager()) {
         console.warn('Maska: input of `%s` type is not supported', input.type)
