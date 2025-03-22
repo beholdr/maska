@@ -31,7 +31,7 @@ export class MaskInput {
   }
 
   updateValue (input: HTMLInputElement): void {
-    if (input.value !== '' && input.value !== this.processInput(input).masked) {
+    if (input.value !== '' && input.value !== this.processInput(input)?.masked) {
       this.setValue(input, input.value)
     }
   }
@@ -53,11 +53,7 @@ export class MaskInput {
       const mask = new Mask(parseInput(input, defaults))
       this.items.set(input, mask)
 
-      queueMicrotask(() => {
-        if (document.body.contains(input)) {
-          this.updateValue(input)
-        }
-      })
+      queueMicrotask(() => this.updateValue(input))
 
       if (input.selectionStart === null && mask.isEager()) {
         console.warn('Maska: input of `%s` type is not supported', input.type)
@@ -87,7 +83,10 @@ export class MaskInput {
     }
 
     const input = e.target as HTMLInputElement
-    const mask = this.items.get(input) as Mask
+    const mask = this.items.get(input)
+
+    if (mask === undefined) return
+
     const isDelete = 'inputType' in e && e.inputType.startsWith('delete')
     const isEager = mask.isEager()
 
@@ -111,8 +110,11 @@ export class MaskInput {
     const valueNew = input.value
     const leftPart = value.slice(0, pos)
     const leftPartNew = valueNew.slice(0, pos)
-    const unmasked = this.processInput(input, leftPart).unmasked
-    const unmaskedNew = this.processInput(input, leftPartNew).unmasked
+    const unmasked = this.processInput(input, leftPart)?.unmasked
+    const unmaskedNew = this.processInput(input, leftPartNew)?.unmasked
+
+    if (unmasked === undefined || unmaskedNew === undefined) return
+
     let posFixed = pos
 
     if (leftPart !== leftPartNew) {
@@ -126,6 +128,8 @@ export class MaskInput {
 
   private setValue (input: HTMLInputElement, value: string): void {
     const detail = this.processInput(input, value)
+
+    if (detail === undefined) return
 
     input.value = detail.masked
 
@@ -141,8 +145,11 @@ export class MaskInput {
     input.dispatchEvent(new CustomEvent('input', { detail: detail.masked }))
   }
 
-  private processInput (input: HTMLInputElement, value?: string): MaskaDetail {
-    const mask = this.items.get(input) as Mask
+  private processInput (input: HTMLInputElement, value?: string): MaskaDetail | undefined {
+    const mask = this.items.get(input)
+
+    if (mask === undefined) return undefined
+
     let valueNew = value ?? input.value
 
     if (this.options.preProcess != null) {
