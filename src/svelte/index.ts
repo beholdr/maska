@@ -1,36 +1,29 @@
-import { Action } from 'svelte/action'
-import { MaskaDetail, MaskInput, MaskInputOptions } from '..'
+import { MaskInput, type MaskInputOptions } from 'maska';
 
-const masks = new WeakMap<HTMLInputElement, MaskInput>()
+const masks = new WeakMap<HTMLInputElement, MaskInput>();
 
-type MaskaAction = Action<HTMLElement, MaskInputOptions | string | undefined, {
-  'on:maska': (detail: CustomEvent<MaskaDetail>) => void
-}>
-
-export const maska: MaskaAction = (node, value = {}) => {
-  const input = node instanceof HTMLInputElement ? node : node.querySelector('input')
-
-  if (input == null || input?.type === 'file') return
-
-  let opts = value
-
+function getMaskOptions(opts: MaskInputOptions) {
   if (typeof opts === 'string') {
-    opts = { mask: opts }
+    return { mask: opts };
   }
+  return opts;
+}
 
-  masks.set(input, new MaskInput(input, opts))
+export function mask(opts: MaskInputOptions) {
+  return (element: HTMLInputElement | HTMLElement) => {
+    const input =
+      element instanceof HTMLInputElement
+        ? element
+        : element.querySelector('input');
 
-  return {
-    update (opts) {
-      if (typeof opts === 'string') {
-        opts = { mask: opts }
-      }
+    if (input == null || input?.type === 'file') return;
 
-      masks.get(input)?.update(opts)
-    },
+    masks.set(input, new MaskInput(input, getMaskOptions(opts)));
 
-    destroy () {
-      masks.get(input)?.destroy()
-    }
-  }
+    $effect(() => {
+      masks.get(input)?.update(getMaskOptions(opts));
+    });
+
+    return () => masks.get(input)?.destroy();
+  };
 }
