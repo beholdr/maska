@@ -2162,3 +2162,25 @@ describe('Number mask', () => {
     expect(input).toHaveValue('1,234')
   })
 })
+
+describe('Unicode tokens mask', () => {
+  test('default number', async () => {
+    document.body.innerHTML = `<input id="input" data-maska="A" data-maska-tokens="A:[\\p{L}]:multiple">`
+    const input = <HTMLInputElement>document.getElementById('input')
+    new MaskInput(input)
+
+    await user.type(input, '1')
+    expect(input).toHaveValue('')
+
+    await user.type(input, 'z')
+    expect(input).toHaveValue('z')
+
+    await user.type(input, 'я')
+    expect(input).toHaveValue('zя')
+
+    await user.type(input, '1')
+    expect(input).toHaveValue('zя')
+
+    await user.clear(input)
+  })
+})

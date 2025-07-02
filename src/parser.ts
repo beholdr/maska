@@ -57,7 +57,7 @@ const parseTokens = (value: string): MaskTokens => {
   value.split('|').forEach((token) => {
     const parts = token.split(':')
     tokens[parts[0]] = {
-      pattern: new RegExp(parts[1]),
+      pattern: supportsUnicodeRegex() ? new RegExp(parts[1], 'u') : new RegExp(parts[1]),
       optional: parts[2] === 'optional',
       multiple: parts[2] === 'multiple',
       repeated: parts[2] === 'repeated'
@@ -65,4 +65,13 @@ const parseTokens = (value: string): MaskTokens => {
   })
 
   return tokens
+}
+
+export const supportsUnicodeRegex = (): boolean => {
+  try {
+    new RegExp('\\p{L}', 'u')
+    return true
+  } catch (e) {
+    return false
+  }
 }

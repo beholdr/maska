@@ -820,3 +820,16 @@ test('tokens replaced', () => {
 
   expect(mask.unmasked('12')).toBe('1')
 })
+
+test('unicode tokens', () => {
+  const mask = new Mask({
+    mask: 'A',
+    // @ts-expect-error
+    tokens: { A: { pattern: '[\\p{L}]', multiple: true } }
+  })
+
+  expect(mask.masked('1')).toBe('')
+  expect(mask.masked('z')).toBe('z')
+  expect(mask.masked('zя')).toBe('zя')
+  expect(mask.masked('zя1')).toBe('zя')
+})

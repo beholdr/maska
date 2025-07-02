@@ -1,5 +1,6 @@
 import { MaskTokens, tokens } from './tokens'
 import { processNumber } from './number'
+import { supportsUnicodeRegex } from './parser'
 
 export type MaskType = string | string[] | ((input: string) => string) | null
 
@@ -32,7 +33,9 @@ export class Mask {
 
       for (const token of Object.values(opts.tokens)) {
         if (typeof token.pattern === 'string') {
-          token.pattern = new RegExp(token.pattern)
+          token.pattern = supportsUnicodeRegex()
+            ? new RegExp(token.pattern, 'u')
+            : new RegExp(token.pattern)
         }
       }
     } else {
