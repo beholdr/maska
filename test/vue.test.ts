@@ -1,5 +1,5 @@
 import { nextTick } from 'vue'
-import { expect, test } from 'vitest'
+import { describe, expect, test } from 'vitest'
 import { mount } from '@vue/test-utils'
 
 import BindCompleted from './vue/BindCompleted.vue'
@@ -20,6 +20,11 @@ import Multiple from './vue/Multiple.vue'
 import Options from './vue/Options.vue'
 import Parent from './vue/Parent.vue'
 import Simple from './vue/Simple.vue'
+import SimpleComposable from './vue/SimpleComposable.vue'
+import HiddenElementComposable from './vue/HiddenElementComposable.vue'
+import DifferentElementComposable from './vue/DifferentElementComposable.vue'
+import ComputedComposable from './vue/ComputedComposable.vue'
+import ModelComposable from './vue/ModelComposable.vue'
 
 test('simple directive', async () => {
   const wrapper = mount(Simple)
@@ -306,4 +311,119 @@ test('options api component', async () => {
 
   expect(input.element.value).toBe('1-2')
   expect(wrapper.get('div').element.textContent).toBe('1-2')
+})
+
+describe('useMaska composable', () => {
+  test('with plain pattern', async () => {
+    const wrapper = mount(SimpleComposable)
+    const input = wrapper.get('input')
+
+    await input.setValue('123')
+
+    expect(input.element.value).toBe('1-2')
+    expect(wrapper.vm.unmasked).toBe('12')
+  })
+
+  test('with v-if', async () => {
+    const wrapper = mount(HiddenElementComposable)
+
+    expect(wrapper.find('input').exists()).toBeFalsy()
+
+    expect(wrapper.vm.instance).toBeUndefined()
+
+    wrapper.vm.setIsVisible(true)
+
+    await nextTick()
+
+    const input = wrapper.get('input')
+    await input.setValue('123')
+
+    expect(input.element.value).toBe('1-2')
+    expect(wrapper.vm.unmasked).toBe('12')
+  })
+
+  test('when target element changed', async () => {
+    const wrapper = mount(DifferentElementComposable)
+
+    const input1 = wrapper.get<HTMLInputElement>('#inputEl1')
+    const input2 = wrapper.get<HTMLInputElement>('#inputEl2')
+
+    await input1.setValue('123')
+
+    expect(input1.element.value).toBe('1-2')
+    expect(wrapper.vm.unmasked).toBe('12')
+
+    await input2.setValue('123')
+
+    expect(input2.element.value).toBe('123')
+    expect(wrapper.vm.unmasked).toBe('12')
+
+    wrapper.vm.switchCurrentInput()
+
+    await nextTick()
+
+    expect(input1.element.value).toBe('1-2')
+    expect(input2.element.value).toBe('1-2')
+
+    expect(wrapper.vm.unmasked).toBe('12')
+
+    await input1.setValue('1234')
+
+    expect(input1.element.value).toBe('1234')
+    expect(input2.element.value).toBe('1-2')
+    expect(wrapper.vm.unmasked).toBe('12')
+
+    await input2.setValue('4321')
+
+    expect(input1.element.value).toBe('1234')
+    expect(input2.element.value).toBe('4-3')
+    expect(wrapper.vm.unmasked).toBe('43')
+  })
+
+  test('with defined model', async () => {
+    const wrapper = mount(ModelComposable)
+    const input = wrapper.get('input')
+
+    expect(wrapper.vm.model).toBe('123')
+
+    await nextTick()
+
+    expect(input.element.value).toBe('1-2')
+    expect(wrapper.vm.model).toBe('12')
+    expect(wrapper.vm.unmasked).toBe(wrapper.vm.model)
+  })
+
+  test('with computed config', async () => {
+    const wrapper = mount(ComputedComposable)
+    const input = wrapper.get<HTMLInputElement>('#maska')
+
+    await input.setValue('123')
+
+    expect(input.element.value).toBe('1-2')
+    expect(wrapper.vm.unmasked).toBe('12')
+
+    wrapper.vm.setMaskTemplate('#-')
+
+    await nextTick()
+
+    expect(input.element.value).toBe('1-')
+    expect(wrapper.vm.unmasked).toBe('1')
+
+    await input.setValue('432')
+
+    expect(input.element.value).toBe('4-')
+    expect(wrapper.vm.unmasked).toBe('4')
+
+    wrapper.vm.setMaskTemplate('##-#')
+
+    await nextTick()
+
+    expect(input.element.value).toBe('4')
+    expect(wrapper.vm.unmasked).toBe('4')
+
+    await input.setValue('1234')
+
+    expect(input.element.value).toBe('12-3')
+    expect(wrapper.vm.unmasked).toBe('123')
+  })
 })
