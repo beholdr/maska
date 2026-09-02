@@ -1,0 +1,11 @@
+{
+  "name": "maska",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:5-22-trixie",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Vue.volar"
+      ]
+    }
+  }
+}

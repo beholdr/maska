@@ -58,5 +58,8 @@ export default defineConfig(({ mode }) => ({
       provider: 'v8',
       reporter: ['text', 'json-summary']
     }
+  },
+  server: {
+    host: true
   }
 }))
