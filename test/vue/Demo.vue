@@ -20,6 +20,10 @@ import Multiple from './Multiple.vue'
 import Options from './Options.vue'
 import Parent from './Parent.vue'
 import Simple from './Simple.vue'
+import SimpleComposable from './SimpleComposable.vue'
+import ComputedComposable from './ComputedComposable.vue'
+import HiddenElementComposable from './HiddenElementComposable.vue'
+import DifferentElementComposable from './DifferentElementComposable.vue'
 
 const component = shallowRef(Sink)
 </script>
@@ -45,6 +49,10 @@ const component = shallowRef(Sink)
     <option :value="Options">Options</option>
     <option :value="Parent">Parent</option>
     <option :value="Simple">Simple</option>
+    <option :value="SimpleComposable">SimpleComposable</option>
+    <option :value="ComputedComposable">ComputedComposable</option>
+    <option :value="HiddenElementComposable">HiddenElementComposable</option>
+    <option :value="DifferentElementComposable">DifferentElementComposable</option>
   </select>
 
   <div class="comp">

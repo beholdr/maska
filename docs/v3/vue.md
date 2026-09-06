@@ -1,6 +1,6 @@
 # Usage with Vue
 
-Maska provides custom Vue directive for use with input:
+Maska provides custom Vue directive and Composable for use with input:
 
 ```html
 <input v-maska:argument.modifier="value">
@@ -203,5 +203,109 @@ Vue.directive("maska", vMaska)
 
 // or in case of CDN load
 Vue.directive("maska", Maska.vMaska)
+```
+<!-- tabs:end -->
+
+
+## Usage as Composable
+
+You can use Maska as a composable in your setup script:
+
+```vue
+<script setup>
+  import { ref, useTemplateRef } from "vue";
+  import { useMaska } from "maska/vue"
+
+  const model = ref('');
+
+  const config = {
+    mask: '#-#'
+  }
+
+  const { unmasked, masked, completed } = useMaska(useTemplateRef('input'), config, model);
+</script>
+```
+
+Signature: `useMaska(target, options, model?): UseMaskaReturn`
+
+- `target` is a target maska element (string selector, HTMLElement, ref or computed template element)
+- `options` can be passed as a string (mask template) or an object with configuration:
+  - `maskType`: what value (`masked` or `unmasked`) should be applied to the passed model (default: `unmasked`)
+  - ...other maska [options](/options).
+- `model` is a model (`Ref<string>`) to bind maska value, optionally
+
+<!-- tabs:start -->
+### **Plain template**
+
+```vue
+<script setup>
+  import { useTemplateRef } from "vue"
+  import { useMaska } from "maska/vue"
+
+  const inputEl = useTemplateRef('inputEl')
+
+  const { unmasked: unmaskedValue, masked: maskedValue } = useMaska(inputEl, '#-#')
+</script>
+
+<template>
+  <input ref="inputEl">
+
+  Masked value: {{ maskedValue }}
+  Unmasked value: {{ unmaskedValue }}
+</template>
+```
+
+### **Configurable options**
+
+```vue
+<script setup>
+  import { useTemplateRef } from "vue"
+  import { useMaska } from "maska/vue"
+
+  const options = {
+    mask: '#-#',
+    eager: true
+  }
+
+  const inputEl = useTemplateRef('inputEl')
+
+  const { unmasked: unmaskedValue, masked: maskedValue } = useMaska(inputEl, options)
+</script>
+
+<template>
+  <input ref="inputEl">
+
+  Masked value: {{ maskedValue }}
+  Unmasked value: {{ unmaskedValue }}
+</template>
+```
+
+
+### **Computed options**
+
+```vue
+<script setup>
+  import { computed, ref, useTemplateRef } from 'vue'
+  import { useMaska } from 'maska/vue'
+
+  const modelValue = defineModel({ default: '123' });
+
+  const maskaTemplate = ref('#-#')
+
+  const inputEl = useTemplateRef('inputEl')
+
+  const maskaOptions = computed(() => ({
+    mask: maskaTemplate.value,
+    modelType: 'masked'
+  }))
+
+  const { unmasked } = useMaska(inputEl, maskaOptions, modelValue)
+</script>
+
+<template>
+  <input ref="inputEl" />
+  <input v-model="maskaTemplate" />
+</template>
+
 ```
 <!-- tabs:end -->
