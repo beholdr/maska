@@ -122,14 +122,14 @@ describe('test init', () => {
   })
 
   test('wrong input type', async () => {
-    document.body.innerHTML = `<input id="input" type="email" data-maska-eager>`
+    document.body.innerHTML = `<input id="input" type="email" data-maska="#-#" type="email" value="123">`
     const input = <HTMLInputElement>document.getElementById('input')
     const logSpy = vi.spyOn(console, 'warn')
 
     new MaskInput(input)
 
-    expect(logSpy).toHaveBeenCalledOnce();
-    expect(logSpy).toHaveBeenCalledWith('Maska: input of `%s` type is not supported', 'email');
+    expect(logSpy).not.toHaveBeenCalledWith('Maska: input of `%s` type is not supported', 'email');
+    expect(input).toHaveValue('123');
   })
 })
 

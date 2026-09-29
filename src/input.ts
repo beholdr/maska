@@ -47,11 +47,7 @@ export class MaskInput {
     const defaults = this.getOptions(this.options)
 
     for (const input of inputs) {
-      if (!supportedTypes.includes(input.type)) {
-        console.warn('Maska: input of `%s` type is not supported', input.type)
-
-        return
-      }
+      if (!supportedTypes.includes(input.type)) return
 
       if (!this.items.has(input)) {
         const { signal }: { signal: AbortSignal } = this.eventAbortController
