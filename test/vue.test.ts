@@ -1,5 +1,5 @@
 import { nextTick } from 'vue'
-import { expect, test } from 'vitest'
+import { expect, test, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 
 import BindCompleted from './vue/BindCompleted.vue'
@@ -20,6 +20,7 @@ import Multiple from './vue/Multiple.vue'
 import Options from './vue/Options.vue'
 import Parent from './vue/Parent.vue'
 import Simple from './vue/Simple.vue'
+import UnsupportedType from './vue/UnsupportedType.vue'
 
 test('simple directive', async () => {
   const wrapper = mount(Simple)
@@ -306,4 +307,24 @@ test('options api component', async () => {
 
   expect(input.element.value).toBe('1-2')
   expect(wrapper.get('div').element.textContent).toBe('1-2')
+})
+
+test('unsupported type', async () => {
+  const warn = vi.spyOn(console, 'warn')
+
+  try {
+    const wrapper = mount(UnsupportedType)
+    const input = wrapper.get('input')
+
+    expect(warn).not.toHaveBeenCalledWith(
+      'Maska: input of `%s` type is not supported',
+      'email',
+    )
+
+    await input.setValue('1a2b3c')
+
+    expect(input.element.value).toBe('1a2b3c')
+  } finally {
+    warn.mockRestore()
+  }
 })

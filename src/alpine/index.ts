@@ -1,5 +1,6 @@
 import { Alpine } from 'alpinejs'
 import { MaskaDetail, MaskInput, MaskInputOptions } from '..'
+import { supportedTypes } from '../input'
 
 const masks = new WeakMap<HTMLInputElement, MaskInput>()
 
@@ -7,7 +8,7 @@ export const xMaska = (Alpine: Alpine): void => {
   Alpine.directive('maska', (el, directive, utilities) => {
     const input = el instanceof HTMLInputElement ? el : el.querySelector('input')
 
-    if (input == null || input?.type === 'file') return
+    if (input == null || !supportedTypes.includes(input.type)) return
 
     let opts: MaskInputOptions = {}
 

@@ -1,5 +1,6 @@
 import { Directive, DirectiveBinding } from 'vue'
 import { MaskaDetail, MaskInput, MaskInputOptions } from '..'
+import { supportedTypes } from '../input'
 
 type MaskaDirective = Directive<HTMLElement, MaskInputOptions | string | undefined>
 
@@ -21,7 +22,7 @@ const setArg = (binding: DirectiveBinding, value: string | boolean): void => {
 export const vMaska: MaskaDirective = (el, binding) => {
   const input = el instanceof HTMLInputElement ? el : el.querySelector('input')
 
-  if (input == null || input?.type === 'file') return
+  if (input == null || !supportedTypes.includes(input.type)) return
 
   let opts: MaskInputOptions = {}
 

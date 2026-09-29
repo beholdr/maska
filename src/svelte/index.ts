@@ -1,5 +1,6 @@
 import { Action } from 'svelte/action'
 import { MaskaDetail, MaskInput, MaskInputOptions } from '..'
+import { supportedTypes } from '../input'
 
 const masks = new WeakMap<HTMLInputElement, MaskInput>()
 
@@ -10,7 +11,7 @@ type MaskaAction = Action<HTMLElement, MaskInputOptions | string | undefined, {
 export const maska: MaskaAction = (node, value = {}) => {
   const input = node instanceof HTMLInputElement ? node : node.querySelector('input')
 
-  if (input == null || input?.type === 'file') return
+  if (input == null || !supportedTypes.includes(input.type)) return
 
   let opts = value
 

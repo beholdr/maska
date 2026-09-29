@@ -16,6 +16,8 @@ export interface MaskaDetail {
   completed: boolean
 }
 
+export const supportedTypes = ['text', 'search', 'url', 'tel', 'password']
+
 export class MaskInput {
   readonly items = new Map<HTMLInputElement, Mask>()
   private readonly eventAbortController: AbortController
@@ -43,10 +45,9 @@ export class MaskInput {
 
   private init (inputs: HTMLInputElement[]): void {
     const defaults = this.getOptions(this.options)
-    const types = ['text', 'search', 'url', 'tel', 'password']
 
     for (const input of inputs) {
-      if (!types.includes(input.type)) {
+      if (!supportedTypes.includes(input.type)) {
         console.warn('Maska: input of `%s` type is not supported', input.type)
 
         return

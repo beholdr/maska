@@ -1,0 +1,7 @@
+<script setup lang="ts">
+import { vMaska } from '../../src/vue'
+</script>
+
+<template>
+  <input type="email" v-maska="'#-#'" />
+</template>

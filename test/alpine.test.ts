@@ -1,4 +1,4 @@
-import { describe, expect, test } from 'vitest'
+import { describe, expect, test, vi } from 'vitest'
 import userEvent from '@testing-library/user-event'
 import Alpine from 'alpinejs'
 import { nextTick } from 'alpinejs/src/nextTick'
@@ -84,6 +84,25 @@ describe('init', () => {
 
     expect(input).toHaveValue('1-')
     expect(span).toHaveTextContent('1-')
+  })
+
+  test('with unsupported type', async () => {
+    const warn = vi.spyOn(console, 'warn')
+
+    try {
+      input = await prepareInput(
+        `<input type="email" x-maska="'#-#'" value="1a2b3c">`,
+      )
+
+      expect(warn).not.toHaveBeenCalledWith(
+        'Maska: input of `%s` type is not supported',
+        'email',
+      )
+
+      expect(input).toHaveValue('1a2b3c')
+    } finally {
+      warn.mockRestore()
+    }
   })
 })
 

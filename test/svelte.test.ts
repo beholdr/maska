@@ -1,4 +1,4 @@
-import { expect, test } from 'vitest'
+import { expect, test, vi } from 'vitest'
 import { tick } from 'svelte'
 import { render } from '@testing-library/svelte'
 import userEvent from '@testing-library/user-event'
@@ -7,6 +7,7 @@ import BindValue from './svelte/BindValue.svelte'
 import InitialValue from './svelte/InitialValue.svelte'
 import Options from './svelte/Options.svelte'
 import Simple from './svelte/Simple.svelte'
+import UnsupportedType from './svelte/UnsupportedType.svelte'
 
 const user = userEvent.setup()
 
@@ -49,4 +50,23 @@ test('options', async () => {
 
   await user.type(input, '23')
   expect(input).toHaveValue('1-2')
+})
+
+test('unsupported type', async () => {
+  const warn = vi.spyOn(console, 'warn')
+
+  try {
+    const { container } = render(UnsupportedType as any)
+    const input = container.querySelector('input')!
+
+    expect(warn).not.toHaveBeenCalledWith(
+      'Maska: input of `%s` type is not supported',
+      'email',
+    )
+
+    await user.type(input, '1a2b3c')
+    expect(input).toHaveValue('1a2b3c')
+  } finally {
+    warn.mockRestore()
+  }
 })
